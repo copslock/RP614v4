@@ -1,0 +1,87 @@
+<html>
+
+<!-- Mirrored from kvidesign.com by HTTrack Website Copier/3.x [XR,YP'2001] -->
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=GB2312">
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+	<title>路由器表格</title> 
+	<link rel="stylesheet" href="form.css" type="text/css">
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function loadhelp(num) 
+{
+	top.helpframe.document.location.href="help/help"+num+".html"
+}
+
+function newwindow(F)
+{
+	window.open('scaning.html', 'scaning', 'width=600, height=360, status=yes, resizable=yes, scrollbars=yes');
+}
+-->
+</script> 
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_Attached_Dev')">
+<form method="POST" action="/post-query" method="POST">
+<!--	<input type=hidden name="Load" value="P">	-->
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<a href="javascript:loadhelp('_Attached_Dev')"><h1>已接设备</h1> </a> 
+		</td>
+	</tr>
+<!-- RULE -->
+	<tr>
+		<td colspan="2">
+			<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+		</td>
+	</tr>
+<!-- END RULE -->
+	<tr>
+		<td colspan="2">
+			<table border="1" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td width="10%" align="center">
+						<span class="thead">#</span>
+					</td>
+					<td width="20%" align="center">
+						<span class="thead">IP 地址</span>
+					</td>
+					<td width="40%" align="center">
+						<span class="thead">设备名称</span>
+					</td>
+					<td width="30%" align="center">
+						<span class="thead">MAC 地址</span>
+					</td>
+				</tr>
+				<% dumpdhcpclease(); %> 
+			</table>
+		</td>
+	</tr>
+<!-- RULE -->
+	<tr>
+		<td colspan="2">
+			<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+		</td>
+	</tr>
+<!-- END RULE -->
+</table>
+<br>
+<center>
+	<tr>
+		<td colspan="2" align="center">
+			<input type=button onclick="window.location.reload();" value=刷新>
+<!--			<input type=submit name="SCAN" onclick="newwindow(this.form);" value=Scan>-->
+<!--			<input type=button name="SCAN" onclick="newwindow(this.form);" value=Scan>-->
+<!--			<input type=hidden name="Button" value="Apply">	-->
+		</td>
+	</tr>
+</center>
+</form>
+<p>
+</p>
+</body>
+
+<!-- Mirrored from kvidesign.com by HTTrack Website Copier/3.x [XR,YP'2001] -->
+</html>

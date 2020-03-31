@@ -1,0 +1,87 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<meta name="generator" content="Adobe GoLive 3">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<script language="JavaScript" src="/showBanner.js"></script>
+<script language="Javascript" src="/string.js"></script>
+<script>AssignVariable();</script>
+<title>安装助手&mdash;&mdash;中文</title>
+<link rel="stylesheet" href="/style.css" type="text/css">
+<script language="javascript" type="text/javascript">
+<!--
+var pchar = " |"; // progress char
+var maxchars = 38; 
+var delay_time = 410; // msecs
+var charcount = 0; 
+function makeStr(strSize, fillChar)
+{
+	var temp = "";
+	for (i=0; i < strSize ; i ++)
+		temp = temp + fillChar;
+	return temp;
+}
+
+function updateProgress()
+{
+	var cf = document.forms[0];
+
+	if (charcount < maxchars)
+	{
+	    if (cf.progress != null)
+	    {
+		    charcount ++;
+	        cf.progress.value = makeStr(charcount,pchar);
+		    setTimeout("updateProgress()",delay_time);
+		}
+		else
+		    alert("cf.progress == NULL");
+		    
+	} else {
+		document.forms[0].submit();
+	}
+	
+}
+// -->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="updateProgress();">
+<form name="CA_Welcome" action="/cgi-bin/CA.cgi" method="post">
+<input type="hidden" name="page" value="CA_Detecting_WAN_Connection.html">
+<input type="hidden" name="CA_Step" value="5">
+<table border="0" cellspacing="0" cellpadding="0" align="left" width="100%" height="100%">
+<script language="JavaScript">
+var menuItem	="3";
+PresentHead();
+PresentMenu(menuItem);
+</script>
+<td valign="top" width="80%" height="100%">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<td valign="top" width="2%" height="100%"></td>
+		<td valign="top" width="90%" height="100%">
+			<table width="95%" border="0">
+			   <td valign="top">
+			     <h1>路由器正在检测您的因特网连接类型。 </h1>
+			     <!-- <p><img src="/img/CA_progress_status_top.jpg" width="303" height="38" /><br>
+			     <input type="text" name="progress" value="" style="color: #0000ff" size="40"><br>
+			     <img src="/img/CA_progress_status_bottom.jpg" width="303" height="53"></p> -->
+			     <table>
+				<tr><th align="center"><img src="/img/CA_progress_status_top.jpg" width="303" height="38" /></th></tr>
+				<tr><th align="center"><input type="text" name="progress" value="" style="color: #0000ff" size="40"></th></tr>
+				<tr><th align="center"><img src="/img/CA_progress_status_bottom.jpg" width="303" height="53"></th></tr>
+			     </table>
+			     <p>&nbsp;</p>
+			     <p>&nbsp;</p>
+			     <p>&nbsp;</p>
+			   </td>
+			</table>
+		</td>
+	</table>
+	
+</table>
+</td>
+</table>
+</form>
+</body>
+</html>

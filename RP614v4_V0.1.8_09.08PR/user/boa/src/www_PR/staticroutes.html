@@ -1,0 +1,123 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<meta name="generator" content="Adobe GoLive 5">
+<title>路由器</title> 
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function loadhelp(num) {
+	top.helpframe.document.location.href="/help/help"+num+".html"
+}
+function setBtnName(F,index)
+{
+	if(index == 1){		
+		if(F.StCount.value>=10)
+		{
+			alert("最大项目为10");
+			return false;
+		}
+
+		F.Button.value="Add";
+	}
+	else if(index == 2)		
+		F.Button.value="Modify";
+    else if(index == 3)		
+    	F.Button.value="Delete";
+    else if(index == 4)		
+    	F.Button.value="Apply";
+    	
+    return true;
+}	
+-->
+</script> 
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_StaticRoutes')">
+<FORM name="formname" action="/cgi-bin/apply.cgi" method=post>
+<input type="hidden" name="page" value="staticroutes.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="S">
+<input type="hidden" name="StCount" value="<% nvram_get("sr_count"); %>">
+
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>静态路由</h1>
+		</td>
+	</tr>
+<!-- RULE -->
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+		</td>
+	</tr>
+<!-- END RULE -->
+	<tr>
+		<td colspan="2">
+			<table border="1" cellpadding="2" cellspacing="0" width="100%">
+				<tr>
+					<td width="5%" align="center">
+						<span class="thead">&nbsp;</span> 
+					</td>
+					<td width="5%" align="center">
+						<span class="thead">#</span> 
+					</td>
+					<td width="10%" align="center">
+						<span class="thead">活动</span> 
+					</td>
+					<td width="30%" align="center">
+						<span class="thead">名称</span> 
+					</td>
+					<td width="30%" align="center">
+						<span class="thead">目的地</span> 
+					</td>
+					<td width="30%" align="center">
+						<span class="thead">网关</span> 
+					</td>
+				</tr>
+				
+				<% static_route_list("static_route0"); %> 
+				<% static_route_list("static_route1"); %>
+				<% static_route_list("static_route2"); %>				
+				<% static_route_list("static_route3"); %>
+				<% static_route_list("static_route4"); %>
+				<% static_route_list("static_route5"); %>
+				<% static_route_list("static_route6"); %>
+				<% static_route_list("static_route7"); %>
+				<% static_route_list("static_route8"); %>
+				<% static_route_list("static_route9"); %>
+			</table>
+		</td>
+<!-- RULE -->
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+<!-- END RULE -->
+	<tr>
+		<td colspan="2" align="center">
+			<input type="hidden" name="savevalue" value="">
+			<input type="hidden" name="Button" value="0">
+			<input type="Submit" value=" 添加"  OnClick="return setBtnName(this.form,1)">
+			<input type="Submit" value=" 编辑" OnClick="return setBtnName(this.form,2)">
+			<input type="Submit" value="删除" OnClick="return setBtnName(this.form,3)">
+		</td>
+	</tr>
+<!--
+	<tr>
+		<td align=center>
+		    <input type="Button" value="Apply" OnClick="if (setBtnName(this.form,4)) document.formname.submit()"> 
+		    <input type="Button" value="Cancel" onClick="window.location='security.html'">
+		</td>    
+	</tr>
+-->
+</table>
+</form>
+<p>
+</p>
+</body>
+
+</html>

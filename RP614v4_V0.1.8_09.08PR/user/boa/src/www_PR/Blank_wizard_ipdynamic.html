@@ -1,0 +1,327 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=gb2312">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta name="generator" content="Adobe GoLive 5">
+<title>路由器表格</title>
+<link rel="stylesheet" href="form1.css" type="text/css">
+<script language="javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+
+function loadcheck()
+{
+        //document.formname.DNSAssign[0].disabled = true;
+	if(isIE()){
+		document.formname.SysName.size="24"
+		document.formname.Domain.size="24"
+	}
+	else{
+		document.formname.SysName.size="15"
+		document.formname.Domain.size="15"
+	}
+	//loadhelp('_wiz_dyn_ip_settings',' ');
+	
+	var system = OScheck();
+	if(system.indexOf("Mac") >=0 ) {
+		document.formname.PDAddr1.size="5"
+		document.formname.PDAddr2.size="5"
+		document.formname.PDAddr3.size="5"
+		document.formname.PDAddr4.size="5"
+		document.formname.LDAddr1.size="5"
+		document.formname.LDAddr2.size="5"
+		document.formname.LDAddr3.size="5"
+		document.formname.LDAddr4.size="5"
+	}
+	else {
+		document.formname.PDAddr1.size="2"
+		document.formname.PDAddr2.size="2"
+		document.formname.PDAddr3.size="2"
+		document.formname.PDAddr4.size="2"
+		document.formname.LDAddr1.size="2"
+		document.formname.LDAddr2.size="2"
+		document.formname.LDAddr3.size="2"
+		document.formname.LDAddr4.size="2"
+	}
+	
+	checkform(document.formname);
+}
+
+function goTestApply(F)
+{
+	//window.open('test_conn.html', '');
+	window.open('dhcp_conn.html', '');
+	document.formname.ResetFlag.value=1;
+	sumvalue(F);	
+	F.submit();	
+}
+
+function loadhelp(fname,anchname) 
+{
+	//if (anchname!=' ')
+	//	top.helpframe.location.href="help/help"+fname+".html#"+anchname
+	//else
+	//	top.helpframe.location.href="help/help"+fname+".html"
+	//if(anchname=="")
+  	//	checkform(document.formname);
+}
+
+function checkform(F)
+{
+  load4(F.DNSAddr1,F.PDAddr1,F.PDAddr2,F.PDAddr3,F.PDAddr4);
+  load4(F.DNSAddr2,F.LDAddr1,F.LDAddr2,F.LDAddr3,F.LDAddr4);
+}  
+
+function sumvalue(F)
+{
+	var Iptest = /[0-9]{1,3}/;
+	
+	if(F.DNSAssign[0].checked == true ) {
+		return true;
+	}
+	
+	if (((F.PDAddr1.value==0)&&(F.PDAddr2.value==0)&&(F.PDAddr3.value==0)&&(F.PDAddr4.value==0))
+  	||((F.PDAddr1.value==255)&&(F.PDAddr2.value==255)&&(F.PDAddr3.value==255)&&(F.PDAddr4.value==255)))
+ 	{
+ 		alert("首选域名服务器地址无效");
+ 		return false;
+ 	}
+        else
+ 	if ((F.PDAddr1.value<=0) || (F.PDAddr1.value>=255) || (Iptest.test(F.PDAddr1.value)!=true)||
+ 		(F.PDAddr2.value<0) || (F.PDAddr2.value>255) || (Iptest.test(F.PDAddr2.value)!=true)||
+ 		(F.PDAddr3.value<0) || (F.PDAddr3.value>255) || (Iptest.test(F.PDAddr3.value)!=true)||
+ 		(F.PDAddr4.value<0) || (F.PDAddr4.value>=255) || (Iptest.test(F.PDAddr4.value)!=true))
+ 		{
+ 			alert("首选域名服务器地址无效");
+ 			return false;
+ 		}
+ 
+ 	else if((F.LDAddr1.value<0) || (F.LDAddr1.value>=255) || (Iptest.test(F.LDAddr1.value)!=true)||
+ 		(F.LDAddr2.value<0) || (F.LDAddr2.value>255) || (Iptest.test(F.LDAddr2.value)!=true)||
+ 		(F.LDAddr3.value<0) || (F.LDAddr3.value>255) || (Iptest.test(F.LDAddr3.value)!=true)||
+ 		(F.LDAddr4.value<0) || (F.LDAddr4.value>=255) || (Iptest.test(F.LDAddr4.value)!=true))
+ 		{
+ 			alert("备用域名服务器地址无效");
+ 			return false;
+ 		} 
+     
+     add(F.DNSAddr1,F.PDAddr1,F.PDAddr2,F.PDAddr3,F.PDAddr4);
+     add(F.DNSAddr2,F.LDAddr1,F.LDAddr2,F.LDAddr3,F.LDAddr4);
+     return true;
+}	
+
+function RunTest(F) {
+	if(sumvalue(F)) {
+		F.DoTest.value="yes";
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function goback()
+{
+ 	window.location.replace("basicform.html");
+}
+
+function todefault()
+{
+	window.location.replace("basicform.html");
+}
+
+function ValidMTU(F)
+{
+	/* added by aL 2001/01/10 */
+	P0 = parseInt(F.value, 10);
+	if(!( P0 >= 576 && P0 <= 1500)) {
+		alert('端口超出范围[576,1500]。');
+		F.value = F.defaultValue;		
+	}
+}
+function DNSAutoRadioClick()
+{
+	if(document.formname.DNSAssign.value == "Dynamic") {
+		document.formname.DNSAddr1.disabled=ture;
+		document.formname.DNSAddr2.disabled=ture;
+	} else {
+		document.formname.DNSAddr1.disabled=false;
+		document.formname.DNSAddr2.disabled=false;
+	}
+	
+	//document.formname.DNSAssign[0].disabled
+}
+//-->
+</script>
+
+
+	</head>
+
+<!-- 	<body bgcolor="#ffffff"  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadcheck()"> -->
+	<body bgcolor="#ffffff"> 
+		<form name="formname" action="cgi-bin/TraceWanDet.cgi" method="POST" > 
+		<input type="hidden" name="Load" value="W">
+		<input type="hidden" name="page" value="Blank_wizard_ipdynamic.html">
+		<input type="hidden" name="DoTest" value="">
+		<table border="0" cellpadding="0" cellspacing="3" width="100%">
+			<tr>
+				<td colspan="2">	
+					<H1> 动态 IP(DHCP)</H1> 
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+				通常情况下您的因特网服务会自动分配全部动态IP (DHCP)设置。 <br>
+				
+				<br>
+				 如果您的因特网服务要求人工输入域名服务器或帐户<br>和域名设置，那么请人工输入。	
+					</td>
+			</tr>
+			
+		<!-- RULE //-->
+			<tr>
+				<td colspan="2">
+					<img src="img/liteblue_1.gif" width="100%" height="12" border="0"> 
+				</td>
+			</tr>
+			<!-- END RULE //-->
+			<tr><td>
+			      <input type="hidden" name="Encap" value="0">
+				<input type="hidden" name="ResetFlag" value="0">
+				<input type="hidden" name="WANAssign" value="Dynamic">
+				<input type="hidden" name="isSmartGui" value="1">
+				<input type="hidden" name="readipdynamic" value="">
+				
+		        </td></tr>
+		        </table>
+		        
+<table border="0" cellpadding="0" cellspacing="3" width="100%">				
+		<!-- RULE //-->
+
+<!-- END RULE //-->
+			
+			<tr>
+				<td colspan="2"><a href="javascript:loadhelp('_wiz_dyn_ip_settings','DNSaddress')"><b>域名服务器（DNS）地址 </b></a></td>
+			</tr>
+			<tr>
+				<td colspan="2"><a href="javascript:loadhelp('_wiz_dyn_ip_settings','DNSaddress')"><input type="radio" value="Dynamic" name="DNSAssign" tabindex="3" onClick="DNSAutoRadioClick()" >从ISP处动态获取</a></td>
+			</tr>
+			<tr>
+				<td colspan="2"><a href="javascript:loadhelp('_wiz_dyn_ip_settings','DNSaddress')"><input type="radio" value="Fixed" name="DNSAssign" tabindex="4" onClick="DNSAutoRadioClick()" checked>使用下面的域名服务器地址</a></td>
+			</tr>
+			
+			<tr>
+				<td><img src="img/spacer.gif" width="20" height="12" border="0"><a href="javascript:loadhelp('_wiz_dyn_ip_settings','DNSaddress')">首选域名服务器</a></td>
+				<td width="50%" align="right">
+				   <img src="img/spacer.gif" width="250" height="1" border=0><br>
+				   <!-- <input type="hidden" name="DNSAddr1" size="15" 
+				   onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+				   value="" maxlength="15" > -->
+				   <input type="hidden" name="DNSAddr1" value="">
+				   
+				   <input type="text" name="PDAddr1" size="2" 
+				   maxlength="3"  tabindex="6"
+				   value="<% field_nvram_get("wan_dns1", ".", "1"); %>" >.
+				   <input type="text" name="PDAddr2" size="2" 
+				   maxlength="3"  tabindex="7"
+				   value="<% field_nvram_get("wan_dns1", ".", "2"); %>" >.
+				   <input type="text" name="PDAddr3" size="2" 
+				   maxlength="3"  tabindex="8"
+				   value="<% field_nvram_get("wan_dns1", ".", "3"); %>" >.
+				   <input type="text" name="PDAddr4" size="2" 
+				   maxlength="3"  tabindex="9"
+				   value="<% field_nvram_get("wan_dns1", ".", "4"); %>" >
+				 </td>
+			</tr>
+			<tr>
+				<td><img src="img/spacer.gif" width="20" height="12" border="0"><a href="javascript:loadhelp('_wiz_dyn_ip_settings','DNSaddress')">备用域名服务器</a></td>
+				<td width="50%" align="right">
+				
+					<!-- <input type="hidden" name="WANIPethr" size="15" 
+				    onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+				    value=$$W#WANIPethr$$ maxlength="15" > -->
+					<!-- <input type="hidden" name="WANMask" size="15" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+					value=$$W#WANMask$$ maxlength="15">
+					<input type="hidden" name="WANGateway" size="15" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"   
+					value=$$W#WANGateway$$ maxlength="15"> -->
+					
+				        <!-- <input type="hidden" name="DNSAddr2" size="15" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="15"> -->
+					<input type="hidden" name="DNSAddr2" value="">
+					<input type="text" name="LDAddr1" size="2" 
+					maxlength="3" tabindex="10"
+					value="<% field_nvram_get("wan_dns2", ".", "1"); %>" >.
+					<input type="text" name="LDAddr2" size="2" 
+					maxlength="3" tabindex="11"
+					value="<% field_nvram_get("wan_dns2", ".", "2"); %>" >.
+					<input type="text" name="LDAddr3" size="2" 
+					maxlength="3" tabindex="12"
+					value="<% field_nvram_get("wan_dns2", ".", "3"); %>" >.
+					<input type="text" name="LDAddr4" size="2" 
+					maxlength="3" tabindex="13"
+					value="<% field_nvram_get("wan_dns2", ".", "4"); %>" >
+				</td>
+			</tr>
+<!-- RULE
+	<tr>
+		<td colspan="2">
+			<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+		</td>
+	</tr>
+
+	<tr>
+		<td WIDTH=165 align="left">
+			<a href="javascript:loadhelp('_basic3','login')"><B>MTU Size</B></a>
+		</td>
+		<td nowrap>
+			<input type="radio" value="Default" name="MtuType" tabindex="32" $$W#MtuDefault$$>Default(1500)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" value="Custom" name="MtuType" tabindex="33" $$W#MtuCustom$$>Custom
+			<input type="text" name="MTU" size="5" maxlength="4" value=$$W#MTU$$ tabindex="34" 
+			 onfocus="if (this.form.MtuType[0].checked) this.form.MtuType[1].focus();" onChange=ValidMTU(this)>
+		</td>
+	</tr>
+-->
+
+<!-- RULE -->
+<tr>
+	<td colspan="2">
+		<img src="img/liteblue_1.gif" width="100%" height="12" border="0">
+	</td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		
+			<tr>
+				<td><a href="javascript:loadhelp('_wiz_dyn_ip_settings','accountname')"><b>帐户名</b>&#xA0;（如果需要）</a></td>
+				<td width="48%" align="right">
+				
+				<input type="text" name="SysName" size="15" maxlength="50" tabindex="1" value="<% nvram_get("wan_hostname"); %>"></td>
+			</tr>
+			<tr>
+				<td><a href="javascript:loadhelp('_wiz_dyn_ip_settings','accountname')"><b>域名</b>&#xA0;（如果需要）</a></td>
+				<td width="48%" align="right"><input type="text" name="Domain" size="15" maxlength="50"  tabindex="2" value="<% nvram_get("wan_domain"); %>"></td>
+			</tr>
+			<tr>
+	<td colspan="2">
+		<img src="img/liteblue_1.gif" width="100%" height="12" border="0"> 
+	</td>
+</tr>
+</table>						
+<table border="0" cellpadding="0" cellspacing="3" width="100%">			
+<!-- $$W#RouterMac$$ -->
+	<input type="hidden" name="FinishWan" value="off">
+	<tr>
+		<td colspan="2" align="center">
+			<input type="SUBMIT" name="Button" value="下一步" onClick="return sumvalue(this.form)" >
+			<input type="hidden" name="Button" value="Apply">
+			<input type="SUBMIT" name="Button" value="测试" onClick="return RunTest(this.form)" >
+			
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

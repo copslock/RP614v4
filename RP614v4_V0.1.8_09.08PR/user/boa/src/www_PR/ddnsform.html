@@ -1,0 +1,238 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+
+<title>DDNS</title>
+<link rel="stylesheet" href="/form.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript" src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function loadcheck()
+{
+	if(isIE())
+	{
+		document.formname.DDNSHostName.size="32";
+		document.formname.DDNSLoginName.size="32";
+		document.formname.DDNSLoginPassword.size="32";
+	}
+	else
+	{
+		document.formname.DDNSHostName.size="20";
+		document.formname.DDNSLoginName.size="20";
+		document.formname.DDNSLoginPassword.size="20";
+	}
+	
+//	if(document.formname.DynamicDNS.value == 0) 
+//		document.formname.DDNSSelect[0].checked=true;
+//	else
+//		document.formname.DDNSSelect[1].checked=true;
+
+	loadhelp('_DDNS',' ');
+}
+
+function loadhelp(fname,anchname) 
+{
+	if (anchname!=' ')
+		top.helpframe.location.href="/help/help"+fname+".html#"+anchname;
+	else
+		top.helpframe.location.href="/help/help"+fname+".html";
+}
+
+function ShowResult() 
+{
+	self.open('/ddnsresult.html', 'DDNS', 'alwaysRaised,dependent,resizable,scrollbars,width=450,height=150,left=200,top=200');
+}
+
+function rCancel()
+{
+	window.location.href='/ddnsform.html';
+}
+
+function sumvalue(F)
+{
+	var msg = "";
+
+	if(F.DynamicDNS.checked==true)
+	{
+		F.DynamicDNS.value=1;
+
+		if(F.DDNSHostName.value.length < 1)
+			msg += addstr(msg_blank, "主机名");
+		if(F.DDNSLoginName.value.length < 1)
+			msg += addstr(msg_blank, "用户名");
+		if(F.DDNSLoginPassword.value.length < 1)
+			msg += addstr(msg_blank, "密码");
+	}
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	F.submit();
+	return true;
+}
+
+function check(x)
+{
+	document.formname.DynamicDNS.value=x; 
+}
+//-->
+</script> 
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadcheck()">
+<form name="formname" action="/cgi-bin/apply.cgi" method="POST" >
+<input type="hidden" name="page" value="ddnsform.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="D">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>动态 DNS</h1>
+			</td>
+		</tr>
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td width="25%" align="left" nowrap>
+				<input type="checkbox" name="DynamicDNS" <% checked_match("ddns_enable", "1"); %>>
+				<a href="javascript:loadhelp('_DDNS','setup')"><b>使用动态 DNS 服务</b></a>
+			</td>
+			<td width="75%" align="right">
+			</td>
+		</tr>
+<!--Amy 2005,12,06		
+		<tr>
+			<td colspan="2">
+				<p>
+					<input type="radio" value="0" name="DDNSSelect" onClick="check(this.value)" >
+						<a href="javascript:loadhelp('_DDNS',' ')">&nbsp;None</a><br>
+					<input type="radio" value="1" name="DDNSSelect" onClick="check(this.value)" >
+						<a href="javascript:loadhelp('_DDNS',' ')">&nbsp;DynDNS.org</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.dyndns.org" target="newlink"><u>Click here for information</u></a>
+					<input type=hidden value=<% nvram_get("ddns_enable"); %> name="DynamicDNS" >
+				</p>
+			</td>
+		</tr>
+-->		
+<!--
+		<tr>
+			<td colspan="2">
+				<p>
+					<input type="checkbox" name="DynamicDNS" <% checked_match("ddns_enable", "1"): %>>
+					<a href="javascript:loadhelp('_DDNS',' ')"><b>Use A Dynamic DNS Service</b></a>
+				</p>
+			</td>
+		</tr>
+-->
+
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+<!--
+		<tr>
+			<td width="50%" align="left">
+				<b>Service Provider </b>
+			</td>
+			<td width="50%" align="right">
+
+				<select name="sysDNSProvider" class=ttext size="1"> 
+						<option value="0" selected> www.DynDNS.org 
+				</select>
+			</td>
+		</tr>
+-->
+		<tr>
+			<td width="50%" align="left" nowrap>
+				<b><a href="javascript:loadhelp('_DDNS','provider')">服务提供商</a></b>
+			</td>
+			<td width="50%" align="right">
+				<select name="sysDNSProvider" class=ttext size="1"> 
+						<option value="0" selected> www.DynDNS.org 
+				</select>
+			</td>
+		</tr>
+		</table>
+		<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td width="50%" align="left">
+				主机名
+			</td>
+
+			<td width="50%" align="right">
+				<input type="text" name="DDNSHostName" size="15" maxlength="32" value=<% nvram_get("ddns_hostname"); %>>  
+			</td>
+		</tr>
+<!--Amy 2005,12,06
+		<tr>
+			<td width="100%" align="right">
+				example: name.dyndns.org
+			</td>
+		</tr>
+
+		</table>
+		<table border="0" cellpadding="0" cellspacing="3" width="100%">
+-->		<tr>
+			<td width="50%" align="left">
+				用户名
+			</td>
+			<td width="50%" align="right">
+				<input type="text" name="DDNSLoginName" size="15" maxlength="32" value=<% nvram_get("ddns_login"); %>>  
+			</td>
+		</tr>
+		<tr>
+			<td width="50%" align="left">
+				密码
+			</td>
+			<td width="50%" align="right">
+				<input type="password" name="DDNSLoginPassword" size="15" maxlength="32" value=<% nvram_get("ddns_passwd"); %>>  
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<p>
+					<b><input type="checkbox" name="wildcard" <% checked_match("ddns_wildcard", "1"); %>>
+					<a href="javascript:loadhelp('_DDNS','wildcards')">使用通配符</a></b>
+					<input type=hidden name=wSupplement> 
+				</p>
+			</td>
+		</tr>
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td colspan="2" align="center">
+				<input type=hidden name="Button" value="Apply">
+				<input type="Button" name="ButtonApply" value="应用" OnClick="return sumvalue(this.form)">
+				<input type="Button" name="Cancel" value="取消" Onclick="rCancel();">
+				<input type="button" name="Button" value="显示状态" onClick="ShowResult();">
+			</td>
+		</tr>
+	</table>
+</form>
+<p>
+</p>
+</body>
+</html>

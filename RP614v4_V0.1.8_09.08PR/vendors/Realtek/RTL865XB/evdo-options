@@ -1,0 +1,41 @@
+# General options for making GPRS connections
+#
+# $Id: evdo-options,v 1.1 2005/06/03 08:43:54 tony Exp $
+
+/dev/ttyUSB0
+# Change this line to 'defaultrouter' if you want to use the GPRS link
+# as your gateway
+defaultroute
+
+# Comment this line out to let pppd background itself.
+nodetach
+
+# Turn this on to see all the PPP negotiations
+debug
+
+# *** Below this line you probably won't need to change.
+
+# Limit the MTU (workaround for an oddity in the VPN)
+mtu 1500
+
+# Use hardware flow control
+crtscts
+
+# Let the phone figure out all the IP addresses
+noipdefault
+ipcp-accept-local
+ipcp-accept-remote
+
+# No ppp compression
+novj
+novjccomp
+
+# For sanity, keep a lock on the serial line
+lock
+
+# Get DNS IP address form ISP
+usepeerdns
+
+#reconnect
+persist
+#holdoff 15

@@ -1,0 +1,129 @@
+
+<html>
+
+<head>
+        <META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+		<meta http-equiv="content-type" content="text/html;charset=gb2312">
+		<meta name="generator" content="Adobe GoLive 5">
+		<title>路由器表格</title>
+		<link rel="stylesheet" href="/form.css" type="text/css">
+		<script language="javascript" src="/browser.js"></script>
+		<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+
+function doTypeChange( newIndex )
+{
+	if (newIndex == 0)
+	{
+		parent.basicbuttom.location = "/basicformether.html";
+                
+    }        		
+	else if (newIndex == 1)
+	{
+		var proto = '<% nvram_get("wan_proto"); %>';
+		if (proto == "pptp")
+			parent.basicbuttom.location = "/basicform_ppptp.html";
+		else if (proto == "telstra")
+			parent.basicbuttom.location = "/basicform_telstra.html";
+		else
+			parent.basicbuttom.location = "/basicformpppoe.html";
+	}	
+	
+}
+
+function loadhelpdetect() {
+
+
+if (document.formname.Encap[0].checked)
+	{
+		
+		loadhelp('_basic1','question');
+		
+	}
+	else
+	{
+	
+		loadhelp('_basic2','question');
+		
+	}
+}
+
+function loadhelpdetect1() {
+	if (document.formname.Encap[0].checked)
+	{
+		
+		loadhelp('_basic1',' ');
+		
+	}
+	else
+	{
+	
+		loadhelp('_basic2',' ');
+		
+	}
+}
+	
+function loadhelp(fname,anchname) {
+if(anchname!=' ')
+    parent.parent.helpframe.document.location.href="/help/help"+fname+".html#"+anchname
+else
+    parent.parent.helpframe.document.location.href="/help/help"+fname+".html"
+}
+
+//-->
+</script>
+
+
+	</head>
+
+	<body bgcolor="#ffffff"  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelpdetect1()">
+		<form name="formname" action="/post-query" method="POST" > 
+		<input type="hidden" name="Load" value="W">
+		<table border="0" cellpadding="0" cellspacing="3" width="100%">
+			<tr>
+				<td colspan="2">	
+					<!--<a href="javascript:loadhelpdetect1()"><H1>Basic Settings</H1> </a>-->
+					<H1>基本设置</H1>
+				</td>
+			</tr>
+			
+		<!-- RULE //-->
+<tr>
+	<td colspan="2">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+	</td>
+</tr>
+<!-- END RULE //-->
+			
+			<tr>				
+				<td colspan="2">
+					<p><a href="javascript:loadhelpdetect()"><b>您的因特网连接需要登录吗?</b></a></p>
+				</td>
+			</tr>
+			
+			<tr>				
+				<td colspan="2"><input type="radio" value="1" name="Encap"  onClick="doTypeChange(1)" <% checked_match("wan_proto", "pppoe"); %><% checked_match("wan_proto", "pptp"); %><% checked_match("wan_proto", "telstra"); %> tabindex="1" >
+				<a href="javascript:loadhelpdetect()">是</a></td>
+			</tr>
+		
+			<tr>				
+				<td colspan="2"><input type="radio" value="0" name="Encap"  onClick="doTypeChange(0)" <% checked_match("wan_proto", "dhcp"); %><% checked_match("wan_proto", "static"); %> tabindex="2" >
+				<a href="javascript:loadhelpdetect()">否</a></td>
+			</tr>
+			
+			<tr><td></td></tr>
+		<!-- RULE //-->
+<tr>
+	<td colspan="2">
+		
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+	</td>
+</tr>
+<!-- END RULE //-->
+	</table>
+</form>
+		<p>&nbsp;</p>
+	</body>
+
+</html>

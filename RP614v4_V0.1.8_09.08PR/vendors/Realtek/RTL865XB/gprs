@@ -1,0 +1,21 @@
+# Communicate over the named device.
+# /dev/usb/tts/0
+/dev/ttyACM0
+
+# Serial port line speed
+# 460800
+115200
+
+# Comtrol character handling
+#asnycmap 20A0000
+#escape FF
+
+# Generic options
+file /etc/ppp/gprs-options
+
+# This script would typically use the chat program to dial 
+# the modem and start the remote ppp session.
+connect '/bin/chat -v -f /etc/ppp/gprs-connect-chat'
+
+# 
+disconnect '/bin/chat -v -f /etc/ppp/gprs-disconnect-chat'

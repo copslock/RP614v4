@@ -1,0 +1,41 @@
+<html>
+<head>
+       <META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+		<meta http-equiv="content-type" content="text/html;charset=GB2312">
+		<meta name="generator" content="Adobe GoLive 5">
+		<title>NETGEAR路由</title>
+<script language="javascript" type="text/javascript">
+<!--
+function goFindType()
+{
+	if(document.formname.Encap[0].checked)
+	{	
+		
+		if (document.formname.pppoetype.value==0)
+		window.location.replace('basicformpppoe.html')
+		else if (document.formname.pppoetype.value==1)
+		window.location.replace('basicform_aol.html')
+		else if (document.formname.pppoetype.value==2)
+		window.location.replace('basicform_ppptp.html')
+		else if (document.formname.pppoetype.value==3)
+		window.location.replace('basicform_telstra.html')		
+		else if (document.formname.pppoetype.value==4)
+		window.location.replace('basicform_l2tp.html')	
+		
+	}
+	else if(document.formname.Encap[1].checked)
+		window.location.replace('basicformether.html')
+}
+//-->
+</script>
+</head>
+<body  bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="goFindType()">
+<form name="formname"> 
+<input type="hidden" name=pppoetype value=<% nvram_get("fw_pppoetype"); %>>
+<input type="radio" name=Encap  <% checked_match("wan_proto", "pppoe"); %><% checked_match("wan_proto", "pptp"); %><% checked_match("wan_proto", "telstra"); %><% checked_match("wan_proto", "l2tp"); %> >
+<input type="radio" name=Encap  <% checked_match("wan_proto", "dhcp"); %><% checked_match("wan_proto", "static"); %> >
+
+</form>
+</body>
+</html>

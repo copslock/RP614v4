@@ -1,0 +1,221 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta name="generator" content="Adobe GoLive 5">
+<title>端口 - 自定义服务</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script LANGUAGE="javascript"src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+
+function loadcheck()
+{
+	loadhelp('_PortForward_cust');
+
+	var system = OScheck();
+	if(system.indexOf("Mac") >= 0)
+	{
+		document.formname.IP1.size="5";
+		document.formname.IP2.size="5";
+		document.formname.IP3.size="5";
+		document.formname.IP4.size="5";
+		document.formname.GlobalPort.size="9";
+		document.formname.LocalPort.size="9";
+	}
+	else
+	{
+		document.formname.IP1.size="4";
+		document.formname.IP2.size="4";
+		document.formname.IP3.size="4";
+		document.formname.IP4.size="4";
+		document.formname.GlobalPort.size="5";
+		document.formname.LocalPort.size="5";
+	}
+	//if((document.formname.Remark.value=="")&&(document.formname.GlobalPort.value=="")&&(document.formname.LocalPort.value==""))
+	//	document.formname.VirSerAct.checked=true;
+	if((document.formname.IP1.value==0)&&(document.formname.IP2.value==0)&&(document.formname.IP3.value==0)&&(document.formname.IP4.value==0))
+	{
+		load4(document.formname.templanip,document.formname.IP1,document.formname.IP2,document.formname.IP3,document.formname.IP4)
+		document.formname.IP4.value="";
+	}
+	if((document.formname.GlobalPort.value==0)&&(document.formname.LocalPort.value==0))
+	{
+		document.formname.GlobalPort.value="";
+		document.formname.LocalPort.value="";
+	//	document.formname.VirSerAct.checked=true;
+	}
+}
+
+function loadhelp(num)
+{
+	top.helpframe.document.location.href="/help/help"+num+".html";
+}
+
+function goBack()
+{
+	window.location.href="/ports_app_table.html";
+}
+
+function check(F)
+{
+	var IPaddr = "";
+	var lanIp = '<% nvram_get("lan_ipaddr"); %>';
+	//if(!isValidName(F.Remark.value,16))
+	//{
+	//	alert("服务名称类型无效。");
+	//	F.Remark.focus();
+	//	return false;		
+	//}        
+
+	if(isNumeric(F.GlobalPort,65534))
+	{
+		alert("起始端口地址必须小于65535");
+		F.GlobalPort.focus();
+		return false;
+	}
+	if(parseInt(F.GlobalPort.value) < 1)
+	{
+		alert("起始端口地址必须大于1");
+		F.GlobalPort.focus();
+		return false;
+	}
+	if(isNumeric(F.LocalPort,65534))
+	{
+		alert("结束端口地址必须小于65535");
+		F.LocalPort.focus();
+		return false;
+	}
+	if(parseInt(F.LocalPort.value) < 1)
+	{
+		alert("结束端口地址必须大于1");
+		F.LocalPort.focus();
+		return false;
+	}
+	if(parseInt(F.GlobalPort.value) > parseInt(F.LocalPort.value))
+	{
+		alert("起始端口地址必须小于结束端口地址");
+		F.GlobalPort.focus();
+		return false;
+	}
+
+	if( checkIP(F.IP1, F.IP2, F.IP3, F.IP4, 254) )
+	{
+		alert("内部IP地址无效！");
+		return false;
+	}
+	IPaddr = IPv4toString(getValue(F.IP1.value), getValue(F.IP2.value), getValue(F.IP3.value), getValue(F.IP4.value));
+	if(!isValidIP(IPaddr))
+	{
+		alert("内部IP地址无效！");
+		return false;
+	}
+	if(isStringsEqual(IPaddr, lanIp))
+	{
+		alert("服务器IP地址不能是路由器的局域网IP地址。");
+		return false;
+	}
+	F.Button.value="Apply";
+
+	return true;
+}
+-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadcheck()">
+<FORM name="formname" action="/cgi-bin/apply.cgi" method=post>
+<input type="hidden" name="page" value="ports_app_table.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="VSI">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2" nowrap>
+				<h1>端口 - 自定义服务</h1></a>
+			</td>
+		</tr>
+<!-- RULE -->
+
+<!-- END RULE -->
+<tr>
+	<td colspan="2">
+		<table border ="0" cellpadding ="0" cellspacing ="0" width="100%">
+			<tr>
+				<td colspan="2">
+					<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+				</td>
+			</tr>
+			<tr>
+			
+			<input type=hidden name=templanip value=<% nvram_get("lan_ipaddr"); %>>
+			<input type=hidden name="ServiceTypeList" value="BOTH">
+		    	<td width="37%" nowrap>服务名称</td>
+		    	<td width="63%">
+		    		<input type="text" name="Remark" size="16" maxlength="16" value="<% forward_port_info("service"); %>">
+		    	</td>
+			</tr>
+
+			<tr>
+				<td width="37%">服务类型</td>
+				<td width="63%" nowrap>
+					<select name="ServiceType" size="1">
+						<OPTION <% forward_selected_match("proto", "both"); %> value=100>TCP/UDP</OPTION>
+						<OPTION <% forward_selected_match("proto", "tcp"); %> value=6>TCP</OPTION>
+						<OPTION <% forward_selected_match("proto", "udp"); %> value=17>UDP</OPTION>
+					</select>
+		    		</td>
+			</tr>
+
+			<tr>
+			       <input type=hidden name="VirtualServer">
+				<td width="37%" nowrap>起始端口</td>
+				<td width="63%">
+					<input type="text" class="num" name="GlobalPort" size="5" maxlength="5"
+				    value="<% forward_port_info("startp"); %>" onFocus="this.select();">(1~65534)
+		    		</td>
+			</tr>
+			<tr>
+			    	<td width="37%">结束端口</td>
+			    	<td width="63%">
+		    		<input type="text" class="num" name="LocalPort" size="5" maxlength="5" value="<% forward_port_info("endp"); %>" onFocus="this.select();">(1~65534)
+		    		</td>
+			</tr>
+			<tr>
+				<td width="37%" nowrap>服务器IP地址</td>
+				<td width="63%" nowrap>
+					<input type="text" class="num" name="IP1" size="4" maxlength="3" value="<% field_nvram_get("cur_forward_port_ip", ".", "1"); %>" onFocus="this.select();">.
+					<input type="text" class="num" name="IP2" size="4" maxlength="3" value="<% field_nvram_get("cur_forward_port_ip", ".", "2"); %>" onFocus="this.select();">.
+					<input type="text" class="num" name="IP3" size="4" maxlength="3" value="<% field_nvram_get("cur_forward_port_ip", ".", "3"); %>" onFocus="this.select();">.
+					<input type="text" class="num" name="IP4" size="4" maxlength="3" value="<% field_nvram_get("cur_forward_port_ip", ".", "4"); %>" onFocus="this.select();">
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2">
+					<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+				</td>
+			</tr>
+		</table>
+<!-- RULE -->
+
+<!-- END RULE -->
+<tr>
+	<td align="center" nowrap>
+	    <input type="hidden" name="portend" value="">
+	    <input type="hidden" name="Button" value="0">
+
+		<script>
+//			if ((document.formname.GlobalPort.value==0)&&(document.formname.LocalPort.value==0))
+//				document.write("<input type='submit' value='Add' onClick='return check(this.form)'>&nbsp;&nbsp;");
+//			else 
+//				document.write("<input type='submit' value='Accept' onClick='return check(this.form)'>&nbsp;&nbsp;");
+		</script>
+		<input type="submit" value="应用" onClick="if(!check(this.form)) return false;">&nbsp;&nbsp;
+		<input type="button" value="取消" OnClick="goBack()">&nbsp;&nbsp;
+	</td>
+</tr>
+</table>
+</form>
+</body>
+</html>

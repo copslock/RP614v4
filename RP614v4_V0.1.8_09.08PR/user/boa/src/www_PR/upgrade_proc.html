@@ -1,0 +1,61 @@
+<html>
+<head>
+<meta http-equiv='content-type' content='text/html;charset=gb2312'>
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<!-- <link rel="stylesheet" href="/form.css" type="text/css"> -->
+</head>
+<title>更新设置</title>
+<script language="javascript" type="text/javascript">
+<!--
+var pchar = "||"; // progress char
+var maxchars = 33; 
+var delay_time = 2700; // msecs
+var charcount = 0; 
+
+function makeStr(strSize, fillChar)
+{
+	var temp = "";
+	for (i=0; i < strSize ; i ++)
+		temp = temp + fillChar;
+	return temp;
+}
+function updateProgress()
+{
+	var cf = document.forms[0];
+	if (charcount < maxchars)
+	{
+		charcount ++;
+		cf.progress.value = makeStr(charcount,pchar);
+		setTimeout("updateProgress()",delay_time);
+	}
+	else
+	{ 
+		window.location.href="/upgrade.html";
+	}
+}
+//-->
+</script>
+<style type="text/css">
+TD {FONT-SIZE: 12px; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif}
+H1 {FONT-WEIGHT: bold; FONT-SIZE: 16px; BACKGROUND: white; COLOR: #09c; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif}
+.prgbar { font-family:Arial; padding:0px; height: 20px; width: 200px; font-weight: bolder; font-size: 10pt; border: 1px solid; border-color: #09c; color: #0000FF}
+</style>
+
+<body onLoad="updateProgress();">
+<form name="formname" action="/post-query" method=post>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+</tr>
+<tr>
+ <td nowrap><h1>正在更新设置</h1></td>
+ <td nowrap width="35%">&nbsp;</td>
+ <td nowrap><input type="text" name="progress" class="prgbar" value=""></td>
+</tr>
+<tr>
+  <td colspan="4" height="12"><hr color="#0099CC"></td>
+</tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=gb2312">	
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+	<title>路由器表格</title> 
+	<link rel="stylesheet" href="/form1.css" type="text/css">
+	<script language="javascript" src="/utility.js"></script>
+	<script language="javascript" type="text/javascript">
+<!--
+function trim(vString)
+{  
+	var tString = vString;
+
+	//trim left spaces
+	if (tString.charAt(0) == " ")
+		tString = trim(tString.substring(1, tString.length));
+
+	//trim right spaces
+	if (tString.charAt(tString.length-1) == " ")
+		tString = trim(tString.substring(0, tString.length-1))
+
+	return(tString);
+}
+function isNumOnly(vString)
+{
+	var NUMBERS = "0123456789";
+	var valid = true;
+	for(var i=0;i<vString.length;i++)
+		if(NUMBERS.indexOf(vString.charAt(i))<0)
+			valid = false;
+			
+	return(valid);
+}
+function isNull(vField) {
+	var ret = false
+	vField.value = trim(vField.value)
+	
+	if (vField.value.length == 0)
+		ret = true
+	return(ret)
+}
+function CheckAdverTimeVal(vField)
+{
+	if(isNull(vField)){
+		alert(vField.name + " 不能为空！")
+		vField.value = vField.form.hiddenAdverTime.value
+		vField.focus()
+		return false
+	}
+	if(!isNumOnly(vField.value)){
+		alert(vField.name + " 必须为数字！")
+		vField.value = vField.form.hiddenAdverTime.value
+		vField.focus()
+		return false	
+	}
+	if((vField.value >1440 )||(vField.value <= 0 )){
+		alert(vField.name + " 必须大于0并且小于等于1440分钟！ ")
+		vField.value = vField.form.hiddenAdverTime.value
+		vField.focus()
+		return false 
+	}	
+	return true
+}
+function CheckTimeToLiveVal(vField)
+{
+	if(isNull(vField)){
+		alert(vField.name + " 不能为空！")
+		vField.value = vField.form.hiddenTimeToLive.value
+		vField.focus()
+		return false
+	}
+	if(!isNumOnly(vField.value)){
+		alert(vField.name + " 必须为数字！")
+		vField.value = vField.form.hiddenTimeToLive.value
+		vField.focus()
+		return false	
+	}
+	if((vField.value > 255 )||(vField.value <= 0 )){
+		alert(vField.name + " 必须大于0并且小于等于255")
+		vField.value = vField.form.hiddenTimeToLive.value
+		vField.focus()
+		return false 
+	}
+	return true
+}
+function cancel()
+{   
+   location="/upnp.html"
+}
+function finishchech()
+{
+	if(!CheckAdverTimeVal(document.formname.AdverTime))
+		return false;
+	else if(!CheckTimeToLiveVal(document.formname.TimeToLive))
+		return false;
+	else 
+	   document.formname.submit();
+	
+}
+function loadhelp(fname,anchname) {
+
+if (anchname!=' ')
+		parent.helpframe.location.href="/help/help"+fname+".html#"+anchname
+	else
+		parent.helpframe.location.href="/help/help"+fname+".html"
+
+}
+
+function fresh()
+{
+window.location.href="/upnp.html";
+}
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_upnp',' ')" >
+<form name="formname" action="/cgi-bin/apply.cgi" method="POST" >
+<input type="hidden" name="page" value="upnp.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="B">
+  
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2" align='left'>
+				<a><h1>UPnP</h1> </a>
+			</td>
+		</tr>
+	
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+</table>	
+<table border="0" width="100%">
+<tr><td nowrap width="46%"><input type="checkbox" name="UPnP"  <% checked_match("upnp_enable", "1"); %> ><B><a href="javascript:loadhelp('_upnp','turnon')">打开 UPnP</a></B></td>
+<td nowrap width="54%"></td></tr>
+   
+<tr><td nowrap width="46%"><B><a href="javascript:loadhelp('_upnp','adv')">广告时间间隔</a> </B>（分钟）</td><td nowrap width="54%" align="right">
+<input type="text" class="num" name="AdverTime" size="5" maxlength="4" value="<% nvram_get("upnp_advertime"); %>" onFocus="this.select();" onkeypress="chk_num(event)">  
+</td></tr>
+
+<tr><td nowrap width="46%"><B><a href="javascript:loadhelp('_upnp','live')">广告存活时间</a></b>（跳数）</td><td nowrap width="54%" align="right">
+<input type="text" class="num" name="TimeToLive" size="4" maxlength="3" value="<% nvram_get("upnp_timetolive"); %>" onFocus="this.select();" onkeypress="chk_num(event)" >
+</td></tr>
+</table>
+<table border="0" width="100%">
+<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+				 
+			</td>
+		</tr>
+</table>
+<b><a href="javascript:loadhelp('_upnp','table')">UPnP 端口映射表</a></b>
+<table border ="1" cellpadding ="0" cellspacing ="0" width="100%">
+    <TR>
+       	<TD  width="10%" align="center"><span class="thead">活动</span></TD>
+   	<TD  width="15%" align="center"><span class="thead">协议</span></TD>
+    	<TD  width="15%" align="center"><span class="thead">内部 端口</span></TD>
+    	<TD  width="15%" align="center"><span class="thead">外部 端口</span></TD>
+    	<TD  width="25%" align="center"><span class="thead">IP 地址</span></TD>
+    </TR>	    
+<% upnp_port_list(); %>
+</TABLE> 
+
+<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+
+<center>
+<input type=hidden value="<% nvram_get("upnp_advertime"); %>" name="hiddenAdverTime">
+<input type=hidden value="<% nvram_get("upnp_timetolive"); %>" name="hiddenTimeToLive">
+<input type="hidden" value="Apply" name="Button">
+<input type="button" value="应用" onClick="return finishchech()">
+<input type="button" value="取消" name="Button" onClick="cancel()">
+<input type="button" value="刷新"  OnClick="fresh();">
+</center>
+
+</form></body></html>

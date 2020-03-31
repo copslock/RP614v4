@@ -1,0 +1,126 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<script language="JavaScript" src="/showBanner.js"></script>
+<script language="Javascript" src="/string.js"></script>
+<script>AssignVariable();</script>
+<title>安装助手&mdash;&mdash;中文</title>
+<link rel="stylesheet" href="/style.css" type="text/css">
+<script language="javascript" type="text/javascript">
+<!-- 
+function DOSubmit() {
+	var CurForm=document.forms;
+	
+	
+	if( (CurForm.WANIPethr1.value < 1) || (CurForm.WANIPethr1.value > 254) ||
+	    (CurForm.WANIPethr2.value < 1) || (CurForm.WANIPethr2.value > 254) ||
+	    (CurForm.WANIPethr3.value < 0) || (CurForm.WANIPethr3.value > 254) ||
+	    (CurForm.WANIPethr4.value < 1) || (CurForm.WANIPethr4.value > 254)) {
+	    	alert("IP地址无效");
+	    	return false;
+	}
+	if( (CurForm.WANMask1.value != 255) || (CurForm.WANMask2.value != 255)) {
+		alert("子网掩码无效");
+		return false;
+	}
+	
+	if( (CurForm.WANIPethr1.value != CurForm.WANGateway1.value) ||
+	    (CurForm.WANIPethr2.value != CurForm.WANGateway2.value) ) {
+	    	alert("网关IP地址无效");
+	    	return false;
+	}
+	
+	CurForm.WANIPethr.value=CurForm.WANIPethr1.value+'.'+CurForm.WANIPethr2.value+'.'+CurForm.WANIPethr3.value+'.'+CurForm.WANIPethr4.value;
+	CurForm.WANMask.value=CurForm.WANMask1.value+'.'+CurForm.WANMask2.value+'.'+CurForm.WANMask3.value+'.'+CurForm.WANMask4.value;
+	CurForm.WANGateway.value=CurForm.WANGateway1.value+'.'+CurForm.WANGateway2.value+'.'+CurForm.WANGateway3.value+'.'+CurForm.WANGateway4.value;
+	CurForm.DNSAddr1.value=CurForm.DNSAddr1_1.value+'.'+CurForm.DNSAddr1_2.value+'.'+CurForm.DNSAddr1_3.value+'.'+CurForm.DNSAddr1_4.value;
+	CurForm.DNSAddr2.value=CurForm.DNSAddr2_1.value+'.'+CurForm.DNSAddr2_2.value+'.'+CurForm.DNSAddr2_3.value+'.'+CurForm.DNSAddr2_4.value;
+	CurForm.submit();
+	return true;
+}
+// -->
+</script>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form name="forms" action="/cgi-bin/CA.cgi" method="post">
+<input type="hidden" name="page" value="CA_ConnType_StaticIP_InputInfo.html">
+<input type="hidden" name="Load" value="W">
+<input type="hidden" name="Encap" value="0">
+<input type="hidden" name="WANAssign" value= "static">
+<input type="hidden" name="WANIPethr"  value= "0.0.0.0">
+<input type="hidden" name="WANMask" value= "0.0.0.0">
+<input type="hidden" name="WANGateway" value= "0.0.0.0">
+<input type="hidden" name="DNSAssign" value= "Fixed">
+<input type="hidden" name="DNSAddr1" value= "0.0.0.0">
+<input type="hidden" name="DNSAddr2" value= "">
+<input type="hidden" name="CA_Step" value= "40">
+
+<table border="0" cellspacing="0" cellpadding="0" align="left" width="100%" height="100%">
+<script language="JavaScript">
+var menuItem	="3";
+PresentHead();
+PresentMenu(menuItem);
+</script>
+<td valign="top" width="80%" height="100%">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<td valign="top" width="2%" height="100%"></td>
+		<td valign="top" width="90%" height="100%">
+		<h1>请输入静态IP连接的详细信息。 </h1>
+ 	    <p>这些设置由因特网服务提供商给出。 </p>
+			<table width="70%" border="0">
+			   <td colspan="3"><p><strong>因特网IP地址</strong></p></td>			  
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>IP地址</td>
+		         <td><input name="WANIPethr1" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_ipaddr", ".", "1"); %>" />.<input name="WANIPethr2" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_ipaddr", ".", "2"); %>" />.<input name="WANIPethr3" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_ipaddr", ".", "3"); %>" />.<input name="WANIPethr4" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_ipaddr", ".", "4"); %>" /></td>
+		       </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>IP子网掩码</td>
+     		     <td><input name="WANMask1" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_netmask", ".", "1"); %>" />.<input name="WANMask2" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_netmask", ".", "2"); %>" />.<input name="WANMask3" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_netmask", ".", "3"); %>" />.<input name="WANMask4" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_netmask", ".", "4"); %>" /></td>
+		       </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>网关IP地址</td>
+		         <td><input name="WANGateway1" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_gateway", ".", "1"); %>" />.<input name="WANGateway2" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_gateway", ".", "2"); %>" />.<input name="WANGateway3" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_gateway", ".", "3"); %>" />.<input name="WANGateway4" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_gateway", ".", "4"); %>" /></td>
+		       </tr>
+		       <tr>
+		         <td colspan="3">&nbsp;</td>
+		       </tr>
+		       <tr>
+		         <td colspan="3"><strong>域名服务器（DNS） </strong></td>
+		        </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>首选域名服务器</td>
+		         <td><input name="DNSAddr1_1" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_dns1", ".", "1"); %>" />.<input name="DNSAddr1_2" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_dns1", ".", "2"); %>" />.<input name="DNSAddr1_3" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_dns1", ".", "3"); %>" />.<input name="DNSAddr1_4" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_dns1", ".", "4"); %>" /></td>
+		       </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>备用域名服务器</td>
+		         <td><input name="DNSAddr2_1" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_dns2", ".", "1"); %>" />.<input name="DNSAddr2_2" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_dns2", ".", "2"); %>" />.<input name="DNSAddr2_3" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_dns2", ".", "3"); %>" />.<input name="DNSAddr2_4" class="num" type="text" size="3" maxlength="3" value="<% field_nvram_get("wan_dns2", ".", "4"); %>" /></td>
+		       </tr>
+		       <td>
+			     <p>&nbsp;</p>
+			     <p>&nbsp;</p>
+			     <p>&nbsp;</p>
+			   </td>
+			</table>
+		</td>
+	</table>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<td valign="top" width="5%" height="100%"></td>
+		<td valign="top" width="15%" height="100%"></td>
+		<td valign="top" width="15%" height="100%"></td>
+		<td valign="top" width="15%" height="100%">
+   			<input type=button value="下一步&gt;" onClick="DOSubmit();">
+   		</td>
+		<td valign="top" width="50%" height="100%"></td>
+	</table>
+
+</td>
+</table>
+</form>
+</body>
+</html>

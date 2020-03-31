@@ -1,0 +1,24 @@
+lock
+plugin pppoe
+eth0
+#
+usepeerwins
+usepeerdns
+#
+mtu 1492
+mru 1492
+noccp nopcomp  novjccomp
+user
+
+# persistent
+persist
+
+# LCP Control
+lcp-echo-failure        3
+lcp-echo-interval       30
+
+
+service_name xxx
+ac_name xxx
+defaultroute
+

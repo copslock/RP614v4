@@ -1,0 +1,79 @@
+p
+{
+	font-size: 12px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+	list-style-position: outside;
+}
+H2
+{
+	font-size: 30px;
+	font-weight: bold;
+	color: #09c;
+	font-family: Arial;
+}
+
+
+H1
+{
+	color: #09c;
+	background: white;
+
+	font-weight: bold;
+	font-size: 16px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+}
+
+body
+{
+	font-size: 12px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+	margin: 6px;
+}
+
+td
+{
+	font-size: 12px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+}
+
+a
+{
+	color: black;
+	background: white;
+	text-decoration: none;
+}
+
+.thead
+{
+	color: #09C;
+	background: white;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+	text-align: center;
+
+}
+
+.ttext
+{
+	font-size: 12px;
+	
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+	text-align: left;
+
+}
+.subhead
+{
+	color: #09C;
+	background: white;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+
+}
+
+.num
+{
+	font-size: 12px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+}

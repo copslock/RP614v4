@@ -1,0 +1,86 @@
+<html>
+<head>
+<META name="description" content="WGR614">
+<META http-equiv="Content-Type" content="text/html; charset=GB2312">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+
+		
+		<title>路由器表格</title>
+		<link rel="stylesheet" href="/form1.css"> 
+		<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function goipfixed() 
+{
+    location.href="BSW_dhcp.htm"
+}
+
+function goSelect() 
+{
+    location.href="WIZ_sel.htm"
+}
+
+function loadhelp(fname,anchname) 
+{
+/*
+    if (top.helpframe != null)
+    {
+        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+        	top.helpframe.location.href=fname+"_h.htm";
+        else
+        	top.helpframe.location.href=fname+"_h.htm#" + anchname;
+    }
+*/
+}
+
+//-->
+</script>
+
+
+	</head>
+
+	<body bgcolor="#ffffff" onLoad="loadhelp('WIZ_sel');document.forms[0].next.focus()">
+		<form name="formname" method="POST" action="/cgi-bin/TraceWanDet.cgi"> 
+		<input type="hidden" name="page" value="Blank_is_dhcp.html">
+		<input type="hidden" name="Load" value="W">
+		<input type="hidden" name="WANAssign" value="Dynamic">
+		<input type="hidden" name="DNSAssign" value="Dynamic">
+		<input type="hidden" name="Button" value="Apply">
+		<input type="hidden" name="Button" value="Next">
+		<input type="hidden" name="Encap" value="0">
+		<input type="hidden" name="ResetFlag" value="0">
+		<input type="hidden" name="isSmartGui" value="1">
+		<input type="hidden" name="FinishWan" value="off">
+		<input type="hidden" name="SW_Step" value="10">
+		<table border="0" cellpadding="0" cellspacing="3" width="100%">
+			<tr>
+				<td colspan="2" align="center">	
+					<h1>检测到了动态IP（DHCP）</H1>
+				</td>
+			</tr>
+
+            <tr><td colspan="2" align="center">成功检测到您拥有的因特网连接类型。</td></tr>
+
+<!--
+			<tr><td colspan="2" align="left"><br>If you believe you have received this message in error, 
+			please power cycle your modem (unplug power and plug it back in), then close this screen, 
+			and re-open a new web browser (e.g. Internet Explorer).</td></tr>
+-->
+
+<tr> <!-- RULE -->
+ <td colspan="2" background="/img/liteblue_1.gif" height="12"> &nbsp;</td>
+</tr>
+
+		<tr>
+			<td colspan="2" align="center">
+<!--
+			<input type="Button" name="back" value="Back" onClick="goSelect()">
+-->
+			<input type="Button" name="next" value="下一步" onClick="submit()"></td>
+</tr>
+</table>
+</form>
+		<p></p>
+	</body>
+
+</html>

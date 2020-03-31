@@ -1,0 +1,142 @@
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=GB2312">
+	
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+	<title>路由器表格</title> 
+	<link rel="stylesheet" href="/form.css" type="text/css">
+		<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function isIE(){
+		var browser = new Object();
+		browser.version = parseInt(navigator.appVersion);
+		browser.isNs = false;
+		browser.isIe = false;
+		if(navigator.appName.indexOf("Netscape") != -1)
+			browser.isNs = true;
+		else if(navigator.appName.indexOf("Microsoft") != -1)
+			browser.isIe = true;
+			
+		if(browser.isNs)
+			return false;
+		else if (browser.isIe)
+			return true;
+
+}
+
+function Action(F,I){	
+	if((I == 1) && (F.thisPage.value == 1)){
+		//top.buttom.location="toppage.htm";
+		return;
+	}
+	else if ((I == 4) && (F.thisPage.value == 1) && (F.totalPage.value == 0)){
+		//top.buttom.location="lastpage.htm";
+		return;
+	}
+	else if ((I == 4) && (F.thisPage.value == F.totalPage.value)){
+		//top.buttom.location="lastpage.htm";
+		return;
+	}
+	else if (I == 2){
+		window.location = "/log.html";
+	}
+	else if (I == 5) //send log
+	{
+		if(F.email_on.value == 0)
+		{
+			alert("需要发送电子邮件通知时，\n请在电子邮件页面上打开电子邮件通知功能。");
+			return;
+		}
+		if(F.log_detail.value < 5 )
+		{
+			alert("没有待发送的日志消息。");
+			return;
+		}
+		F.log_detail.value = "";
+		F.logAction.value = I;
+		F.submit();	
+		
+	}
+	else {
+		F.log_detail.value = "";
+		F.logAction.value = I;
+		F.submit();	
+	}	
+	
+}	
+
+function loadhelp(num) {
+
+top.helpframe.document.location.href="/help/help"+num+".html"
+
+	}
+-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_logs')">
+<FORM name="formname" action="/cgi-bin/apply.cgi" method=post>
+<input type="hidden" name="page" value="log.html">
+<input type=hidden name="action" value="Log">
+<input type="hidden" name="Load" value="LD">
+<input type=hidden name=thisPage value=<% log("page"); %>>
+<input type=hidden name=totalPage value=<% log("totalpage"); %>>
+<input type=hidden name=email_on value=<% nvram_get("emailenable"); %>>
+<input type=hidden name=logAction value=0>
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<a><h1>日志</h1></a>
+			</td>
+		</tr>
+		
+			<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+		<tr>
+		        <td colspan="2" align='center'>
+			<p>
+			       <input type="hidden" name="fir_rec" value=<% nvram_get("available_localtime"); %>>
+			       <script>
+			       if(document.formname.fir_rec.value!=0)
+			         document.write("<b>当前时间： <% localtime(); %></b>")
+				</script>
+				
+			</p>
+	                </td>	
+	        </tr>    
+		<tr>
+			
+			<td colspan="2" align='center'>
+				<TEXTAREA NAME="log_detail" rows=15 cols=35 WRAP=OFF READONLY style="width:10cm"><% dumplog(); %></textarea><a>
+			</td>
+		</tr>
+		
+	
+			
+			<!-- RULE -->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+			</td>
+		</tr>
+<!-- END RULE -->
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td align='center'>
+				<input type="button" value="刷新" onclick="Action(this.form,2);">
+				<input type="button" value="清除日志" onclick="Action(this.form,3);"> 
+				<input type="button" value="发送日志" onclick="Action(this.form,5);">
+			</td>
+		</tr>
+	
+	</table>
+<input type=hidden name="Button" value="Apply">	
+</form>
+<p>
+</p>
+</body>
+</html>

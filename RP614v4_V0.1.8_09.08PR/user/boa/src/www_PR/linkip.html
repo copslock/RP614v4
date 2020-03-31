@@ -1,0 +1,269 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<title>IP保留地址</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript" type="text/javascript" src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+
+function loadhelp(fname,anchname)
+{
+	if(anchname!=' ')
+    		parent.helpframe.document.location.href="/help/help_LAN_reserv_add.html#"+anchname;
+	else
+    		parent.helpframe.document.location.href="/help/help_LAN_reserv_add.html";
+}
+/*
+function page2()
+{
+	window.location.href="/addfixed.htm";
+}
+*/
+function check2(x)
+{
+	var undefined;
+	if(document.forms[0].ip.length!=undefined)
+	{
+		load4(document.forms[0].ip[x],document.formname.FixedIP1,document.formname.FixedIP2,document.formname.FixedIP3,document.formname.FixedIP4);
+		document.formname.FixMacAdr.value=document.forms[0].mac[x].value;
+		document.formname.FixedRemark.value=document.forms[0].hostname[x].value;
+	}
+	else
+	{
+		load4(document.forms[0].ip,document.formname.FixedIP1,document.formname.FixedIP2,document.formname.FixedIP3,document.formname.FixedIP4);
+		document.formname.FixMacAdr.value=document.forms[0].mac.value;
+		document.formname.FixedRemark.value=document.forms[0].hostname.value;
+	}
+}
+
+function goBack()
+{
+	window.location.href="/lanform.html";
+}
+
+function init()
+{
+	loadhelp("_LAN_reserv_add"," ");
+
+	system = OScheck();
+	if(system.indexOf("Mac") >=0 )
+	{
+		document.formname.FixedIP1.size="5"
+		document.formname.FixedIP2.size="5"
+		document.formname.FixedIP3.size="5"
+		document.formname.FixedIP4.size="5"
+		document.formname.FixMacAdr.size="25"
+	}
+	else
+	{
+		document.formname.FixedIP1.size="4"
+		document.formname.FixedIP2.size="4"
+		document.formname.FixedIP3.size="4"
+		document.formname.FixedIP4.size="4"
+		document.formname.FixMacAdr.size="17"
+	}
+
+	if((document.formname.FixedIP1.value==0)&&(document.formname.FixedIP2.value==0)&&(document.formname.FixedIP3.value==0)&&(document.formname.FixedIP4.value==0))
+	{
+		load4(document.formname.templanip,document.formname.FixedIP1,document.formname.FixedIP2,document.formname.FixedIP3,document.formname.FixedIP4)
+		document.formname.FixedIP4.value="";
+		document.formname.FixedRemark.value="";
+		document.formname.FixMacAdr.value="";
+	}
+}
+
+function check(formname)
+{
+	var ip3=formname.FixedIP1.value+formname.FixedIP2.value+formname.FixedIP3.value+formname.FixedIP4.value;
+	var ipd3=ip3-0;
+	var Iptest = /[0-9]{1,3}/;
+
+	if((formname.FixedIP1.value<=0) || (formname.FixedIP1.value>=255) || (Iptest.test(formname.FixedIP1.value)!=true)||
+ 	   (formname.FixedIP2.value<0) || (formname.FixedIP2.value>255) || (Iptest.test(formname.FixedIP2.value)!=true)||
+	   (formname.FixedIP3.value<0) || (formname.FixedIP3.value>255) || (Iptest.test(formname.FixedIP3.value)!=true)||
+	   (formname.FixedIP4.value<=0) || (formname.FixedIP4.value>=255) || (Iptest.test(formname.FixedIP4.value)!=true))
+	{
+	        if(formname.FixMacAdr.value=="")
+	        {
+	         	alert("请从列表中选择一个设备或手工输入设备信息。");
+	        }
+	        else
+	        {
+		 	alert("IP地址无效");
+		}
+	 	return false;
+ 	}
+	var macAddr;
+	if (formname.FixMacAdr.value.indexOf(':') == -1) //can't find out
+		macAddr = StringtoMac(formname.FixMacAdr.value);
+	else
+		macAddr = formname.FixMacAdr.value;
+	if((isValidMAC(macAddr) == false))
+	{
+		alert("MAC地址无效");
+		formname.FixMacAdr.focus();
+		return false;
+	}
+	else{
+		document.formname.back1.value="";
+		add(document.formname.subip,document.formname.FixedIP1,document.formname.FixedIP2,document.formname.FixedIP3,document.formname.FixedIP4);
+		return true;
+	}
+}
+/*
+function checkData(A)
+{
+	var ip3=A.FixedIP1.value+A.FixedIP2.value+A.FixedIP3.value+A.FixedIP4.value;
+	var msg = "";
+	if(checkIP(A.FixedIP1, A.FixedIP2, A.FixedIP3, A.FixedIP4, 254))
+		msg += "IP地址无效，请重新输入\n";
+	if(checkMacStr(A.FixMacAdr))
+		msg += "MAC 地址无效，请重新输入！\n";
+	if(A.FixedRemark.value.length < 1)
+		msg += addstr(msg_blank, "名称");
+
+	if((A.FixedRemark.value == "UNKNOWN") || (A.FixedRemark.value == "UNKNOWN NAME") || (A.FixedRemark.value == ""))
+		msg+="请为所选PC输入名称。";
+
+	if(msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	return true;
+}
+*/
+function fresh()
+{
+	window.location.href="/linkip.html";
+}
+
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="init()">
+<form>
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+		<td colspan="2">
+			<h1>A地址保留</h1>
+		</td>
+	</tr>
+<!-- RULE //-->
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+<!-- END RULE //-->
+	<tr>
+		<td colspan="2" align='left'>
+		<a href="javascript:loadhelp('_LAN_reserv_add','table')"><b>地址保留表</b></a>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<table border="1" cellpadding="0" cellspacing="0" width="100%">
+				<tr>
+					<td width="10%" align="center">
+						<span class="thead">&nbsp</span>
+					</td>
+					<td width="10%" align="center">
+						<span class="thead">#</span>
+					</td>
+					<td width="20%" align="center">
+						<span class="thead">IP 地址</span>
+					</td>
+					<td width="30%" align="center">
+						<span class="thead">设备名称</span>
+					</td>
+					<td width="30%" align="center">
+						<span class="thead">MAC 地址</span>
+					</td>
+				</tr>
+				<% dhcpc_res_lease_list(); %>
+			</table>
+		</td>
+	</tr>
+	</table>
+</form>
+<!-- RULE //-->
+
+<form name="formname" action="/cgi-bin/apply.cgi" method="POST">
+	<input type="hidden" name="page" value="lanform.html">
+	<input type="hidden" name="action" value="Apply">
+	<input type="hidden" name="Load" value="H">
+	<input type="hidden" name="back1" value="">
+	<input type="hidden" name="subip" value="">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+<!-- END RULE //-->
+<!-- input box////-->
+			<table border="0" width="100%">
+				<tr>
+					<td nowrap width="37%">
+						IP 地址
+					</td>
+					<td nowrap width="63%">
+						
+						<input type=hidden name=templanip value="">
+						<input type="text" class="num" name="FixedIP1" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+						<input type="text" class="num" name="FixedIP2" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+						<input type="text" class="num" name="FixedIP3" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+						<input type="text" class="num" name="FixedIP4" size="4" maxlength="3" value="" onkeypress="chk_num(event)">
+					</td>
+				</tr>
+				<tr>
+					<td nowrap width="37%">
+						MAC 地址
+					</td>
+					<td nowrap width="63%">
+					<input type="text" class="num" name="FixMacAdr" size="17" maxlength="17" value="" onFocus="this.select();">
+					</td>
+				</tr>
+				<tr>
+					<td nowrap width="37%">
+						设备名称
+					</td>
+					<td nowrap width="63%">
+						<input type="text" name="FixedRemark" size="15" maxlength="20" value="" onFocus="this.select();">
+					</td>
+				</tr>
+			</table>
+
+	<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+
+<!-- input box////-->
+		</td>
+	</tr>
+</table>
+<table border="0" width="100%">
+	<tr>
+		<td colspan="2" align='center' nowrap>
+		<input type="hidden" name="devcount" value=<% dhcpc_lease_count(); %>>
+		<input type="hidden" name="WriteREV" value="">
+		<input type="hidden" name="Button" value="Apply">
+		<input type="submit" value=" 添加" onClick="return check(formname)">
+		<input type="Button" name="Button" value="取消" OnClick="goBack()">
+		<input type="Button" value=刷新 OnClick="fresh();">
+		</td>
+	</tr>
+</table>
+
+</form>
+
+</body>
+
+</html>

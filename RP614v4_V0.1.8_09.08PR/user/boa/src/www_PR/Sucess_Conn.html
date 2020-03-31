@@ -1,0 +1,116 @@
+
+
+<HTML>
+<HEAD>
+<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+	<link rel="stylesheet" href="form.css" type="text/css">	
+<script language="javascript" type="text/javascript">
+<!--
+
+
+function change_page(x)
+{
+	 var cf=document.forms[0];
+	 if(x==1)
+	 { 
+	   if(cf.url.value == "")
+		 {
+		 //alert('The website of register can not be got now ! Now will go to the Router Home Page');
+		 alert("The Netgear web site for registration is not available. Please register the product later");
+		 //gotoBasic(0);
+		 top.window.opener=null;
+	   	 top.window.close();
+		 }
+		 else
+		 {
+		 window.open(cf.url.value);
+		 //alert('Now you have connected to the Internet. \nAfter you registered, Please close this window and restart your Internet Browser !');
+		 alert("the window now close and a new window will open that lets you register your product.");
+		  top.window.opener=null;
+	          top.window.close();
+		 }
+	   //document.formname.chanepage.value=1;
+	   //document.formname.submit();
+	 }else{
+	   //alert("Now you have been connected to the Internet. \nMake sure close all your browser windows and restart your Internet Browser !\nThis window will be closed.");
+	   //alert("This browser window will now close");
+	   alert("Close this window. Most browser will close when you click OK. If your browser asks, follow the prompts to close and exit the browser.");
+	   top.window.opener=null;
+	   top.window.close();
+	   //document.formname.chanepage.value=2;
+	   //document.formname.submit();
+	 }  
+}
+function loadpage()
+{
+var strhref=top.location.href;
+var num=strhref.indexOf("index");
+
+if(num != -1)
+ top.contents.location.href="contents.html";
+}
+-->
+</script>
+</HEAD>
+<body onload="loadpage()">
+<form name="formname" action="/post-query" method="POST" target=_parent>
+<input type="hidden" name="Load" value="Y" >
+<table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+<tr>
+<td width="100%" align="left">
+				<H1>Success</H1>
+				</td>
+</tr>
+</table>
+
+<hr color=#0099cc> 
+<table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+<tr><td>
+Your connection to the internet is working!
+Your network is enabled. You can now connect your other
+<br>
+computers to the Internet through this router.
+<br>
+<br>
+This configuration assistant only appears when the router is in its
+<br>
+factory default state.
+
+ 
+	</td>
+</tr>
+
+
+</table>
+<hr color=#0099cc>
+<table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+<tr>
+<td>
+In the future, go to <font color=blue>http://www.routerlogin.net</font> to change the router settings.
+<br>
+When prompted, enter <b>admin</b> as the user name and <b>password</b> for the
+<br>
+password both in lower case letters.
+</td>
+</tr>
+</table>
+
+<table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="1">
+<tr>
+ <td align="middle" colspan="2">
+<!--<b>Please register your router to get product updates and support </b>
+<br> 
+<br>-->
+ <input type="hidden" name="chanepage" value="0">
+	<input type="button" name="cancel" value="Done"  onclick="change_page(2);"></td>
+	<input type="hidden" name="url" value="$$Y#website$$">
+<input type="hidden" name="Button" value="Apply">	
+</tr>
+
+</table>
+
+</form>
+</BODY>
+</HTML>
+

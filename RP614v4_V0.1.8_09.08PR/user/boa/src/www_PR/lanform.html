@@ -1,0 +1,419 @@
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<title>局域网设置</title> 
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script LANGUAGE="javascript"src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+
+<!-- hide script from old browsers
+function check(X)
+{
+	document.formname.R1.value=X;
+}
+function addnum(){
+	document.formname.Button.value="Add"; 
+	if(document.formname.ipcount.value>=10){
+		alert("超出范围");
+		return false;
+	}else
+		return true;
+	}
+function setBtnName(F,index)
+{
+//ATTACHED_DEVICES
+/*0104
+if(F.ipcount.value!=0)
+{  
+   for(var i=0;i<F.ipcount.value;i++)
+   {
+     if(F.X1[i].checked)
+         F.R1.value=F.X1[i].value;
+    }
+}
+*/
+//ATTACHED_DEVICES   
+	if(index == 1)	
+	  {
+	            	
+		F.Button.value="Modify";
+	}	
+	else if(index == 2)		
+		F.Button.value="Delete";
+	else if(index == 3)		
+		F.Button.value="Apply";	
+    return true;
+}	
+function loadcheck()
+{       
+//document.formname.PStart1.value=3;
+    if(document.formname.ipcount.value!=0)
+    	document.formname.R1.value=document.formname.ipcount.value-1;
+	loadhelp('_LANIP',' ');
+	var system = OScheck();
+	if(system.indexOf("Mac") >=0 ) {
+		document.formname.LIPAddr1.size="5"
+		document.formname.LIPAddr2.size="5"
+		document.formname.LIPAddr3.size="5"
+		document.formname.LIPAddr4.size="5"
+		document.formname.LSubnetMask1.size="5"
+		document.formname.LSubnetMask2.size="5"
+		document.formname.LSubnetMask3.size="5"
+		document.formname.LSubnetMask4.size="5"
+		document.formname.PStart1.size="5"
+		document.formname.PStart2.size="5"
+		document.formname.PStart3.size="5"
+		document.formname.PStart4.size="5"
+		document.formname.PEnd1.size="5"
+		document.formname.PEnd2.size="5"
+		document.formname.PEnd3.size="5"
+		document.formname.PEnd4.size="5"
+	}
+	else {
+		document.formname.LIPAddr1.size="4"
+		document.formname.LIPAddr2.size="4"
+		document.formname.LIPAddr3.size="4"
+		document.formname.LIPAddr4.size="4"
+		document.formname.LSubnetMask1.size="4"
+		document.formname.LSubnetMask2.size="4"
+		document.formname.LSubnetMask3.size="4"
+		document.formname.LSubnetMask4.size="4"
+		document.formname.PStart1.size="4"
+		document.formname.PStart2.size="4"
+		document.formname.PStart3.size="4"
+		document.formname.PStart4.size="4"
+		document.formname.PEnd1.size="4"
+		document.formname.PEnd2.size="4"
+		document.formname.PEnd3.size="4"
+		document.formname.PEnd4.size="4"
+	}
+	checkform(document.formname);
+}
+
+function loadhelp(fname,anchname) 
+{
+	if(anchname!=' ')
+    		parent.helpframe.document.location.href="/help/help"+fname+".html#"+anchname;
+	else
+    		parent.helpframe.document.location.href="/help/help"+fname+".html";    
+}	
+
+function checkform(A)
+{
+  	load4(A.LANIPAddr,A.LIPAddr1,A.LIPAddr2,A.LIPAddr3,A.LIPAddr4);
+  	load4(A.LANSubnetMask,A.LSubnetMask1,A.LSubnetMask2,A.LSubnetMask3,A.LSubnetMask4);
+}  
+
+function sumvalue(A)
+{
+	var StartIP, EndIP;
+	A.LANIPAddr.value = IPv4toString(getValue(A.LIPAddr1.value), getValue(A.LIPAddr2.value), getValue(A.LIPAddr3.value), getValue(A.LIPAddr4.value));
+	A.LANSubnetMask.value = IPv4toString(getValue(A.LSubnetMask1.value), getValue(A.LSubnetMask2.value), getValue(A.LSubnetMask3.value), getValue(A.LSubnetMask4.value));
+	//check LAN IP addr
+	if (checkIP(A.LIPAddr1, A.LIPAddr2, A.LIPAddr3, A.LIPAddr4, 254))
+	{
+		alert("IP地址无效，请重新输入！");
+		return false;
+	}
+	if(!isValidIP(A.LANIPAddr.value))
+	{
+		alert("IP地址无效，请重新输入！");
+		return false;
+	}
+	//check Subnet IP addr
+	if (checkIP(A.LSubnetMask1, A.LSubnetMask2, A.LSubnetMask3, A.LSubnetMask4, 254))
+	{
+		alert("IP子网掩码无效，请重新输入！");
+		return false;
+	}
+	if(!isValidMask(A.LANSubnetMask.value))
+	{
+		alert("IP子网掩码无效，请重新输入！");
+		return false;
+	}
+	
+
+ 	
+	
+ 	if(A.DHCPServer.checked){
+		StartIP = IPv4toString(getValue(A.PStart1.value), getValue(A.PStart2.value), getValue(A.PStart3.value), getValue(A.PStart4.value));
+		EndIP = IPv4toString(getValue(A.PEnd1.value), getValue(A.PEnd2.value), getValue(A.PEnd3.value), getValue(A.PEnd4.value));
+		if (checkIP(A.PStart1, A.PStart2, A.PStart3, A.PStart4, 254))
+		{
+			alert("DHCP起始IP地址无效，请重新输入！");
+			return false;
+		}
+		if(!isValidIP(StartIP))
+		{
+			alert("DHCP起始IP地址无效，请重新输入！");
+			return false;
+		}
+		if (checkIP(A.PEnd1, A.PEnd2, A.PEnd3, A.PEnd4, 254))
+		{
+			alert("DHCP结束IP地址无效，请重新输入！");
+			return false;
+		}
+		if(!isValidIP(EndIP))
+		{
+			alert("DHCP结束IP地址无效，请重新输入！");
+			return false;
+		}
+
+	 	if (( parseInt(A.LIPAddr4.value) - parseInt(A.PStart4.value)) > 0 && (parseInt(A.PEnd4.value) - parseInt(A.LIPAddr4.value)) > 0)
+	 	{
+ 			alert("局域网IP地址不能位于DHCP地址池内。");
+	 		return false;
+	 	}
+		if(isStringsEqual(A.LANIPAddr.value, StartIP) || isStringsEqual(A.LANIPAddr.value, EndIP))	
+		{
+			alert("DHCP服务器起始/结束IP地址不能包括局域网IP地址。");
+			return false;
+		}
+	 	var startip=iplength(A.PStart1)+iplength(A.PStart2)+iplength(A.PStart3)+iplength(A.PStart4);
+	  	var endip  =iplength(A.PEnd1)+iplength(A.PEnd2)+iplength(A.PEnd3)+iplength(A.PEnd4);
+	 	if (startip-endip>0) { 		
+ 			alert("结束IP地址必须大于起始IP地址。");
+	 		return false;
+	 	} 	
+ 		alert("需要更改局域网IP子网时，请运行ipconfig /release和ipconfig /renew，然后在浏览器中输入新的IP地址、再次访问本图形用户界面。");
+ 	}
+ 	setBtnName(A,3);
+ 	A.submit();
+ 	return true;
+}
+
+function iplength(iplen)
+{
+ 	var iplen2;
+ 	if (iplen.value.length==2)
+	 	iplen2="0" + iplen.value.toString();
+ 	else if(iplen.value.length==1)
+	 	iplen2="00" + iplen.value.toString();
+ 	else
+	 	iplen2=iplen.value.toString();
+ 	return iplen2;
+}
+
+function reroad()
+{
+ 	window.location="/lanform.html";
+}
+
+function changedomain1(F)
+{
+	F.PStart1.value=F.LIPAddr1.value;
+	F.PEnd1.value=F.LIPAddr1.value;
+}
+function changedomain2(F)
+{
+	F.PStart2.value=F.LIPAddr2.value;
+	F.PEnd2.value=F.LIPAddr2.value;
+}
+function changedomain3(F)
+{
+	F.PStart3.value=F.LIPAddr3.value;
+	F.PEnd3.value=F.LIPAddr3.value;
+}
+
+//-->
+</script> 
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" OnLoad="loadcheck()">
+<FORM name="formname" action="/cgi-bin/apply.cgi" method=post>
+<input type="hidden" name="page" value="lanform.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="L">
+<!-- <ATTACHED_DEVICE> -->
+<input type="hidden" name="R1" value="-1">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>局域网IP设置</h1>
+			</td>
+		</tr>
+<!-- RULE //-->
+
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td colspan="2">
+				<p>
+					<a href="javascript:loadhelp('_LANIP','tcp')"><b>局域网TCP/IP设置</b></a>
+				</p>
+			</td>
+		</tr>
+<td width="30%" nowrap>
+	IP 地址
+</td>
+<td width="70%" align="right">
+<input type="hidden" name="LANIPAddr" value="<% nvram_get("lan_ipaddr"); %>">
+
+<input type="text" name="LIPAddr1" class="num" size="4" tabindex="9" maxlength="3" value="" OnChange="changedomain1(this.form)" onkeypress="chk_num(event)"><b>.</b>
+<input type="text" name="LIPAddr2" class="num" size="4" tabindex="10" maxlength="3" value="" OnChange="changedomain2(this.form)" onkeypress="chk_num(event)"><b>.</b>
+<input type="text" name="LIPAddr3" class="num" size="4" tabindex="11" maxlength="3" value="" OnChange="changedomain3(this.form)" onkeypress="chk_num(event)"><b>.</b>
+<input type="text" name="LIPAddr4" class="num" size="4" tabindex="12" maxlength="3" value="" onkeypress="chk_num(event)">
+</td>
+</tr>
+<tr>
+	<td width="30%" nowrap>
+		IP子网掩码
+	</td>
+	<td width="70%" align="right">
+		<input type="hidden" name="LANSubnetMask" value="<% nvram_get("lan_netmask"); %>">
+		<input type="text" class="num" name="LSubnetMask1" size="4" tabindex="13" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+		<input type="text" class="num" name="LSubnetMask2" size="4" tabindex="14" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+		<input type="text" class="num" name="LSubnetMask3" size="4" tabindex="15" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+		<input type="text" class="num" name="LSubnetMask4" size="4" tabindex="16" maxlength="3" value="" onkeypress="chk_num(event)">
+	
+	</td>
+</tr>
+
+<tr>
+	<td width="30%" nowrap>
+		RIP方向
+	</td>
+	<td align="right" width="70%">
+		<select name="RIPDir" size="1">
+			<OPTION value=0 <% selected_match("rip_dir", "0"); %>>无</OPTION>
+			<OPTION value=1 <% selected_match("rip_dir", "1"); %>>双向</OPTION>
+			<OPTION value=2 <% selected_match("rip_dir", "2"); %>>仅内收</OPTION>
+			<OPTION value=3 <% selected_match("rip_dir", "3"); %>>仅外发</OPTION>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td width="30%" nowrap>
+		RIP版本
+	</td>
+	<td align="right" width="70%">
+		<select name="RIPVer" size="1">
+			<OPTION value=0 <% selected_match("rip_ver", "0"); %>>禁用</OPTION>
+			<OPTION value=1 <% selected_match("rip_ver", "1"); %>>RIP_1</OPTION>
+			<OPTION value=2 <% selected_match("rip_ver", "2"); %>>RIP_2B</OPTION>
+			<OPTION value=3 <% selected_match("rip_ver", "3"); %>>RIP_2M</OPTION>
+		</select>
+	</td>
+</tr>
+<!-- Use Dhcp //-->
+
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td colspan="2">
+				<p>
+					<input type="checkbox" value="1" name="DHCPServer" <% checked_match("lan_proto", "dhcp"); %>>
+						<a href="javascript:loadhelp('_LANIP','dhcp')"><b>将路由器用作DHCP服务</b></a>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="30%" nowrap>
+				起始IP地址
+			</td>
+			<td width="70%" align="right">
+				<img src="/img/spacer.gif" width="210" height="1" border=0><br>
+					<input type="text" class="num" name="PStart1" size="4" tabindex="1" maxlength="3" value="<% field_nvram_get("dhcp_start", ".", "1"); %>"
+	 					onfocus="if (this.form.DHCPServer.checked == false) this.form.DHCPServer.focus();" onkeypress="chk_num(event)"><b>.</b>
+					<input type="text" class="num" name="PStart2" size="4" tabindex="2" maxlength="3" value="<% field_nvram_get("dhcp_start", ".", "2"); %>"
+	 					onfocus="if (this.form.DHCPServer.checked == false) this.form.DHCPServer.focus();" onkeypress="chk_num(event)"><b>.</b>
+					<input type="text" class="num" name="PStart3" size="4" tabindex="3" maxlength="3" value="<% field_nvram_get("dhcp_start", ".", "3"); %>"
+	 					onfocus="if (this.form.DHCPServer.checked == false) this.form.DHCPServer.focus();" onkeypress="chk_num(event)"><b>.</b>
+					<input type="text" class="num" name="PStart4" size="4" tabindex="4" maxlength="3" value="<% field_nvram_get("dhcp_start", ".", "4"); %>"
+	 					onfocus="if (this.form.DHCPServer.checked == false) this.form.DHCPServer.focus();" onkeypress="chk_num(event)">
+			</td>
+		</tr>
+		<tr>
+			<td width="30%" nowrap>
+				结束IP地址
+			</td>
+			<td width="70%" align="right">
+				<input type="text" class="num" name="PEnd1" size="4" tabindex="5" maxlength="3" value="<% field_nvram_get("dhcp_end", ".", "1"); %>"
+	 				onfocus="if (this.form.DHCPServer.checked == false) this.form.DHCPServer.focus();" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="PEnd2" size="4" tabindex="6" maxlength="3" value="<% field_nvram_get("dhcp_end", ".", "2"); %>"
+	 				onfocus="if (this.form.DHCPServer.checked == false) this.form.DHCPServer.focus();" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="PEnd3" size="4" tabindex="7" maxlength="3" value="<% field_nvram_get("dhcp_end", ".", "3"); %>"
+	 				onfocus="if (this.form.DHCPServer.checked == false) this.form.DHCPServer.focus();" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="PEnd4" size="4" tabindex="8" maxlength="3" value="<% field_nvram_get("dhcp_end", ".", "4"); %>"
+	 				onfocus="if (this.form.DHCPServer.checked == false) this.form.DHCPServer.focus();" onkeypress="chk_num(event)">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!--reserved IP //-->
+		<tr>
+			<td colspan="2">
+				<p>
+					<a href="javascript:loadhelp('_LANIP','reserved')"><b>地址保留</b></a>
+				</p>
+			</td>
+		</tr>
+	</table>
+	<table border ="1" cellpadding ="0" cellspacing ="0" width="100%">
+		<tr>
+			<td nowrap width="5%" align="center">
+				<span class="thead">&nbsp</span> 
+			</td>
+			<td nowrap width="3%" align="center">
+				<span class="thead">#</span> 
+			</td>
+			<td nowrap width="24%" align="center">
+				<span class="thead">IP 地址</span> 
+			</td>
+		   <td nowrap width="34%" align="center">
+				<span class="thead">设备名称</span> 
+			</td>
+				<td nowrap width="34%" align="center">
+				<span class="thead">MAC 地址</span> 
+			</td>
+		</tr>
+<!-- ATTACHED_DEVICES //-->	
+		<% dhcpc_res_list(); %>
+	</table>
+	<br>
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td align="center" nowrap>
+				<input type="hidden" name="ipcount" value=<% nvram_get("dhcp_fix_cnt"); %>>
+				<input type=hidden name="WriteLan" value="">
+				<input type="hidden" value="0" name="Button">
+				<input type="submit" value=" 添加 "  onClick="return addnum()">
+				<input type="submit" value=" 编辑 "  onClick="return setBtnName(this.form,1)">
+				<input type="submit" value="删除" onclick="return setBtnName(this.form,2)">
+				</td>
+		</tr>
+		<tr>
+			<td align="center">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+			</td>
+		</tr>
+		<tr>
+			<td align="center" nowrap>
+				<input type="Button" value="应用"  OnClick="return sumvalue(this.form)">
+				<input type="Button" name="Cancel" value="取消" OnClick="reroad()">
+			</td>
+		</tr>
+<!--reserved IP End////-->
+
+	</table>
+</form>
+<p>
+</p>
+</body>
+
+</html>

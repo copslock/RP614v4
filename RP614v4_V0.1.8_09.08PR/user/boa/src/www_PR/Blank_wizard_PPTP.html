@@ -1,0 +1,221 @@
+<html>
+<head>
+<META name="description" content="WGR614">
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+
+<title>PPTP</title>
+<link rel="stylesheet" href="form1.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- 
+function goTestApply()
+{
+	var winoptions = "width=640,height=480,menubar=yes,toolbar=yes,status=yes,location=yes,resizable=yes";
+	if(document.forms[0].runtest.value == "yes")
+		window.open('BAS_wtest_l.htm','test_win',winoptions);
+}
+
+function loadcheck()
+{
+	var cf = document.forms[0];
+	if(isIE()){
+		cf.PoeUserName.size="24";
+		cf.PoePasswd.size="24";
+	}
+	loadhelp('WIZ_pptp');
+}
+
+function loadhelp(fname,anchname) 
+{
+/*
+    if (top.helpframe != null)
+    {
+        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+        	top.helpframe.location.href=fname+"_h.htm";
+        else
+        	top.helpframe.location.href=fname+"_h.htm#" + anchname;
+    }
+*/
+}        
+
+function loadSettings()
+{
+	var cf = document.forms[0];
+	var pptp_user_ip = cf.pptp_user_ip.value.split(".");
+	var pptp_serv_ip = cf.pptp_serv_ip.value.split(".");
+
+	if (cf.pptp_user_ip.value != "")
+	{
+		cf.PPTPMyAddr.value = pptp_user_ip[0];
+		cf.myip_2.value = pptp_user_ip[1];
+		cf.myip_3.value = pptp_user_ip[2];
+		cf.myip_4.value = pptp_user_ip[3];
+	}
+
+	if (cf.pptp_serv_ip.value != "")
+	{
+		cf.PPTPAddr.value = pptp_serv_ip[0];
+		cf.sip_2.value = pptp_serv_ip[1];
+		cf.sip_3.value = pptp_serv_ip[2];
+		cf.sip_4.value = pptp_serv_ip[3];
+	}
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	
+	return true;
+	msg+= checkBlank(cf.PoeUserName, "用户名");
+	if(cf.PoeIdleTime.value.length<=0)
+		msg+= "请输入闲置超时时间。\n";
+	else if(!_isNumeric(cf.PoeIdleTime.value))
+		msg+= "闲置超时时间无效，请输入正确的数字。\n";
+	
+	if((cf.PPTPMyAddr.value.length>0)||(cf.myip_2.value.length>0)||(cf.myip_3.value.length>0)||(cf.myip_4.value.length>0))
+		if(checkIP(cf.PPTPMyAddr,cf.myip_2,cf.myip_3,cf.myip_4,254)||(parseInt(cf.myip_4.value)==0))
+			msg+= "“我的IP地址”无效，请重新输入或者保持空白。\n";
+	if(checkIP(cf.PPTPAddr,cf.sip_2,cf.sip_3,cf.sip_4,254)||(parseInt(cf.sip_4.value)==0))
+		msg+= "服务器地址无效，请重新输入。\n";
+
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+
+	cf.PPTPMyAddr1.value = cf.PPTPMyAddr.value+'.'+cf.myip_2.value+'.'+cf.myip_3.value+'.'+cf.myip_4.value;
+	cf.pptp_serv_ip.value = cf.PPTPAddr.value+'.'+cf.sip_2.value+'.'+cf.sip_3.value+'.'+cf.sip_4.value;
+
+	return true;
+}
+function CheckSubmitData() {
+	var cf = document.forms[0];
+	
+	if(cf.PPTPUserName.value == "") {
+		alert("用户名为空！");
+		return;
+	}
+	
+	if(cf.PPTPMyAddr1.value < 1 || cf.PPTPMyAddr1.value >254 ||
+	cf.PPTPMyAddr4.value < 1 || cf.PPTPMyAddr4.value >254 ) {
+		alert("我的IP地址错误！");
+		return;
+	}
+	if(cf.PPTPAddr1.value < 1 || cf.PPTPAddr1.value >254 ||
+	cf.PPTPAddr4.value < 1 || cf.PPTPAddr4.value >254 ) {
+		alert("服务器IP地址错误！");
+		return;
+	}
+	cf.submit();
+
+}
+function RunTest() {
+	var cf = document.forms[0];
+	
+	cf.DoTest.value = "yes";
+	CheckSubmitData();
+	cf.DoTest.value = "";
+}
+
+//-->
+</script>
+</head>
+
+<!-- <body bgcolor="#ffffff" onload="loadSettings();loadcheck();goTestApply();"> -->
+<body bgcolor="#ffffff" >
+<!--
+<form name="formname" method="POST" action="wiz_pptp.cgi"> 
+-->
+
+<form name="formname" method="POST" action="cgi-bin/TraceWanDet.cgi"> 
+	<input type="hidden" name="Load" value="W">
+	<input type="hidden" name="Encap" value="2">
+	<input type="hidden" name="PPTPIdleDisconn" value="0">
+	<input type="hidden" name="autoconnect" value="0">
+	<input type="hidden" name="page" value="Blank_wizard_PPTP.html">
+	<input type="hidden" name="DoTest" value="">
+
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+<tr>
+	<td colspan="2"><h1>PPTP</h1></td>
+</tr>
+
+
+<tr><td colspan="2">登录名通常为因特网服务的电子邮件地址。 比如说，如果因特网服务中主帐户的电子邮件地址为 me@theInternet.com，则请在登录框内将其输入。
+<p>
+密码通常为登录因特网服务时使用的密码。
+<p>
+一般情况下可以忽略&ldquo;闲置超时&rdquo;。
+</td></tr>
+
+<tr>
+	<td colspan="2" background="img/liteblue_1.gif" height="12"> &nbsp;</td>
+</tr>
+
+<tr>
+	<td><a href="javascript:loadhelp('WIZ_pptp','login')" tabindex="-1"><b>登录</b></a></td>
+	<td align="right"><input type="text" name="PPTPUserName" size="15" maxlength="60" value="<% nvram_get("wan_pptp_username"); %>" ></td>
+</tr>
+<tr>
+	<td><a href="javascript:loadhelp('WIZ_pptp','password')" tabindex="-1"><b>密码</b></a></td>
+	<td align="right"><input type="password" name="PPTPPasswd" size="15" maxlength="50" value="<% nvram_get("wan_pptp_password"); %>" ></td>
+</tr>
+<tr>
+	<td nowrap><a href="javascript:loadhelp('WIZ_pptp','idletime')" tabindex="-1"><b>闲置超时</b></a>（分钟）</td>
+	<td align="right"><input type="text" class="num" name="PPTPIdleTime" size="3" maxlength="3" value="<% nvram_get("wan_pptp_idle_interval"); %>" ></td>
+</tr>
+
+<tr> <!-- RULE -->
+ <td colspan="2" background="img/liteblue_1.gif" height="12">&nbsp;</td>
+</tr>
+
+<tr>
+ <TD NOWRAP><a href="javascript:loadhelp('WIZ_pptp','myip')" tabindex="-1"><b>我的IP地址</b></a></td>
+ <TD NOWRAP align="right" class="num"><input type="text" name="PPTPMyAddr1" class="num" size="4" maxlength="3" value="<% field_nvram_get("wan_pptp_ipaddr", ".", "1"); %>" >.
+ <input type="text" name="PPTPMyAddr2" class="num" size="4" maxlength="3" value="<% field_nvram_get("wan_pptp_ipaddr", ".", "2"); %>" >.
+ <input type="text" name="PPTPMyAddr3" class="num" size="4" maxlength="3" value="<% field_nvram_get("wan_pptp_ipaddr", ".", "3"); %>" >.
+ <input type="text" name="PPTPMyAddr4" class="num" size="4" maxlength="3" value="<% field_nvram_get("wan_pptp_ipaddr", ".", "4"); %>" ></td>
+</tr>
+<tr>
+ <TD NOWRAP><a href="javascript:loadhelp('WIZ_pptp','serverip')" tabindex="-1"><b>服务器IP地址</b></a></td>
+ <TD NOWRAP align="right" class="num"><input type="text" name="PPTPAddr1" class="num" size="4" maxlength="3" value="<% field_nvram_get("wan_pptp_server_ipaddr", ".", "1"); %>" >.
+ <input type="text" name="PPTPAddr2" class="num" size="4" maxlength="3" value="<% field_nvram_get("wan_pptp_server_ipaddr", ".", "2"); %>" >.
+ <input type="text" name="PPTPAddr3" class="num" size="4" maxlength="3" value="<% field_nvram_get("wan_pptp_server_ipaddr", ".", "3"); %>" >.
+ <input type="text" name="PPTPAddr4" class="num" size="4" maxlength="3" value="<% field_nvram_get("wan_pptp_server_ipaddr", ".", "4"); %>" ></td>
+</tr>
+
+<tr> <!-- RULE -->
+ <td colspan="2" background="img/liteblue_1.gif" height="12">&nbsp;</td>
+</tr>
+<tr>
+	<td colspan="2" align="center" nowrap><div ID="buttons" onmouseover="loadhelp('WIZ_pptp','buttons')">
+<!--
+	<input type="SUBMIT" name="apply" value="Apply" onClick="return checkData()">
+	<input type="BUTTON" name="Cancel" value="Cancel" onClick="reset();loadSettings();">
+	<input type="SUBMIT" name="Test" value="Test" onClick="return checkData()">
+-->
+
+	<input type="button" name="Next" value=" 下一步 " onClick="CheckSubmitData()">
+	<input type="button" name="Next" value=" 测试 " onClick="RunTest()">
+
+</div></td></tr>
+</table>
+<input type="hidden" name="runtest" value="no">
+<INPUT name=pptp_user_ip type=hidden value= "">
+<INPUT name=pptp_serv_ip type=hidden value= "10.0.0.138">
+</form>
+<p></p>
+</body>
+
+</html>

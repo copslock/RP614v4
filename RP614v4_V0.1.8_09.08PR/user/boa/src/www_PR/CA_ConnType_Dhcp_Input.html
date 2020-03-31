@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>安装助手&mdash;&mdash;中文</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script language="JavaScript" src="/showBanner.js"></script>
+<script language="Javascript" src="/string.js"></script>
+<script>AssignVariable();</script>
+<link href="/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form name="forms" action="/cgi-bin/CA.cgi" method="post">
+<input type="hidden" name="Load" value="W">
+<input type="hidden" name="page" value="CA_ConnType_Dhcp_Input.html">
+<input type="hidden" name="Encap" value="0">
+<input type="hidden" name="WANAssign" value="Dynamic">
+<input type="hidden" name="CA_Step" value="10">
+
+<table border="0" cellspacing="0" cellpadding="0" align="left" width="100%" height="100%">
+<script language="JavaScript">
+var menuItem	="3";
+PresentHead();
+PresentMenu(menuItem);
+</script>
+<td valign="top" width="80%" height="100%">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<td valign="top" width="2%" height="100%"></td>
+		<td valign="top" width="90%" height="100%">
+		<h1>请输入动态IP地址连接的详细信息。 </h1>
+			<table width="60%" border="0">
+			   <td colspan="3"><p><strong>动态IP地址的详细登录信息 </strong></p></td>			  
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td><strong>帐户名</strong>（如果需要） </td>
+		         <td><input name="SysName" type="text" size="15" maxlength="15" value="<% nvram_get("wan_hostname"); %>" /></td>
+		       </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td><strong>域名</strong>（如果需要）</td>
+		         <td><input name="Domain" type="text" size="15" maxlength="15" value="<% nvram_get("wan_domain"); %>" /></td>
+		       </tr>
+		       <td>
+			     <p>&nbsp;</p>
+			     <p>&nbsp;</p>
+			     <p>&nbsp;</p>
+			   </td>
+			</table>
+		</td>
+	</table>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<td valign="top" width="5%" height="100%"></td>
+		<td valign="top" width="15%" height="100%"></td>
+		<td valign="top" width="15%" height="100%"></td>
+		<td valign="top" width="15%" height="100%">
+   			<input type=button value="下一步&gt;" onClick="submit();">
+   		</td>
+		<td valign="top" width="50%" height="100%"></td>
+	</table>
+	
+</table>
+</td>
+</table>
+<input type="hidden" name="KK" value="EndOfParam">
+</form>
+</body>
+</html>

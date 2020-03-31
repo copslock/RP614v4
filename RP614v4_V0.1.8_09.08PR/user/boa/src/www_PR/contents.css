@@ -1,0 +1,6 @@
+
+body { color: white; font-weight: bold; font-size: 10pt; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, Arial, Helvetica, Geneva, Swiss, SunSans-Regular; margin: 6px; height: 0px }
+a  { color: white; font-weight: bold; font-size: 10pt; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular; text-decoration: none }
+h1 { color: #09c; font-weight: bold; font-size: 10pt; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular; margin: 0pt }
+p { color: white; font-weight: normal; font-size: 10pt; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular }
+ul { color: white; font-weight: bold; font-size: 10pt; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular; text-align: left; vertical-align: middle; list-style-image: url(img/redbullet.gif); list-style-position: outside }

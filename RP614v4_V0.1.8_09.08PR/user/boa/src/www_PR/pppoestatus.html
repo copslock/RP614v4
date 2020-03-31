@@ -1,0 +1,111 @@
+<html>
+<head>
+<!-- Inserted by TRADOS: --><META HTTP-EQUIV="content-type" CONTENT="text/html; charset=GB2312">
+<title>PPPoE状态</title>
+<meta http-equiv=refresh>
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="browser.js"></script>	
+<script language="javascript" type="text/javascript" src="/utility.js"></script>
+<script language=JavaScript>
+function countTime(){
+	window.focus();
+	//var t=document.forms[0].connTime.value;
+	var s=document.forms[0].connStatus.value;
+	var g=document.forms[0].getIP.value;
+	timeString='';
+
+	if((s != 'OK') && (g == '0.0.0.0')){
+		window.setTimeout('Fresh()',5000);
+	}
+	if(s == 'OK')
+		window.setTimeout('Fresh()',60000);
+}
+
+function pppoeAction(F,I) 
+{
+	d =parseInt(I.value, 10);
+	F.pppoeAct.value = I;
+	F.submit();
+}
+
+function Fresh() {
+	parent.location = "/pppoestatus.html";
+}
+</script>
+</head>
+
+<body  bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" text=black onLoad=countTime()>
+<center><br>
+<form method="post" action="/cgi-bin/apply.cgi">
+<input type="hidden" name="page" value="pppoestatus.html">
+<input type=hidden name="action" value="connection">
+<!--<FONT face="Arial, Helvetica, sans-serif" size=3><B><% pppoe_status("pppoe_cfg"); %></B></FONT>-->
+<TABLE border=0 width="100%"> 
+ <TR>
+ <TD nowrap colspan="2" align="left"><h1>连接状态</h1></TD>
+ </TR> 
+</TABLE>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+ <img src="/img/liteblue.gif" width="100%" height="2" border="0">
+</tr>
+</table>
+<table width=100% border=1 cellspacing=1 cellpadding=5>
+	<tr>
+		<td><FONT face="Arial, Helvetica, sans-serif"><B>连接时间</B></FONT></td>
+		<td><FONT face="Arial, Helvetica, sans-serif"><% pppoe_status("pppoe_connect_time"); %></FONT></td>
+	</tr>
+	
+	<tr>
+		<td><FONT face="Arial, Helvetica, sans-serif"><B>连接到服务器</B></FONT></td>
+		<td><FONT face="Arial, Helvetica, sans-serif"><% pppoe_status("pppoe_discover"); %></FONT></td>
+	</tr>
+	<tr>
+		<td><FONT face="Arial, Helvetica, sans-serif"><B>协商</B></FONT></td>
+		<td><FONT face="Arial, Helvetica, sans-serif"><% pppoe_status("pppoe_lcp"); %></FONT></td>
+	</tr>
+	<tr>
+		<td><FONT face="Arial, Helvetica, sans-serif"><B>认证</B></FONT></td>
+		<td><FONT face="Arial, Helvetica, sans-serif"><% pppoe_status("pppoe_auth"); %></FONT></td>
+	</tr>
+	<tr>
+		<td><FONT face="Arial, Helvetica, sans-serif"><B>取得IP地址</B></FONT></td>
+		<td><FONT face="Arial, Helvetica, sans-serif"><% nvram_get("wan0_ipaddr"); %></FONT></td>
+	</tr>
+	<tr>
+		<td><FONT face="Arial, Helvetica, sans-serif"><B>取得网络掩码</B></FONT></td>
+		<td><FONT face="Arial, Helvetica, sans-serif"><% nvram_get("wan0_netmask"); %></FONT></td>
+	</tr>
+	<!--<input type=hidden name=connTime value=$$A#CONNTIME$$>	-->
+	<input type=hidden name=connStatus value=<% pppoe_status("pppoe_discover"); %>>
+	<input type=hidden name=getIP value=<% nvram_get("wan0_ipaddr"); %>>
+</table>
+<p>
+<TABLE border=0 cellPadding=0 cellSpacing=0 width=250>
+	<TBODY>
+		<TR>
+			<input type=hidden name=pppoeAct value=0>
+			<TD align="center">
+				<input type=button value=' 连接' onClick='pppoeAction(this.form,1)'>
+				<input type=button value=' 断开连接' onClick='pppoeAction(this.form,2)'>
+			</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0> 
+	<tr width="100%">
+		<td>
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0"> &nbsp;
+				<center>
+					<input type=button name="close" value="关闭窗口" onclick="window.close();">
+				</center>  
+		</td>
+	</tr> 
+	<input type=hidden name="Button" value="Apply">
+</table>
+</form>
+</center>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<title>端口触发</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript" type="text/javascript" src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function loadhelp(fname,anchname)
+{
+	if (anchname!=' ')
+		top.helpframe.location.href="/help/help"+fname+".html#"+anchname;
+	else
+		top.helpframe.location.href="/help/help"+fname+".html";
+}
+
+// Amy 2005,12,07
+function doTypeChange(newIndex)
+{
+	var cf = document.forms[0];
+	if(newIndex == 0)
+		location.href = "/ports_app_table.html";
+	else if(newIndex == 1)
+		location.href = "/port_trigger.html";
+}
+function addtriggerlist()
+{
+	var F = document.forms[0];
+	var count = F.triount.value;
+	F.triggerporten.value = "";
+	if(count==1){
+		if(F.ProTrEntAct.checked)
+			F.triggerporten.value += '1';
+		else
+			F.triggerporten.value += '0';			
+		return;
+	}
+	for(var i=0; i<count; i++){
+		if(F.ProTrEntAct[i].checked)
+			F.triggerporten.value += '1';
+		else
+			F.triggerporten.value += '0';			
+	}
+}
+function setBtnName(F,index)
+{
+	var count=F.triount.value;
+	if(index == 1)
+	{
+		if(F.triount.value>=20)
+		{
+			alert("最大项目为20");
+			return false;
+		}
+		F.Button.value="Add";
+	}
+	else if(index == 2)
+		F.Button.value="Modify";
+	else if(index == 3)
+	{
+		F.delonly.value=1;
+		F.TriFinApply.disabled=true;
+		F.Button.value="Delete";
+	}
+	else if(index == 4)
+	{
+		addtriggerlist();
+		F.Button.value="Apply";
+		F.TriFinApply.value=1;
+		F.TriggerFin.value=0;
+		F.TriggerFin.disabled=true;
+	}
+	return true;
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+	var timeout = parseInt(cf.triggertime.value);
+	if(cf.triggertime.value.length == 0 || isNaN(timeout) || timeout <= 0)
+	{
+		alert("超时时间必须是大于0的整数");
+		return false;
+	}
+	return true;
+}
+
+function goBack()
+{
+	window.location="/port_trigger.html";
+}
+
+function check(x)
+{
+	document.formname.radiotrigger.value=x;
+}
+-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_porttriggering');">
+<form name="formname" action="/cgi-bin/apply.cgi" method="POST" >
+<input type="hidden" name="page" value="port_trigger.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="E">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<!-- Amy 2005,12,07 -->
+	<tr>
+		<td colspan="2">
+			<h1>端口转发/端口触发</h1>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2" no wrap>
+			<b>请选择服务类型</b>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<input type="radio" name="serv_type" value="pf" onClick="doTypeChange(0)">端口转发
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<input type="radio" checked name="serv_type" value="pt" onClick="doTypeChange(1)">端口触发
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+<!-- Amy 2005,12,07 end -->
+
+	<tr>
+		<td align=left nowrap>
+		<input type='checkbox' name="PortTriEnable" <% checked_match("fw_porttrigenable", "0"); %>><b>禁用端口触发</b>
+		</td>
+	</tr>
+	<tr>
+		<td width="50%" nowrap><b><a href="javascript:loadhelp('_porttriggering','pt_timeout')">端口触发超时</a></b>(分钟)</td>
+		<td width="50%" align=right>
+		<input type="text" class="num" name="triggertime" value="<% nvram_get("fw_triggertime"); %>" size="5" maxlength="4" onFocus="this.select();" onkeypress="chk_num(event)">
+		<input type="hidden" name="delonly" value="0">
+		<input type="hidden" name="radiotrigger" value="0">
+		<input type="hidden" name="triount" value="<% nvram_get("trigger_count"); %>">
+		<input type="hidden" name="TriggerFin" value=1>
+		<input type="hidden" name="triggerporten" value="">
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2" no wrap>
+			<b>端口触发端口映射表</b>
+		</td>
+	</tr>
+<!--
+</table>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+-->
+<tr>
+	<td colspan="2">
+		<table border ="1" cellpadding ="0" cellspacing ="0" width="100%">
+			<tr>
+				<td nowrap width="3%" align="center"><span class="thead">&nbsp;</span></td>
+				<td nowrap width="3%" align="center"><span class="thead">#</span></td>
+				<td nowrap align="center"><span class="thead">启用</span></td>
+				<td nowrap align="center"><span class="thead">服务名称</span></td>
+				<td nowrap align="center"><span class="thead">服务类型</span></td>
+				<td nowrap align="center"><span class="thead">入站连接</span></td>
+				<td nowrap align="center"><span class="thead">服务用户</span></td>
+			</tr>
+			<% trigger_port_list("trigger_port0"); %>
+			<% trigger_port_list("trigger_port1"); %>
+			<% trigger_port_list("trigger_port2"); %>
+			<% trigger_port_list("trigger_port3"); %>
+			<% trigger_port_list("trigger_port4"); %>
+			<% trigger_port_list("trigger_port5"); %>
+			<% trigger_port_list("trigger_port6"); %>
+			<% trigger_port_list("trigger_port7"); %>
+			<% trigger_port_list("trigger_port8"); %>
+			<% trigger_port_list("trigger_port9"); %>
+			<% trigger_port_list("trigger_port10"); %>
+			<% trigger_port_list("trigger_port11"); %>
+			<% trigger_port_list("trigger_port12"); %>
+			<% trigger_port_list("trigger_port13"); %>
+			<% trigger_port_list("trigger_port14"); %>
+			<% trigger_port_list("trigger_port15"); %>
+			<% trigger_port_list("trigger_port16"); %>
+			<% trigger_port_list("trigger_port17"); %>
+			<% trigger_port_list("trigger_port18"); %>
+			<% trigger_port_list("trigger_port19"); %>
+		</table>
+	</td>
+</tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type="hidden" name="TriFinApply" value=0>
+			<input type="hidden" name="Button" value="0">
+			<input type="Submit" value="添加服务" OnClick="return setBtnName(this.form,1)">&nbsp;
+			<input type="Submit" value="编辑服务" OnClick="return setBtnName(this.form,2)">&nbsp;
+			<input type="Submit" value="删除服务" OnClick="return setBtnName(this.form,3)">&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2" align="center" nowrap>
+			<input type="Submit" value="应用" OnClick="if(!checkData())return false; setBtnName(this.form,4)">
+			<input type="button" value="取消" onclick="goBack()">
+		</td>
+	</tr>
+
+</table>
+</form>
+<p>
+</p>
+</body>
+
+</html>

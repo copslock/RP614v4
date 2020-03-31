@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>BPA状态</title>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript">
+<!--
+function refreshPage() {
+	window.setTimeout('window.location.href = "telstrastatus.html";',5000);
+}
+function telstraAction(F,I) {
+	F.pppoeAct.value = I;
+	F.submit();
+}
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" text=black onLoad="refreshPage()">
+<center><br>
+<form method="post" action="/cgi-bin/apply.cgi">
+<input type="hidden" name="page" value="telstrastatus.html">
+<input type=hidden name="action" value="connection">
+<TABLE border=0 width="100%">
+ 
+ <TR>
+ <TD nowrap colspan="2" align="left"><h1>连接状态</h1></TD>
+ </TR>
+ 
+</TABLE>
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+
+<tr>
+ <img src="/img/liteblue.gif" width="100%" height="2" border="0">
+</tr>
+</table>
+
+
+<table width="100%" border=1 cellspacing=1 cellpadding=5>
+<tr>
+	<TD NOWRAP width="50%"><B>连接状态</B></td>
+	<TD NOWRAP width="50%"><% bpa_login_status(); %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B>取得IP地址</B></td>
+	<TD NOWRAP><% nvram_get("wan0_ipaddr"); %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B>取得网络掩码</B></td>
+	<TD NOWRAP><% nvram_get("wan0_netmask"); %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B>取得缺省网关</B></td>
+	<TD NOWRAP><% nvram_get("wan0_gateway"); %></td>
+</tr>
+</table>
+<p>
+<TABLE border=0 cellPadding=0 cellSpacing=0 width=250>
+	<TBODY>
+    	<TR>
+		<input type=hidden name=pppoeAct value=0>
+            	<TD align="center">
+		        <input type=button value=' 连接' onClick='telstraAction(this.form,5)'>
+		        <input type=button value=' 断开连接' onClick='telstraAction(this.form,6)'>
+                </TD>
+		</TR>
+	</TBODY>
+</TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0> 
+	<tr width="100%">
+		<td>
+        	<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+            	<center>
+                	<input type=button name="close" value="关闭窗口" onclick="self.close();">
+		</center>  
+        </td>
+    </tr> 
+</table>
+</form>
+</body>
+</html>

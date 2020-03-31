@@ -1,0 +1,422 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta name="generator" content="Adobe GoLive 5">
+<title>广域网设置</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript" src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+var isptype=<% nvram_get("fw_pppoetype"); %>;
+function loadcheck()
+{
+/*
+	var pptptype=<% nvram_get("fw_pppoetype"); %>;
+	if(pptptype==2)
+	{
+//		document.formname.MTU.disabled = true;
+		if(document.formname.MTU.value >1400)
+			document.formname.MTU.value=1400;
+	}
+*/
+	if(isIE())
+	{
+		document.formname.DmzAddr.size="15"
+	}
+	else
+	{
+		document.formname.DmzAddr.size="10"
+	}
+	loadhelp('_security',' ');
+
+	var system = OScheck();
+	if(system.indexOf("Mac") >=0)
+	{
+		document.formname.DAddr1.size="5"
+		document.formname.DAddr2.size="5"
+		document.formname.DAddr3.size="5"
+		document.formname.DAddr4.size="5"
+		document.formname.MTU.size="6"
+	}
+	else
+	{
+		document.formname.DAddr1.size="4"
+		document.formname.DAddr2.size="4"
+		document.formname.DAddr3.size="4"
+		document.formname.DAddr4.size="4"
+		document.formname.MTU.size="5"
+	}
+	checkform(document.formname);
+//	checkCB();
+}
+
+function loadhelp(fname,anchname)
+{
+	isptype=<% nvram_get("fw_pppoetype"); %>;
+	if(anchname!=' ')
+		parent.helpframe.document.location.href="/help/help"+fname+".html#"+anchname
+	else
+		parent.helpframe.document.location.href="/help/help"+fname+".html"
+}
+
+function checkform(A)
+{
+	var LanIP= "<% nvram_get("lan_ipaddr"); %>";
+	load4(LanIP,A.DmzAddr,A.DAddr1,A.DAddr2,A.DAddr3,A.DAddr4);
+	if(A.DAddr4.value==0)
+	{
+		A.DAddr4.value="";
+	}
+}
+
+function sumvalue(A)
+{
+/*
+	var Iptest = /[0-9]{1,3}/;
+	if((A.DAddr1.value!="")&&(A.DAddr2.value!="")&&(A.DAddr3.value!="")&&(A.DAddr4.value!=""))
+	{
+		if(	(A.DAddr1.value<1) || (A.DAddr1.value>254) || (Iptest.test(A.DAddr1.value)!=true) ||
+			(A.DAddr2.value<0) || (A.DAddr2.value>255) || (Iptest.test(A.DAddr2.value)!=true) ||
+			(A.DAddr3.value<0) || (A.DAddr3.value>255) || (Iptest.test(A.DAddr3.value)!=true) ||
+			(A.DAddr4.value<0) || (A.DAddr4.value>255) ||  (Iptest.test(A.DAddr4.value)!=true) )
+		{
+			alert("服务器IP地址无效")
+			return false;
+		}
+	}
+*/
+	var msg = "";
+	if (A.DMZServer.checked)
+	{
+		msg += checkInt(A.DAddr1, "DMZ IP", 1, 254, true);
+		msg += checkInt(A.DAddr2, "DMZ IP", 0, 255, true);
+		msg += checkInt(A.DAddr3, "DMZ IP", 0, 255, true);
+		msg += checkInt(A.DAddr4, "DMZ IP", 1, 254, true);
+	}
+	msg+= checkInt(A.MTU, "MTU值", 1, 1500, true);
+	if(A.MTU.value.length < 1)
+	{
+		msg += addstr(msg_blank, "MTU值");
+		msg += "\n"
+	}
+	if((A.MTU.value > 1500) || (A.MTU.value < 616))
+		msg += "MTU值无效，有效范围是616到1500\n";
+	if(msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	add(A.DmzAddr,A.DAddr1,A.DAddr2,A.DAddr3,A.DAddr4);
+	
+	if(document.formname.DosEnable.checked)
+		document.formname.autoconnect.value = "on";
+	else
+		document.formname.autoconnect.value = "off";
+		
+	if(document.formname.DMZServer.checked)
+		document.formname.dmzenable.value = "on";
+	else
+		document.formname.dmzenable.value = "off";
+
+	if(document.formname.SPILog.checked)
+		document.formname.fwdisable.value = "on";
+	else
+		document.formname.fwdisable.value = "off";
+
+	if(document.formname.WanPing.checked)
+		document.formname.wanping.value = "1";
+	else
+		document.formname.wanping.value = "0";
+
+	return true;
+}
+
+function load4(Mydata,Mydata1,ip1,ip2,ip3,ip4)
+{
+	var len;
+	var ad;
+	var temp;
+	var Myall,Myall1;
+	Myall=Mydata;
+	Myall1=Mydata1.value;
+
+	//ip1
+	len=Myall.length;
+	temp=Myall.indexOf(".");
+	ad=Myall.substring(0,temp);
+	ip1.value=ad;
+
+	//ip2
+	Myall=Myall.substring(temp+1,len);
+	len=Myall.length;
+	temp=Myall.indexOf(".");
+	ad=Myall.substring(0,temp);
+	ip2.value=ad;
+
+	//ip3
+	Myall=Myall.substring(temp+1,len);
+	len=Myall.length;
+	temp=Myall.indexOf(".");
+	ad=Myall.substring(0,temp);
+	ip3.value=ad;
+
+	//ip4 
+	len=Myall1.length;
+	temp = Myall1.indexOf(".");
+	temp = Myall1.indexOf(".",temp+1);
+	temp = Myall1.indexOf(".", temp+1);
+	ad = Myall1.substring(temp+1,len);
+	ip4.value=ad;
+}
+
+function chk_num(event)
+{
+	if (event.keyCode < 48 || event.keyCode > 57)
+		event.returnValue = false;
+}
+
+function refresh()
+{
+	window.location.href="/security.html";
+}
+
+function ValidMTU(F)
+{
+	/* added by aL 2001/01/10 */
+	P0 = parseInt(F.value, 10);
+	if(!( P0 >= 576 && P0 <= 1500))
+	{
+		alert('端口超出范围[576,1500]。');
+		F.value = F.defaultValue;
+	}
+}
+
+function changefocus(form)
+{
+	isptype2=<% nvram_get("fw_pppoetype"); %>;
+	if(isptype2==2)
+		form.SPILog.focus();
+}
+
+function disa_dmz()
+{
+	var cf = document.forms[0];
+	cf.DAddr1.disabled = true;
+	cf.DAddr2.disabled = true;
+	cf.DAddr3.disabled = true;
+}
+/*
+function checkCB()
+{
+	flag = document.formname.DMZServer.checked;
+	if(flag)
+		document.formname.elements[fName].disabled = !cOBJ.checked;
+}
+
+function setTF(cOBJ, fName)
+{
+	document.formname.elements[fName].disabled = !cOBJ.checked;
+}
+*/
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadcheck();disa_dmz()">
+<form name="formname" action="/cgi-bin/apply.cgi" method="POST">
+<input type="hidden" name="page" value="security.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="P">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>广域网设置</h1>
+			</td>
+		</tr>
+
+	    	<tr>
+	    		<td colspan="2">
+	    			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	    		</td>
+	    	</tr>
+
+		<tr>
+			<td colspan="2" nowrap>
+				<p>
+					<b>
+						<input type="hidden" name="autoconnect">
+						<input type="checkbox" name="DosEnable" <% checked_match("auto_connect", "1"); %>>
+						<a href="javascript:loadhelp('_security','dod')">需要时自动连接</a>
+					</b>
+				</p>
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+			</td>
+		</tr>
+
+		<tr>
+	        	<td colspan="2" nowrap>
+	        		<p>
+	        			<b>
+	        				<input type="hidden" name="fwdisable">
+		            			<input type="checkbox" name="SPILog" <% checked_match("fw_disable", "1"); %>>
+		            			<a href="javascript:loadhelp('_security','spi')">禁用SPI防火墙</a>
+	            			</b>
+	        	</td>
+	    	</tr>
+
+	    	<tr>
+	    		<td colspan="2">
+	    			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	    		</td>
+	    	</tr>
+
+			<tr>
+			<td nowrap>
+			<!--	<input type="checkbox" value="1">	-->
+			<!--	<input type="checkbox" name=DMZServer onClick="setTF(this,'DAddr4')">	-->
+				<input type="hidden" name="dmzenable">
+				<input type="checkbox" name="DMZServer" <% checked_match("dmz_enable", "1"); %>>
+				<a href="javascript:loadhelp('_security','dmz')"><b>缺省DMZ服务器</b></a>
+			</td>
+			<td align="right" nowrap>
+				<input type="hidden" name="DmzAddr" value="<% nvram_get("dmz_ipaddr"); %>">
+				<input type="text" class="num" name="DAddr1" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="DAddr2" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="DAddr3" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="DAddr4" size="4" maxlength="3" value="" onkeypress="chk_num(event)">
+			</td>
+		</tr>
+
+<!-- RULE //-->
+<!--
+<tr>
+	<td colspan="2">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	</td>
+</tr>
+<tr>
+	<td colspan="2">
+	        <b>WAN Port Speed</b>&nbsp;&nbsp;
+
+		<select name="WanSpeed" class=ttext size="1">
+			<option value='1' $$W#Auto$$>Auto</option>
+			<option value='2' $$W#10_half$$>10M half</option>
+			<option value='3' $$W#10_full$$>10M full</option>
+			<option value='4' $$W#100_half$$>100M half</option>
+			<option value='5' $$W#100_full$$>100M full</option>
+		</select>
+	</td>
+</tr>-->
+<tr>
+	<td colspan="2">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	</td>
+</tr>
+<!-- END RULE //-->
+<!--Amy 2005,12,07
+	</table>
+	<table  border="0" cellpadding="0" cellspacing="3" width="100%">
+-->
+	<tr>
+		<td colspan="2" nowrap>
+			<p>
+				<b>
+					<input type="hidden" name="wanping">
+					<input type="checkbox" name="WanPing" <% checked_match("wan_ping", "1"); %>>
+					<a href="javascript:loadhelp('_security','ping')">响应因特网端口Ping命令</a>
+				</b>
+			</p>
+		</td>
+	</tr>
+<!-- RULE //-->
+
+<!-- END RULE //-->
+<!--Amy 2005,12,06
+	<TR>
+    	<TD colspan="2" align="left">
+    		<font color="0099cc"><b>SPI</b></font>
+	</TD>
+	</TR>
+-->
+
+<!--
+    <TR>
+        <TD colspan="2">
+            <input type="checkbox" value="1" name=VPNpass $$P#VPNpass$$><b>Enable VPN pass through</b>&nbsp; &nbsp; 
+        </td>
+    </TR>
+
+    <TR>
+        <TD colspan="2">
+            <input type="checkbox" value="1" name=BlockJava $$P#BlockJava$$><b>Block Java, ActiveX, Cookies</b>&nbsp; 
+        </td>
+    </TR>
+-->
+<!--
+    <TR>
+        <TD colspan="2">
+            <input type="checkbox" value="1" name=BlockJava $$P#BlockJava$$><b>Block Java</b>&nbsp;&nbsp;
+            <input type="checkbox" value="1" name=JavaProxy $$P#JavaProxy$$><b>Web Proxy</b>&nbsp;&nbsp;
+        </td>
+    </TR>
+    <TR>
+        <TD colspan="2">
+            <input type="checkbox" value="1" name=BlockActiveX $$P#BlockActiveX$$><b>Block ActiveX</b>&nbsp;&nbsp;
+            <input type="checkbox" value="1" name=ActiveXProxy $$P#ActiveXProxy$$><b>Web Proxy</b>&nbsp;&nbsp;
+        </td>
+    </TR>
+    <TR>
+        <TD colspan="2">
+            <input type="checkbox" value="1" name=BlockCookies $$P#BlockCookies$$><b>Block Cookies</b>&nbsp;&nbsp;
+            <input type="checkbox" value="1" name=CookiesProxy $$P#CookiesProxy$$><b>Web Proxy</b>&nbsp;&nbsp;
+        </td>
+    </TR>
+-->
+<!-- RULE //-->
+<tr>
+	<td colspan="2">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	</td>
+</tr>
+<!-- END RULE //-->
+
+<tr>
+	<td nowrap>
+		<p>
+			<b><a href="javascript:loadhelp('_security','MTU')">MTU尺寸</b>（字节）
+		</p>
+	</td>
+	<td align="right" nowrap>
+		<input type="text" class="num" name="MTU" size="5" maxlength="4" value=<% nvram_get("fw_wan_mtu"); %> tabindex="9" onkeypress="chk_num(event)">  <!-- onChange=ValidMTU(this)> -->
+		<input type=hidden name=SecuFinish value="1">
+	</td>
+</tr>
+<!-- RULE //-->
+<tr>
+	<td colspan="2">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	</td>
+</tr>
+<!-- END RULE //-->
+<tr>
+	<td colspan="2" align="center" nowrap>
+		<input type=hidden name="Button" value="Apply">
+		<input type="Button"  value="应用" OnClick="if (sumvalue(this.form)) document.formname.submit()">
+		<input type="button" name="Cancel" value="取消" onclick="refresh()">
+	</td>
+</tr>
+
+</table>
+</form>
+<p>
+</p>
+</body>
+
+</html>

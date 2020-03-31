@@ -1,0 +1,234 @@
+<html>
+<head>
+<META name="description" content="RP614v4">
+<META http-equiv="Content-Type" content="text/html; charset=GB2312">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+
+<title>WAN测试</title>
+<style>
+P {
+	LIST-STYLE-POSITION: outside; FONT-SIZE: 12px; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif
+}
+H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px; BACKGROUND: white; COLOR: #09c; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif
+}
+BODY {
+	FONT-SIZE: 12px; MARGIN: 6px; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif
+}
+TD {
+	FONT-SIZE: 12px; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif
+}
+A {
+	BACKGROUND: white; COLOR: black; TEXT-DECORATION: none
+}
+.thead {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: white; COLOR: #09c; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif; TEXT-ALIGN: center
+}
+.ttext {
+	FONT-SIZE: 12px; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif; TEXT-ALIGN: center
+}
+.subhead {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: white; COLOR: #09c; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif
+}
+.num {
+	FONT: 10pt "Courier New",Courier,serif; COLOR: black
+}
+
+</style>
+
+<script language=JavaScript type="text/javascript">
+
+function changepage()
+{
+	var cf = document.forms[0];
+
+	if (cf.testOK.value == 1)
+		setTimeout("window.location.replace('http://www.netgear.com/success/rp614v4.php')",5000);
+	else
+		setTimeout("window.location.replace('/BAS_wtest_d.html')",2500);
+}
+
+var NS4 = (document.layers);
+
+function setVisible(divID, setto)
+{
+	if (NS4)
+		document.layers[divID].display = setto;
+	else if (document.all)
+		document.all(divID).style.display = setto;
+	else if (document.getElementById)
+		document.getElementById(divID).style.display = setto;
+}
+
+function DetWanType() {
+	var cf = document.forms[0];
+	
+	if(cf.WanType.value == "pppoe") {
+		setVisible("PPPOEform", "");
+		setVisible("PPTPform", "none");
+		setVisible("BPAform", "none");
+		setVisible("PromptL", "");
+	} else if(cf.WanType.value == "pptp") {
+		setVisible("PPPOEform", "none");
+		setVisible("PPTPform", "");
+		setVisible("BPAform", "none");
+		setVisible("PromptL", "");
+	} else if(cf.WanType.value == "telstra") {
+		setVisible("PPPOEform", "none");
+		setVisible("PPTPform", "none");
+		setVisible("BPAform", "");
+		setVisible("PromptL", "");
+	} else {
+		setVisible("PPPOEform", "none");
+		setVisible("PPTPform", "none");
+		setVisible("BPAform", "none");
+		setVisible("PromptL", "none");
+	}
+
+	changepage();
+
+}
+
+function DetermineWhichShow(STR) {
+	var cf = document.forms[0];
+
+	if(cf.WanType.value == STR) return true;
+	
+	return false;
+}	
+
+</script>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" text=black onLoad="changepage()">
+<form> 
+	<input type=hidden name=WanType value="<% nvram_get("wan_proto"); %>" >
+<div align="center">
+<br>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+	<td colspan="2" align="center"><b>正在测试因特网连接</b></td>
+</tr>
+
+<tr> <!-- RULE -->
+ <td colspan="2" background="/img/liteblue_1.gif" height="12"> &nbsp;</td>
+</tr>
+
+
+
+<tr>
+<td colspan="2" align="left">
+ 检测到工作正常的因特网连接后，本页将自动显示NETGEAR网站。
+ </td></tr>
+ </table>
+ <br>
+
+<script language=JavaScript type="text/javascript">
+<!--
+  if(DetermineWhichShow("pppoe")||
+    DetermineWhichShow("pptp") ||
+    DetermineWhichShow("telstra")) {
+	var str1,str2,strA;
+	var TableB = '<table ID="PPPOEform" width="100%" border=1 cellspacing=1 cellpadding=5>';
+	var TableE = '</table>';
+	var TrB = '<tr>';
+	var TrE = '</tr>';
+	var TdBB = '<TD NOWRAP width="50%"><FONT face="Arial, Helvetica, sans-serif" size=2><B>';
+	var TdBE = '</B></FONT></td>';
+	var TdB = '<TD NOWRAP width="50%"><FONT face="Arial, Helvetica, sans-serif" size=2>';
+	var TdE = '</FONT></td>';
+
+	//Table Start
+	document.write(TableB);
+
+	//Item1
+	if(DetermineWhichShow("pppoe")) {str1='连接时间'; str2='<% pppoe_status("pppoe_connect_time"); %>';}
+	if(DetermineWhichShow("pptp")) {str1='连接时间';str2='<% pptp_status("pptp_connect_time"); %>';}
+	if(DetermineWhichShow("telstra")) {str1='连接状态';str2='<% bpa_login_status(); %>';}
+	strA=TdBB+str1+TdBE+TdB+str2+TdE;
+	document.write(TrB);
+	document.write(strA);
+	document.write(TrE);
+
+	//Item2
+	if(DetermineWhichShow("pppoe")) {str1='正在连接到服务器'; str2='<% pppoe_status("pppoe_discover"); %>';}
+	if(DetermineWhichShow("pptp")) {str1='正在连接到服务器';str2='<% pptp_status("pptp_discover"); %>';}
+	if(DetermineWhichShow("telstra")) {str1='正在取得IP地址';str2='<% nvram_get("wan0_ipaddr"); %>';}
+	strA=TdBB+str1+TdBE+TdB+str2+TdE;
+	document.write(TrB);
+	document.write(strA);
+	document.write(TrE);
+
+	//Item3
+	if(DetermineWhichShow("pppoe")) {str1='协商'; str2='<% pppoe_status("pppoe_lcp"); %>';}
+	if(DetermineWhichShow("pptp")) {str1='协商';str2='<% pptp_status("pptp_lcp"); %>';}
+	if(DetermineWhichShow("telstra")) {str1='正在取得网络掩码';str2='<% nvram_get("wan0_netmask"); %>';}
+	strA=TdBB+str1+TdBE+TdB+str2+TdE;
+	document.write(TrB);
+	document.write(strA);
+	document.write(TrE);
+
+	//Item4
+	if(DetermineWhichShow("pppoe")) {str1='懧证'; str2='<% pppoe_status("pppoe_auth"); %>';}
+	if(DetermineWhichShow("pptp")) {str1='懧证';str2='<% pptp_status("pptp_auth"); %>';}
+	if(DetermineWhichShow("telstra")) {str1='正在取得缺省网关';str2='<% nvram_get("wan0_gateway"); %>';}
+	strA=TdBB+str1+TdBE+TdB+str2+TdE;
+	document.write(TrB);
+	document.write(strA);
+	document.write(TrE);
+
+	//Item5
+	str1='正在取得IP地址';
+	str2='<% nvram_get("wan0_ipaddr"); %>';
+	if(!DetermineWhichShow("telstra")) {
+	    strA=TdBB+str1+TdBE+TdB+str2+TdE;
+	    document.write(TrB);
+	    document.write(strA);
+	    document.write(TrE);
+	}
+
+	//Table End
+	document.write(TableE);
+  }
+    
+-->
+</script>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<script language=JavaScript type="text/javascript">
+<!--
+	if(DetermineWhichShow("pppoe")||
+	   DetermineWhichShow("pptp") ||
+	   DetermineWhichShow("telstra")) {
+		var str;
+		
+		str=    '<tr>'
+		str=str+'<td colspan="2" align="left">如果连接失败,那么请检查登录名、密码及其它数据。</td>'
+		str=str+'</tr>'
+		
+		document.write(str);
+	}
+-->
+</script>
+<!-- </table></div>
+<table border="0" cellpadding="0" cellspacing="3" width="100%"> -->
+<tr> <!-- RULE -->
+ <td colspan="2" background="/img/liteblue_1.gif" height="12"> &nbsp;</td>
+</tr>
+
+
+ <tr>
+ <td colspan="2" align="center">
+ <input type=button name="close" value="关闭窗口" onclick="self.close()"></td>
+</tr>
+</table>
+ 
+</div>
+
+<input type="hidden" name="testOK" value="<% wanstatus_get(); %>">
+
+</form>
+
+</body>
+</html>
+

@@ -1,0 +1,143 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<meta name="generator" content="Adobe GoLive 3">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<title>备份</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+
+function loadcheck()
+{
+	if(isIE())
+	{
+		document.formname1.file.size="40";
+	}
+	else
+	{
+		document.formname1.file.size="24";
+	}
+	loadhelp('_Backup',' ');
+}
+
+function loadhelp(fname,anchname)
+{
+	if (anchname!=' ')
+		top.helpframe.location.href="/help/help"+fname+".html#"+anchname;
+	else
+		top.helpframe.location.href="/help/help"+fname+".html";
+}
+
+function dosubmit(F)
+{
+	F.submit();
+}
+
+function check_restore(A)
+{
+	if(A.file.value.length == 0)
+	{
+		alert("文件名不能为空");
+		return false;
+	}
+	if(confirm('警告！\n从配置文件中恢复设置，将擦除当前所有设置。\n确实要恢复设置吗？'))
+		return true;
+	else
+		return false;
+
+}
+//-->
+</script> 
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadcheck()">
+<form method="post" action="/cgi-bin/apply.cgi" enctype="multipart/form-data">
+<input type=hidden name="action" value="Backup">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>备份设置</h1>
+			</td>
+		</tr>
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td colspan="2">
+				<a href="javascript:loadhelp('_Backup','')"><b>保存当前设置的副本<b></a>
+			</td>
+			</tr>
+			<tr>
+			<td colspan="2" align="center">
+				<input type="BUTTON" name="Backup" value="  备份 " onclick="window.location = 'netgear.cfg';"> 
+			</td>
+		</tr>
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+</form>			
+<!-- END RULE //-->
+<form name="formname1" method="post" action="cgi-bin/confretrieve.cgi" enctype="multipart/form-data">
+<input type=hidden name="page" value="backup.html">
+<input type=hidden name="action" value="Restore">
+		<tr>
+			<td colspan="2">
+				<a href="javascript:loadhelp('_Backup','restore')"><b>从文件中恢复已保存设置<b></a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="left">
+				<input type="FILE" name="file" size="24" maxlength="128"> 
+			</td>
+		<tr>
+			<td colspan="2" align="center">
+			<input type="hidden" name="Button" value=" Restore ">
+<!--			<INPUT TYPE='Button'  value=" Restore " onclick="dosubmit(this.form)">	-->
+			<INPUT TYPE='Button'  value="  恢复 " onclick="if(!check_restore(this.form)) return false; dosubmit(this.form)">
+			</td>
+		</tr>
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+</form>		
+<!-- END RULE//-->
+<FORM name="formname" action="cgi-bin/apply.cgi" method=post>
+<input type="hidden" name="page" value="doerase.html">
+<input type=hidden name="action" value="RestoreDefault">
+
+		<tr>
+			<td>
+				<a href="javascript:loadhelp('_Backup','revert')"><b>恢复出厂缺省设置<b></a>
+			</td>
+			</tr>
+			<tr>
+			<td colspan="2" align="center">
+				<input type="Button" value="擦除" onClick="location='doerase.html';"> 
+			</td>
+		</tr>
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+	</table>
+</form>
+<p>
+</p>
+</body>
+
+</html>

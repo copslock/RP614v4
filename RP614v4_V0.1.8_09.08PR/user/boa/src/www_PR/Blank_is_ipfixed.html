@@ -1,0 +1,71 @@
+<html>
+<head>
+<META name="description" content="WGR614">
+<META http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+
+		
+		<title>路由器表格</title>
+		<link rel="stylesheet" href="/form1.css">
+		<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function goipfixed() 
+{
+    location.href="/Blank_wizard_ipfixed.html"
+}
+
+function goSelect() 
+{
+    location.href="WIZ_sel.htm"
+}
+
+function loadhelp(fname,anchname) 
+{
+    /* if (top.helpframe != null)
+    {
+        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+        	top.helpframe.location.href=fname+"_h.htm";
+        else
+        	top.helpframe.location.href=fname+"_h.htm#" + anchname;
+    } */
+}
+
+//-->
+</script>
+
+
+	</head>
+
+	<body bgcolor="#ffffff" onLoad="loadhelp('/WIZ_sel');document.forms[0].next.focus()">
+		<form name="formname" method="POST" action="wiz_rst.cgi"> 
+		<table border="0" cellpadding="0" cellspacing="3" width="100%">
+			<tr>
+				<td colspan="2" align="center">	
+					<h1>检测到了静态（固定）IP</H1>
+				</td>
+			</tr>
+
+            <tr><td colspan="2" align="center">成功检测到你拥有的因特网连接类型。</td></tr>
+
+
+			<tr><td colspan="2" align="left"><br>如果您确信自己错误地收到了这条消息，那么请循环开关调制解调器电源（先拔下电源，然后再插回）、关闭本屏幕，然后重新打开web浏览器（如Internet Explorer）。</td></tr>
+
+
+<tr> <!-- RULE -->
+ <td colspan="2" background="/img/liteblue_1.gif" height="12"> &nbsp;</td>
+</tr>
+
+		<tr>
+			<td colspan="2" align="center">
+<!--
+			<input type="Button" name="back" value="Back" onClick="goSelect()">
+-->
+			<input type="Button" name="next" value="下一步" onClick="goipfixed()"></td>
+</tr>
+</table>
+</form>
+		<p></p>
+	</body>
+
+</html>

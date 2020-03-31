@@ -1,0 +1,26 @@
+#
+# chatscript to tidy up a 1xEVDO phone when we are done with it.
+#
+# $Id: gprs-disconnect-chat,v 1.1 2005/06/03 08:43:54 tony Exp $
+
+# Boilerplate
+#
+	ABORT		BUSY
+	ABORT		ERROR
+	ABORT		'NO DIALTONE'
+	TIMEOUT		5
+
+# Get some attention
+	''		'+++\c'
+	SAY		"\n + sending break" 
+
+# Hang up data connection
+#
+	''		'ATH'
+	SAY		"\n + dropping data connection"
+
+# Disconnect from 1xEVDO
+	SAY		"\n + disconnecting from 1xEVDO"
+	OK		'\c'
+	SAY		"\n + disconnected."
+

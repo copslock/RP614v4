@@ -1,0 +1,377 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=gb2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<title>端口转发</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript" type="text/javascript" src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function loadcheck()
+{
+	loadhelp('_PortForward');
+
+	var system = OScheck();
+	if(system.indexOf("Mac") >= 0)
+	{
+		document.formname.vsIP1.size="5";
+		document.formname.vsIP2.size="5";
+		document.formname.vsIP3.size="5";
+		document.formname.vsIP4.size="5";
+	}
+	else
+	{
+		document.formname.vsIP1.size="4";
+		document.formname.vsIP2.size="4";
+		document.formname.vsIP3.size="4";
+		document.formname.vsIP4.size="4";
+	}
+
+	checkform1(document.formname);
+}
+
+function loadhelp(fname,anchname) 
+{
+	if (anchname!=' ')
+		top.helpframe.location.href="/help/help"+fname+".html#"+anchname;
+	else
+		top.helpframe.location.href="/help/help"+fname+".html";
+}
+
+// Amy 2005,12,07
+function doTypeChange(newIndex)
+{
+	var cf = document.forms[0];
+	if(newIndex == 0)
+		location.href = "/ports_app_table.html";
+	else if(newIndex == 1)
+		location.href = "/port_trigger.html";
+}
+
+function setlist()
+{
+	document.write("<option value='1'>AIM</option>");
+	document.write("<option value='2'>Age-of-Empire</option>");
+	document.write("<option value='3'>FTP</option>");
+	document.write("<option value='4'>HTTP</option>");
+	document.write("<option value='5'>ICUII</option>");
+	document.write("<option value='6'>IP_Phone</option>");
+	document.write("<option value='7'>NetMeeting</option>");
+	document.write("<option value='8'>News</option>");
+	document.write("<option value='9'>PPTP</option>");
+	document.write("<option value='10'>QuakeII/III</option>");
+	document.write("<option value='11'>Real-Audio</option>");
+	document.write("<option value='12'>Telnet</option>");
+/*
+	document.write("<option value='0'>SERVICES</option>");
+	
+	document.write("<option value='1'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+	   document.write(String.fromCharCode(20));
+	document.write("FTP</option>");
+	
+	document.write("<option value='2'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+	   document.write(String.fromCharCode(20));
+	document.write("TELNET</option>");
+	
+	document.write("<option value='3'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+	   document.write(String.fromCharCode(20));
+	document.write("HTTP</option>");
+	
+	document.write("<option value='4'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+		document.write(String.fromCharCode(20));
+	document.write("PPTP</option>");
+	
+		document.write("<option value='5'>");
+			if(isIE())
+	   			document.write("&nbsp; ");
+			else
+	   			document.write(String.fromCharCode(20));
+			document.write("IPSEC-ESP</option>");
+	
+	document.write("<option value='0'>APPLICATIONS</option>");
+	
+	document.write("<option value='6'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+	   document.write(String.fromCharCode(20));
+	document.write("NETMEETING</option>");
+	
+	document.write("<option value='7'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+	   document.write(String.fromCharCode(20));
+	document.write("CU-SEEME</option>");
+	
+	document.write("<option value='0'>GAMES</option>");
+	
+	document.write("<option value='8'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+	   document.write(String.fromCharCode(20));
+	document.write("HALF-LIFE</option>");
+	
+	document.write("<option value='9'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+	   document.write(String.fromCharCode(20));
+	document.write("QUAKE III</option>");
+	
+	document.write("<option value='10'>");
+	if(isIE())
+	   document.write("&nbsp; ");
+	else
+	   document.write(String.fromCharCode(20));
+	document.write("UNREAL</option>");
+*/
+}
+
+function goVsAdd(F)
+{
+	var IPaddr = "";
+	var lanIp = '<% nvram_get("lan_ipaddr"); %>';
+	
+	if(F.SVsCount.value>=20)
+	{
+		alert("最大项目为20");
+		return false;
+	}
+
+	if( checkIP(F.vsIP1, F.vsIP2, F.vsIP3, F.vsIP4, 254) )
+	{
+		alert("服务器IP地址无效，请重新输入！\n");
+		return false;
+	}
+	IPaddr = IPv4toString(getValue(F.vsIP1.value), getValue(F.vsIP2.value), getValue(F.vsIP3.value), getValue(F.vsIP4.value));
+	if(!isValidIP(IPaddr))
+	{
+		alert("服务器IP地址无效，请重新输入！");
+		return false;
+	}
+	if(isStringsEqual(IPaddr, lanIp))
+	{
+		alert("服务器IP地址不能是路由器的局域网IP地址。");
+		return false;
+	}
+
+	add(F.vsIPAddr, F.vsIP1, F.vsIP2, F.vsIP3, F.vsIP4);
+	F.vsIP1.value="";
+	F.vsIP2.value="";
+	F.vsIP3.value="";
+	F.vsIP4.value="";
+	
+	F.Button.value="Add_Vs";	
+	
+	return true;
+}
+function checkform1(A)
+{
+	load4(A.SVsMask,A.vsIP1,A.vsIP2,A.vsIP3,A.vsIP4);
+	if(A.vsIP4.value==0){
+		A.vsIP4.value="";
+		A.vsIP1.disabled = true;
+		A.vsIP2.disabled = true;
+		A.vsIP3.disabled = true;
+	}
+}
+
+function setBtnName(F,index)
+{
+	if(index == 1)
+	{
+		if(F.SVsCount.value>=20)
+		{
+			alert("最大项目为20");
+			return false;
+		}else
+		{
+			F.Button.value="Add";
+			document.formname.submit();
+		}
+	}else if(index == 2)
+	{
+		F.Button.value="Modify";
+	}
+	else if(index == 3)
+	{
+	    	document.formname.onlydel.value=1;
+	    	F.Button.value="Delete";
+	}
+	else if(index == 4)
+	{
+		F.Button.value="Apply";
+    	}
+
+	return true;
+}
+/*
+function goManualTable()
+{
+	parent.location="ports_man_table.html";
+}
+*/	
+function goBack()
+{	
+	window.location="ports_app_table.html";
+}
+function check(x)
+{
+	document.formname.radioindex.value=x; 
+}
+-->
+</script> 
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadcheck()">
+<form name="formname" action="/cgi-bin/apply.cgi" method="POST" target="formframe"> 
+<input type="hidden" name="page" value="ports_app_table.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="VSA">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+	
+	<tr>
+		<td colspan="2">
+			<h1>端口转发/端口触发</h1>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2" nowrap>
+			<b>请选择服务类型</b>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<input type="radio" checked name="serv_type" value="pf" onClick="doTypeChange(0)">端口转发
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<input type="radio" name="serv_type" value="pt" onClick="doTypeChange(1)">端口触发
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+
+	<tr>
+		<td width="45%"><b><a href="javascript:loadhelp('_PortForward','setup')">服务名称</a></b></td>
+		<td width="65%"><b><a href="javascript:loadhelp('_PortForward','setup')">服务器IP地址</a></b></td>
+	</tr>
+
+	<tr>
+		<td valign="top">
+			<select name="vsService" size="1">
+				<script>
+	            			setlist()
+				</script>
+			</select>
+		</td>
+		<td nowrap>
+		        <input type="hidden" name="SVsMask" value="<% vs_lan_mask(); %>">
+		        <input type="hidden" name="SVsCount" value="<% nvram_get("vs_count"); %>">
+			<input type="hidden" name="vsIPAddr" value="vsIP">
+			<input type="text" class="num" name="vsIP1" value="" size="4" maxlength="3" onkeypress="chk_num(event)">.
+			<input type="text" class="num" name="vsIP2" value="" size="4" maxlength="3" onkeypress="chk_num(event)">.
+			<input type="text" class="num" name="vsIP3" value="" size="4" maxlength="3" onkeypress="chk_num(event)">.
+			<input type="text" class="num" name="vsIP4" size="4" maxlength="3" onkeypress="chk_num(event)">
+			<input type="SUBMIT" value="添加"  OnClick="if(!goVsAdd(this.form)) return false;">&nbsp;&nbsp;
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+
+<tr>
+	<td colspan="2">
+		<table border ="1" cellpadding ="0" cellspacing ="0" width="100%">
+			<tr>
+				<td nowrap width="3%" align="center"><span class="thead">&nbsp;</span></td>
+				<td nowrap width="3%" align="center"><span class="thead">#</span></td>
+				<td nowrap width="30%" align="center"><span class="thead">服务名称</span></td>
+				<td nowrap width="12%" align="center"><span class="thead">起始端口</span></td>
+				<td nowrap width="12%" align="center"><span class="thead">结束端口</span></td>
+				<td nowrap width="27%" align="center"><span class="thead">服务器IP地址</span></td>
+			</tr>
+			<% forward_port_list("forward_port0"); %>
+			<% forward_port_list("forward_port1"); %>
+			<% forward_port_list("forward_port2"); %>
+			<% forward_port_list("forward_port3"); %>
+			<% forward_port_list("forward_port4"); %>
+			<% forward_port_list("forward_port5"); %>
+			<% forward_port_list("forward_port6"); %>
+			<% forward_port_list("forward_port7"); %>
+			<% forward_port_list("forward_port8"); %>
+			<% forward_port_list("forward_port9"); %>
+			<% forward_port_list("forward_port10"); %>
+			<% forward_port_list("forward_port11"); %>
+			<% forward_port_list("forward_port12"); %>
+			<% forward_port_list("forward_port13"); %>
+			<% forward_port_list("forward_port14"); %>
+			<% forward_port_list("forward_port15"); %>
+			<% forward_port_list("forward_port16"); %>
+			<% forward_port_list("forward_port17"); %>
+			<% forward_port_list("forward_port18"); %>
+			<% forward_port_list("forward_port19"); %>
+		</table>
+		
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+
+	<tr>
+		<td nowrap colspan="2" align="center">
+			<input type="hidden" name="onlydel" value="0">
+			<input type="hidden" name="radioindex" value="0">
+			<input type="hidden" name="virtualend">
+			<input type="hidden" name="Button" value="0">
+			<input type="Submit" value=" 编辑服务" OnClick="return setBtnName(this.form,2)">&nbsp;
+			<input type="Submit" value="删除服务" OnClick="return setBtnName(this.form,3)">&nbsp;&nbsp;&nbsp;
+		</td>
+	</tr>
+
+	<tr>
+		<td nowrap colspan="2" align="center">
+			<input type="Button" value="添加自定义服务" style="width:146" OnClick="return setBtnName(this.form,1)">&nbsp;
+		</td>
+	</tr>
+</table>
+</form>
+<p>
+</p>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+service_name xxxx
+mtu 1492
+#plugin /etc/rp-pppoe.so eth0
+#debug
+updetach
+defaultroute
+noipdefault
+noauth
+persist
+user chap241
+lcp-echo-interval 30
+lcp-echo-failure 5

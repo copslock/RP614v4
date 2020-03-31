@@ -1,0 +1,45 @@
+<html>
+
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=GB2312">
+		<meta name="generator" content="Microsoft FrontPage 4.0">
+		<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+		<title>帮助</title>
+		<link rel="stylesheet" href="help.css">
+		
+<script language="javascript" type="text/javascript">
+<!--
+function checkWireless(){
+var showWireless=<% nvram_get("wireless"); %>;
+
+return showWireless;
+}
+-->
+</script>		
+	</head>
+
+	<body bgcolor="#0099cc" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+	<h1>将路由器用作 DHCP 服务器 </h1>
+	<p>缺省情况下，
+<script>
+		if( checkWireless() )
+		{
+			document.write("MR814");
+		}
+		else
+		{
+			document.write("RP614");
+		}
+</script>	
+	 路由器被设置成DHCP（动态主机配置协议）服务器。 这将为路由器上连接的所有计算机提供TCP/IP配置。
+   
+    <p>除非ISP要求您更改这些设置，否则请保持选中<b>将路由器用作DHCP服务器</b>复选框。
+    <p>如果ISP要求您清除这一复选框，那么您就必须在网络中另外配置一台DHCP服务器，否则就必须手工配置计算机。
+    <ul>
+      <li><b>起始 IP 地址:</b>本框规定的是IP地址池中的第一个连续地址。 缺省起始地址为192.168.0.2。
+      <li><b>结束 IP 地址:</b>本框规定的是IP地址池中的最后一个连续地址。 缺省结束地址为192.168.0.50。
+    </ul>
+</body>
+
+</html>	

@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<title>NETGEAR路由</title> 
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<style>
+body
+{
+	font-size: 12px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+	margin: 6px;
+}
+td
+{
+	font-size: 12px;
+	font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+}
+</style>
+<script language="javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function enableFwCheck()
+{
+	if (document.mnu.enable.checked)
+	{
+		document.mnu.logo_enable.value = 0;
+		document.mnu.submit();
+	}
+	else
+	{
+		document.mnu.logo_enable.value = 1;
+		document.mnu.submit();
+	}
+}    
+//-->
+</script> 
+</head>
+
+<body  bgcolor="#ffffff">
+<form  name="mnu" action="/cgi-bin/apply.cgi" method="post">
+<input type="hidden" name="page" value="MNU_login.htm">
+<input type=hidden name="action" value="MNU_Login">
+<input type=hidden name="logo_enable" value="<% nvram_get("logo_enable"); %>">
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="left" tabindex="-1">
+			感谢您购买了Netgear的RP614路由器。 请您务必从Netgear网站上定期查找最新版本的固件，以充分发挥我公司针对本产品提供的种种改进及附加功能。
+		</td>
+	</tr>
+	<tr></tr>
+	<tr>
+<!--		<td colspan="2" align="left" tabindex="-1">
+			To take advantage of the 108Mbps feature offered by the RP614 router, use a wireless adapter with this logo.
+		</td>
+-->
+	</tr>
+	<tr></tr>
+	<tr></tr>
+<!--<tr><td align="center"><img src="108g_logo.jpg"></td></tr>-->
+	<tr></tr>
+	<tr>
+		<td>
+			<input type="checkbox" name="enable" value="1" tabindex="1"  <% checked_match("logo_enable", "0"); %> onclick="enableFwCheck();">不要再显示这条消息
+		</td>
+	</tr>
+	<tr></tr>
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+			<input type=button name="close" value="关闭窗口" onclick="self.close();">
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

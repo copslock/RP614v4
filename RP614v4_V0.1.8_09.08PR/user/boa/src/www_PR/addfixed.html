@@ -1,0 +1,205 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<title>地址保留编辑</title>
+<script language="javascript"src="/utility.js"></script>
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript">
+<!--
+function loadhelp(fname,anchname) 
+{
+	if (anchname!=' ')
+		top.helpframe.document.location.href="/help/help_Reservation_edit.htm#"+anchname;
+	else
+		top.helpframe.document.location.href="/help/help_Reservation_edit.htm";
+}
+
+function check(formname)
+{
+	var ip3=formname.FixedIP1.value+formname.FixedIP2.value+formname.FixedIP3.value+formname.FixedIP4.value; 
+	var ipd3=ip3-0;
+	var Iptest = /[0-9]{1,3}/;
+	
+	document.formname.Button.value="Apply";
+	add(document.formname.editiperr,document.formname.FixedIP1,document.formname.FixedIP2,document.formname.FixedIP3,document.formname.FixedIP4);
+	if((formname.FixedIP1.value<0) || (formname.FixedIP1.value>255) || (Iptest.test(formname.FixedIP1.value)!=true)||
+	(formname.FixedIP2.value<0) || (formname.FixedIP2.value>255) || (Iptest.test(formname.FixedIP2.value)!=true)||
+	(formname.FixedIP3.value<0) || (formname.FixedIP3.value>255) || (Iptest.test(formname.FixedIP3.value)!=true)||
+	(formname.FixedIP4.value<0) || (formname.FixedIP4.value>255) || (Iptest.test(formname.FixedIP4.value)!=true))
+	{
+		alert("IP地址无效");
+		return false;
+	}
+	
+	var macAddr;
+	if (formname.FixMacAdr.value.indexOf(':') == -1) //can't find out
+		macAddr = StringtoMac(formname.FixMacAdr.value);
+	else
+		macAddr = formname.FixMacAdr.value;
+	if((isValidMAC(macAddr) == false))
+	{
+		alert("MAC 地址无效");
+		formname.FixMacAdr.focus();
+		return false;
+	}
+	else{
+		document.formname.back1.value="";
+		document.formname.submit();
+	}
+/*pamela20060126	
+	if(checkmac(formname))
+	{
+		document.formname.back1.value="";
+		document.formname.submit();
+	}
+	else
+		return false;
+*/
+}
+
+function isDigit(form,max)
+{
+	var i=parseInt(form.NumberOfAddress.value);
+	if(isNaN(i))
+	{
+		alert("aa need int");
+		return false;
+	}
+	else if(i>max)
+	{
+		alert("超过最大值");
+		return false;
+	}
+	else
+		return true;
+}
+
+function goback()
+{
+	//document.formname.back1.value="1";
+	//document.formname.submit();
+	window.location.href="/lanform.html";
+}
+
+function init()
+{
+	loadhelp("_null",' ');
+	
+	system = OScheck();
+	if(system.indexOf("Mac") >=0 )
+	{
+		document.formname.FixedIP1.size="5";
+		document.formname.FixedIP2.size="5";
+		document.formname.FixedIP3.size="5";
+		document.formname.FixedIP4.size="5";
+		document.formname.FixMacAdr.size="24";
+	}
+	else
+	{
+		document.formname.FixedIP1.size="4";
+		document.formname.FixedIP2.size="4";
+		document.formname.FixedIP3.size="4";
+		document.formname.FixedIP4.size="4";
+		document.formname.FixMacAdr.size="17";
+	}
+	
+	if((document.formname.FixedIP1.value==0)&&(document.formname.FixedIP2.value==0)&&(document.formname.FixedIP3.value==0)&&(document.formname.FixedIP4.value==0))
+	{
+	    document.formname.FixedIP1.value="";
+	    document.formname.FixedIP2.value="";
+	    document.formname.FixedIP3.value="";
+	    document.formname.FixedIP4.value="";
+	    document.formname.FixedRemark.value="";
+	    document.formname.FixMacAdr.value="";
+	}
+	else
+	{
+	    	var x=document.formname.FixMacAdr.value;
+	        var y="";
+	        var j=0;
+	        for(i=0;i<x.length;i++)
+	        {
+		        if(i==(j+2))
+		        {
+				y=y+":";
+				j=j+2;
+		        } 
+		        y=y+x.charAt(i);
+		}
+	        document.formname.FixMacAdr.value=y;
+	}
+}
+
+//-->
+</script>
+</head>
+<body  bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="init()">
+	<form name="formname" action="/cgi-bin/apply.cgi" method="POST" >
+	<input type="hidden" name="page" value="lanform.html">
+	<input type=hidden name="action" value="Apply">		
+	<input type="hidden" name="Load" value="H">
+	<input type="hidden" name="editiperr" value="">
+	<input type="hidden" name="back1" value="">		
+		
+<center>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>地址保留编辑</h1>
+			</td>
+		</tr>
+		
+		<!-- RULE //-->
+<tr>
+	<td colspan="2">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	</td>
+</tr>
+</table>
+				<table border="0" width="100%">
+					<tr>
+						<td nowrap width="37%">
+				IP 地址
+						</td>
+						<td nowrap width="63%">
+				<input type="text" class="num" name="FixedIP1" size="4" maxlength="3" value="<% field_nvram_get("dhcpc_res_ip", ".", "1"); %>" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="FixedIP2" size="4" maxlength="3" value="<% field_nvram_get("dhcpc_res_ip", ".", "2"); %>" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="FixedIP3" size="4" maxlength="3" value="<% field_nvram_get("dhcpc_res_ip", ".", "3"); %>" onkeypress="chk_num(event)"><b>.</b>
+				<input type="text" class="num" name="FixedIP4" size="4" maxlength="3" value="<% field_nvram_get("dhcpc_res_ip", ".", "4"); %>" onkeypress="chk_num(event)">
+						</td>
+					</tr>
+					<tr>
+						<td nowrap width="37%">
+				MAC 地址
+						</td>
+						<td nowrap width="63%">
+						<input type="text" class="num" name="FixMacAdr" size="17" maxlength="17" value="<% dhcpc_res_info("macaddr"); %>" onFocus="this.select();">
+						</td>
+					</tr>
+					<tr>
+						<td nowrap width="37%">
+				设备名称:
+						</td>
+						<td nowrap width="63%">
+							<input type="text" name="FixedRemark" size="15" maxlength="20" value="<% dhcpc_res_info("name"); %>" onFocus="this.select();">
+						</td>
+					</tr>
+				</table>
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+				<table border="0" width="100%">
+					<tr><td colspan="2" align='center'>
+				         <input type="hidden" value="Apply" name="Button">
+					<input type="button" value="应用"  onClick="return check(formname)">
+					
+					<input type="button" value="取消" name="Button" onClick="goback();">
+				</td></tr>
+				</table>
+			</center>
+		
+	</form>
+</body>
+</html>

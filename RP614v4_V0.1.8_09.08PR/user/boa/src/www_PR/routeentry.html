@@ -1,0 +1,306 @@
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html;charset=gb2312">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META http-equiv="expires" CONTENT="none">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta name="generator" content="Adobe GoLive 5">
+<title>路由</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript" type="text/javascript" src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function goBack()
+{
+	window.location="/staticroutes.html";
+}
+
+function loadhelp(num)
+{
+	top.helpframe.document.location.href="/help/help"+num+".html";
+
+	system = OScheck();
+	if(system.indexOf("Mac") >=0 )
+	{
+		document.formname.RDest1.size="5";
+		document.formname.RDest2.size="5";
+		document.formname.RDest3.size="5";
+		document.formname.RDest4.size="5";
+		document.formname.RMask1.size="5";
+		document.formname.RMask2.size="5";
+		document.formname.RMask3.size="5";
+		document.formname.RMask4.size="5";
+		document.formname.RGat1.size="5";
+		document.formname.RGat2.size="5";
+		document.formname.RGat3.size="5";
+		document.formname.RGat4.size="5";
+		document.formname.RtMetric.size="5";
+	}
+	else
+	{
+		document.formname.RDest1.size="4";
+		document.formname.RDest2.size="4";
+		document.formname.RDest3.size="4";
+		document.formname.RDest4.size="4";
+		document.formname.RMask1.size="4";
+		document.formname.RMask2.size="4";
+		document.formname.RMask3.size="4";
+		document.formname.RMask4.size="4";
+		document.formname.RGat1.size="4";
+		document.formname.RGat2.size="4";
+		document.formname.RGat3.size="4";
+		document.formname.RGat4.size="4";
+		document.formname.RtMetric.size="3";
+	}
+
+	checkform(document.formname);
+}
+
+function checkform(A)
+{
+	load4(A.RtDest,A.RDest1,A.RDest2,A.RDest3,A.RDest4);
+	if(A.RtDest.value == "0.0.0.0")
+	{	
+		A.RDest1.value = "";
+		A.RDest2.value = "";
+		A.RDest3.value = "";
+		A.RDest4.value = "";			
+	}
+	load4(A.RoutMask,A.RMask1,A.RMask2,A.RMask3,A.RMask4);
+	if(A.RoutMask.value == "0.0.0.0")
+	{
+		A.RMask1.value = "";
+		A.RMask2.value = "";
+		A.RMask3.value = "";
+		A.RMask4.value = "";			
+	}
+	load4(A.RoutGate,A.RGat1,A.RGat2,A.RGat3,A.RGat4);
+	if(A.RoutGate.value == "0.0.0.0")
+	{
+		A.RGat1.value = "";
+		A.RGat2.value = "";
+		A.RGat3.value = "";
+		A.RGat4.value = "";			
+	}
+	if(A.RtMetric.value == "0")
+		A.RtMetric.value = "";
+	if((A.RtDest.value == "0.0.0.0")&&(A.RoutMask.value == "0.0.0.0")&&(A.RoutGate.value == "0.0.0.0"))
+		A.RoutAct.checked = true;
+}
+/*
+function sumvalue(A)
+{
+	var Iptest = /[0-9]{1,3}/;
+	if((A.RDest1.value<0) || (A.RDest1.value>255) || (Iptest.test(A.RDest1.value)!=true)||
+	   (A.RDest2.value<0) || (A.RDest2.value>255) || (Iptest.test(A.RDest2.value)!=true)||
+	   (A.RDest3.value<0) || (A.RDest3.value>255) || (Iptest.test(A.RDest3.value)!=true)||
+	   (A.RDest4.value<0) || (A.RDest4.value>255) || (Iptest.test(A.RDest4.value)!=true))
+	{
+		alert("目的IP地址无效");
+		return false;
+	}
+	else if((A.RMask1.value<0) || (A.RMask1.value>255) || (Iptest.test(A.RMask1.value)!=true)||
+		(A.RMask2.value<0) || (A.RMask2.value>255) || (Iptest.test(A.RMask2.value)!=true)||
+		(A.RMask3.value<0) || (A.RMask3.value>255) || (Iptest.test(A.RMask3.value)!=true)||
+		(A.RMask4.value<0) || (A.RMask4.value>255) || (Iptest.test(A.RMask4.value)!=true))
+	{
+		alert("IP子网掩码无效");
+		return false;
+ 	}
+	else if((A.RGat1.value<0) || (A.RGat1.value>255) || (Iptest.test(A.RGat1.value)!=true)||
+		(A.RGat2.value<0) || (A.RGat2.value>255) || (Iptest.test(A.RGat2.value)!=true)||
+		(A.RGat3.value<0) || (A.RGat3.value>255) || (Iptest.test(A.RGat3.value)!=true)||
+		(A.RGat4.value<0) || (A.RGat4.value>255) || (Iptest.test(A.RGat4.value)!=true))
+	{
+		alert("网关IP地址无效");
+		return false;
+	}
+	
+	add(A.RtDest,A.RDest1,A.RDest2,A.RDest3,A.RDest4);
+	add(A.RoutMask,A.RMask1,A.RMask2,A.RMask3,A.RMask4);
+	add(A.RoutGate,A.RGat1,A.RGat2,A.RGat3,A.RGat4);
+
+	return true;
+}
+*/
+function checkData(A)
+{
+	var msg = "";
+	var WANMask;
+	WANMask = IPv4toString(getValue(A.RMask1.value), getValue(A.RMask2.value), getValue(A.RMask3.value), getValue(A.RMask4.value));
+
+	if (A.RoutName.value.length < 1)
+		msg += "路由器名称不能为空。\n";
+	if (checkIP(A.RDest1, A.RDest2, A.RDest3, A.RDest4, 254)||(parseInt(A.RDest1.value) == 127))
+		msg+= "目的IP地址无效，请重新输入\n";
+	
+	if (checkIP(A.RMask1, A.RMask2, A.RMask3, A.RMask4, 255))
+		msg+= "子网掩码无效，请重新输入\n";
+	else if ((parseInt(A.RMask1.value) == 1) && (parseInt(A.RMask2.value) == 0) &&
+	(parseInt(A.RMask4.value) == 0) && (parseInt(A.RMask4.value) == 0)) 
+		msg+= "子网掩码无效，请重新输入\n";
+	
+	
+	if (checkIP(A.RGat1, A.RGat2, A.RGat3, A.RGat4, 254)||(parseInt(A.RGat4.value) == 0))
+		msg+= "网关IP地址无效，请重新输入\n";
+	else if ((parseInt(A.RGat1.value) == 255) && (parseInt(A.RGat2.value) == 255) &&
+	(parseInt(A.RGat4.value) == 255) && (parseInt(A.RGat4.value) == 254)) 
+		msg+= "网关IP地址无效，请重新输入\n";
+	
+	A.RDest1.value = (parseInt(A.RDest1.value) & parseInt(A.RMask1.value));
+	A.RDest2.value = (parseInt(A.RDest2.value) & parseInt(A.RMask2.value));
+	A.RDest3.value = (parseInt(A.RDest3.value) & parseInt(A.RMask3.value));
+	A.RDest4.value = (parseInt(A.RDest4.value) & parseInt(A.RMask4.value));
+
+ 	if((A.RDest1.value == A.RGat1.value) && 
+		 (A.RDest2.value == A.RGat2.value) &&
+		 (A.RDest3.value == A.RGat3.value)) 
+ 	{
+ 		alert("目的IP地址设置无效，此设置将会停用。");
+ 		return false;
+ 	}
+ 		
+	msg+= checkInt(A.RtMetric, "度量", 2, 15, true);
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	
+	add(A.RtDest,A.RDest1,A.RDest2,A.RDest3,A.RDest4);
+	add(A.RoutMask,A.RMask1,A.RMask2,A.RMask3,A.RMask4);
+	add(A.RoutGate,A.RGat1,A.RGat2,A.RGat3,A.RGat4);
+
+	return true;
+}
+function chkGete()
+{
+	var A = document.formname;
+	if (A.RtPriv.checked == true){
+		load4(A.l_ip,A.RGat1,A.RGat2,A.RGat3,A.RGat4);
+		A.RGat4.value = "";
+		A.RGat1.disabled = true;
+		A.RGat2.disabled = true;
+		A.RGat3.disabled = true;
+	}
+	else{
+		A.RGat1.disabled = false;
+		A.RGat2.disabled = false;
+		A.RGat3.disabled = false;	
+	}
+}
+-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_StaticRoutes')">
+<form name="formname" action="/cgi-bin/apply.cgi" method=post>
+<input type="hidden" name="page" value="staticroutes.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="S1">
+<input type="hidden" name="l_ip" value=<% nvram_get("lan_ipaddr"); %>>
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+		<td colspan="2">
+			<h1>静态路由</h1>
+		</td>
+	</tr>
+<!-- RULE -->
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+<!-- END RULE -->
+</table>
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+		<input type=hidden name="StRouteTable">
+		<td>
+			路由名称
+		</td>
+		<td align="left">
+			<input type="text" name="RoutName" size="9" maxlength="9" value="<% static_route_info("name"); %>">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="CHECKBOX" name="RtPriv" <% static_route_info("checked_private"); %>>私有
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="CHECKBOX" name="RoutAct" <% static_route_info("checked_valid"); %>>活动
+		</td>
+	</tr>
+	<tr>
+		<td>
+			目的IP地址
+		</td>
+		<td align="left">
+			<input type="hidden" name="RtDest" value="<% static_route_info("ipaddr"); %>">
+			<img src="/img/spacer.gif" width="200" height="1" border=0><br>
+			<input type="text" class="num" name="RDest1" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RDest2" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RDest3" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RDest4" size="4" maxlength="3" value="" onkeypress="chk_num(event)">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			IP子网掩码
+		</td>
+		<td align="left">
+			<input type="hidden" name="RoutMask" value="<% static_route_info("netmask"); %>">
+			<input type="text" class="num" name="RMask1" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RMask2" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RMask3" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RMask4" size="4" maxlength="3" value="" onkeypress="chk_num(event)">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			网关IP地址
+		</td>
+		<td align="left">
+			<input type="hidden" name="RoutGate" value="<% static_route_info("gateway"); %>">
+			<input type="text" class="num" name="RGat1" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RGat2" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RGat3" size="4" maxlength="3" value="" onkeypress="chk_num(event)"><b>.</b>
+			<input type="text" class="num" name="RGat4" size="4" maxlength="3" value="" onkeypress="chk_num(event)">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			度量
+		</td>
+		<td align="left">
+			<input type="text" class="num" name="RtMetric" size="3" maxlength="2" value="<% static_route_info("metric"); %>" onkeypress="chk_num(event)">
+			<input type=hidden name=supply>
+		</td>
+	</tr>
+<!-- RULE -->
+	<tr>
+		<td colspan="2">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+<!-- END RULE -->
+<tr>
+	<td colspan="2" align="center">
+<!--		<input type="SUBMIT" name="Button-Apply" value="Apply" OnClick="return sumvalue(this.form)">&nbsp;&nbsp;	-->
+	        <input type="hidden" name="Button" value="Apply">
+		<input type="SUBMIT" value="应用" onClick="if(!checkData(this.form)) return false;">
+		<input type="Button" value="取消" OnClick="goBack()">&nbsp;&nbsp;
+	</td>
+</tr>
+
+</table>
+</form>
+<p>
+</p>
+</body>
+
+</html>
+

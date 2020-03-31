@@ -1,0 +1,519 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=GB2312">
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+	<title>电子邮件</title> 
+	<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+ns = (document.layers) ? true : false;
+ie = (document.all) ? true : false;
+function checkData()
+{
+	var cf = document.formname;
+	var tmp = cf.mailServer.value.split(".");
+	if(cf.emailEnable.checked == true){
+		if(tmp.length < 2)
+		{
+			alert('错误： SMTP服务器地址无效！');
+			cf.mailServer.focus();
+			return false;
+		}
+		if(cf.toMail.value.indexOf("@",0) == -1 ||
+		   cf.toMail.value.indexOf(".",0) == -1 )
+		{
+			alert('错误： 电子邮件地址无效！');
+			cf.toMail.focus();
+			return false;	
+		}
+		if(cf.AlertSelect.selectedIndex == 2) //daily
+		{
+			if(cf.AlertHour.selectedIndex < 0)
+			{
+				alert('时间安排设置为每天时请选择时间段');
+				return false;
+			}
+			if(!cf.sAlertAMPM[0].checked && !cf.sAlertAMPM[1].checked)
+			{
+				alert('时间安排设置为每天时请选择[上午]或者[下午]');
+				return false;
+			}
+		}
+	
+		if(cf.AlertSelect.selectedIndex == 3) //weekly
+		{
+			if(cf.AlertTime.selectedIndex < 0)
+			{
+				alert('时间安排设置为每周时请选择是星期几');
+				return false;
+			}
+			if(cf.AlertHour.selectedIndex < 0)
+			{
+				alert('时间安排设置为每周时请选择时间段');
+				return false;
+			}
+			if(!cf.sAlertAMPM[0].checked && !cf.sAlertAMPM[1].checked)
+			{
+				alert('时间安排设置为每周时请选择[上午]或者[下午]');
+				return false;
+			}
+		}
+	}
+	else{
+		cf.mailServer.value = "";
+		cf.toMail.value = "";
+	}
+	cf.submit();
+
+}
+function OnAlertChange(form)
+{
+	if(form.AlertSelect.selectedIndex == 0) //log is full
+	{
+		form.AlertTime.selectedIndex = -1;
+		form.AlertHour.value = -1;
+
+		//if(ie)
+		{
+			form.AlertTime.disabled = true;
+			form.AlertHour.disabled = true;
+			form.sAlertAMPM[0].disabled = true;
+			form.sAlertAMPM[1].disabled = true;
+		}
+	}
+	else if(form.AlertSelect.selectedIndex == 1) //hourly
+	{
+		form.AlertTime.selectedIndex = -1;
+		form.AlertHour.value = -1;
+
+		//if(ie)
+		{
+			form.AlertTime.disabled = true;
+			form.AlertHour.disabled = true;
+			form.sAlertAMPM[0].disabled = true;
+			form.sAlertAMPM[1].disabled = true;
+		}
+	}
+	else if(form.AlertSelect.selectedIndex == 2) //Daily
+	{
+		form.AlertTime.selectedIndex = -1;
+
+		//if(ie)
+		{
+			form.AlertTime.disabled = true;
+			form.AlertHour.disabled = false;
+			form.sAlertAMPM[0].disabled = false;
+			form.sAlertAMPM[1].disabled = false;
+		}
+	}
+	else if(form.AlertSelect.selectedIndex == 3) //Weekly
+	{
+		//if(ie)
+		{
+			form.AlertTime.disabled = false;
+			form.AlertHour.disabled = false;
+			form.sAlertAMPM[0].disabled = false;
+			form.sAlertAMPM[1].disabled = false;
+		}
+	}
+	else if(form.AlertSelect.selectedIndex == 4) //None
+	{
+		form.AlertTime.selectedIndex = -1;
+		form.AlertHour.value = -1;
+
+		//if(ie)
+		{
+			form.AlertTime.disabled = true;
+			form.AlertHour.disabled = true;
+		}
+	}
+	return;
+}
+
+
+function loadhelp(fname,anchname) {
+	if (anchname!=' ')
+		top.helpframe.location.href="/help/help"+fname+".html#"+anchname
+	else
+		top.helpframe.location.href="/help/help"+fname+".html"
+}
+function refresh()
+{
+	window.location.href="/emailform.html";
+}	
+/*
+function OpenAdvanced()
+{
+	window.location="emailAdvance.html"
+}
+*/
+function loadcheck()
+{
+	var i=document.formname.AlertAMPM.value;
+	
+	loadhelp('_email',' ');
+	
+	document.formname.sAlertAMPM[i].checked=true;
+	
+	if(document.formname.AlertSub.value=="d_e")
+	{
+		document.formname.AlertSub.value="NETGEAR Security Alert [<% nvram_get("wan0_hwaddr"); %>]"
+	}
+	if(document.formname.LogSubject.value=="d_e")
+	{
+		document.formname.LogSubject.value="NETGEAR Security Log [<% nvram_get("wan0_hwaddr"); %>]"
+	}
+	
+	setGray();
+	auth_check();
+	OnAlertChange(document.formname);
+}
+
+//add by jenny 051228
+function setGray()
+{
+    if(document.formname.emailEnable.checked)
+    {
+        document.formname.AlertImm.disabled = false;
+        document.formname.AlertSelect.disabled = false;
+        document.formname.mailServer.disabled = false;
+        document.formname.toMail.disabled = false;       
+		document.formname.AlertTime.disabled = false;
+		document.formname.AlertHour.disabled = false;
+		document.formname.sAlertAMPM[0].disabled = false;
+		document.formname.sAlertAMPM[1].disabled = false;
+		document.formname.ServerAuth.disabled = false;
+    }
+    else
+    {
+		document.formname.mailServer.value = "";
+		document.formname.toMail.value = "";
+        document.formname.AlertImm.disabled = true;
+        document.formname.AlertSelect.disabled = true;
+        document.formname.mailServer.disabled = true;
+        document.formname.toMail.disabled = true;
+		document.formname.AlertTime.disabled = true;
+		document.formname.AlertHour.disabled = true;
+		document.formname.sAlertAMPM[0].disabled = true;
+		document.formname.sAlertAMPM[1].disabled = true;
+		document.formname.ServerAuth.disabled = true;
+    }
+}
+//end
+
+function auth_check(){
+	if(document.formname.ServerAuth.checked == false){
+		document.formname.AuthName.disabled = true;
+		document.formname.AuthPassWd.disabled = true;
+	}
+	else{
+		document.formname.AuthName.disabled = false;
+		document.formname.AuthPassWd.disabled = false;
+	}
+}	
+function check(x)
+{
+	document.formname.AlertAMPM.value=x; 
+}
+
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadcheck();">
+<form name="formname" action="/cgi-bin/apply.cgi" method="POST"> 
+<input type="hidden" name="page" value="emailform.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="EF">
+
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>电子邮件</h1>
+			</td>
+		</tr>
+<!-- RULE //-->
+    	<tr>
+    		<td colspan="2">
+    			<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+    		</td>
+    	</tr>
+<!-- END RULE //-->
+		<tr>
+			<td colspan="2">
+				<p>
+					<b><input type="checkbox" name="emailEnable" onclick = "javascript:setGray();auth_check();OnAlertChange(document.formname);" <% checked_match("emailenable", "1"); %>>
+					<input type="hidden" name="HideClock" value=<% nvram_get("SysClock"); %>>
+					<input type="hidden" name="LogSubject" value="<% nvram_get("logsubject"); %>">
+					<input type="hidden" name="AlertSub" value="<% nvram_get("alertsubject"); %>">
+					打开电子邮件通知</b> 
+				</p>
+			</td>
+		</tr>
+		
+		<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+		<!-- END RULE //-->
+		<tr>
+			<td colspan="2">
+				<p>
+					<a href="javascript:loadhelp('_email','receive')"><b>通过电子邮件发送报警和日志 </b></a> 
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="50%">
+				邮件发送服务器：
+			</td>
+			<td width="50%">
+				<img src="/img/spacer.gif" width="90" height="1" border=0><input type="text" name="mailServer" value="<% nvram_get("mailserver"); %>" size="24" maxlength="50">
+			</td>
+		</tr>
+		<tr>
+			<td width="50%">
+				发送到下面的电子邮件地址：
+			</td>
+			<td width="50%">
+				<img src="/img/spacer.gif" width="90" height="1" border=0><input type="text" name="toMail" value="<% nvram_get("tomail"); %>" size="24" maxlength="50">
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				
+			</td>
+<!--
+			<td>
+				<img src="/img/spacer.gif" width="70" height="1" border=0><input type="Button" value="Advanced" onclick="OpenAdvanced()">
+			</td>
+-->
+		</tr>	
+		
+			<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		 </tr>
+			
+			<td>
+			<b><a href="javascript:loadhelp('_emailadvance',' ')">认证</a></b>
+                        </td>
+                        
+                 <tr>
+			<td colspan="2">
+				
+					<input type="checkbox" name="ServerAuth" <% checked_match("email_serverauth", "1"); %> onclick="auth_check()">通过SMTP服务器认证
+				
+			</td>
+		</tr>
+		<tr>
+			<td>
+			       用户名：
+			</td>
+			<td>
+				<img src="/img/spacer.gif" width="90" height="1" border=0><input type="text"  name="AuthName" value="<% nvram_get("email_authname"); %>" size="24" maxlength="64">
+			</td>
+		</tr>
+		<tr>
+			<td>
+			       密码:
+			</td>
+			<td>
+				<img src="/img/spacer.gif" width="90" height="1" border=0><input type="password"  name="AuthPassWd" value="<% nvram_get("email_authpasswd"); %>" size="24" maxlength="64">
+			</td>
+		</tr>
+
+		
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+
+		<tr>
+			<td colspan="2">
+				<a href="javascript:loadhelp('_email','alert')"><input type="checkbox" name="AlertImm" <% checked_match("alertimm", "1"); %>><b>立即发送报警</b></a><br>有人试图访问被限制的站点
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2">
+				<a href="javascript:loadhelp('_email','schedule')"><b>按以下时间安排发送日志</b></a> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				
+				<select name="AlertSelect"  class=ttext onchange="javascript:OnAlertChange(document.formname);" size="1"> 
+					<option value="0" <% selected_match("alerttype", "0"); %>>
+						志满时
+					<option value="1" <% selected_match("alerttype", "1"); %>>
+						每小时
+					<option value="2" <% selected_match("alerttype", "2"); %>>
+						每天
+					<option value="3" <% selected_match("alerttype", "3"); %>>
+						每周
+					<option value="4" <% selected_match("alerttype", "4"); %>>
+						无 </select> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">星期几 			
+				<select name="AlertTime" class=ttext size="1"> 
+					<option value="0" <% selected_match("alertday", "0"); %>>
+						星期日 
+					<option value="1" <% selected_match("alertday", "1"); %>>
+						星期一 
+					<option value="2" <% selected_match("alertday", "2"); %>>
+						星期二 
+					<option value="3" <% selected_match("alertday", "3"); %>>
+						星期三 
+					<option value="4" <% selected_match("alertday", "4"); %>>
+						星期四 
+					<option value="5" <% selected_match("alertday", "5"); %>>
+						星期五 
+					<option value="6" <% selected_match("alertday", "6"); %>>
+						星期六 </select> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">时间
+				<select name="AlertHour" class=ttext size="1"> 
+					<option value="1" <% selected_match("alerthour", "1"); %>>
+						1:00 
+					<option value="2" <% selected_match("alerthour", "2"); %>>
+						2:00 
+					<option value="3" <% selected_match("alerthour", "3"); %>>
+						3:00 
+					<option value="4" <% selected_match("alerthour", "4"); %>>
+						4:00 
+					<option value="5" <% selected_match("alerthour", "5"); %>>
+						5:00 
+					<option value="6" <% selected_match("alerthour", "6"); %>>
+						6:00 
+					<option value="7" <% selected_match("alerthour", "7"); %>>
+						7:00 
+					<option value="8" <% selected_match("alerthour", "8"); %>>
+						8:00 
+					<option value="9" <% selected_match("alerthour", "9"); %>>
+						9:00 
+					<option value="10" <% selected_match("alerthour", "10"); %>>
+						10:00 
+					<option value="11" <% selected_match("alerthour", "11"); %>>
+						11:00 
+					<option value="12" <% selected_match("alerthour", "12"); %>>
+						12:00 
+					</select>
+					<input type=hidden name="AlertAMPM" value="<% nvram_get("alertampm"); %>">
+					<input type="radio" value="0" name="sAlertAMPM" tabindex="0" onClick="check(this.value)">上午
+					<input type="radio" value="1" name="sAlertAMPM" onClick="check(this.value)">下午
+			</td>
+		</tr>
+		
+					<input type="hidden" name="EmailFin">
+			
+
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<p>
+				        <a href="javascript:loadhelp('_email','timezone')">
+					<b>时区</b></a>
+				</p>
+			</td>
+		</tr>
+
+	   <TR>
+	   
+          <TD colSpan="2">
+         	  <SELECT class=ttext name=AlertGMT size=1> 
+          	  <OPTION <% selected_match("time_zone", "1"); %> value=1>(GMT-12:00) 埃尼威托克,夸贾林岛</OPTION>
+              <OPTION <% selected_match("time_zone", "2"); %> value=2>(GMT-11:00) 中途岛,萨摩亚群岛</OPTION>
+              <OPTION <% selected_match("time_zone", "3"); %> value=3>(GMT-10:00) 夏威夷</OPTION>
+              <OPTION <% selected_match("time_zone", "4"); %> value=4>(GMT-09:00) 阿拉斯加</OPTION>
+              <OPTION <% selected_match("time_zone", "5"); %> value=5>(GMT-08:00) 太平洋时间（美国和加拿大）;蒂华纳</OPTION>
+              <OPTION <% selected_match("time_zone", "7"); %> value=7>(GMT-07:00) 山地时间（美国和加拿大）</OPTION>
+              <OPTION <% selected_match("time_zone", "8"); %> value=8>(GMT-06:00) 中部时间（美国和加拿大）; 中美洲</OPTION>
+              <OPTION <% selected_match("time_zone", "12"); %> value=12>(GMT-05:00) 东部时间（美国和加拿大）; 印地安那州（东）</OPTION>
+              <OPTION <% selected_match("time_zone", "15"); %> value=15>(GMT-04:00) 大西洋时间（加拿大）; 加拉加斯,拉巴斯</OPTION>
+              <OPTION <% selected_match("time_zone", "18"); %> value=18>(GMT-03:00) 纽芬兰，巴西利亚，布宜诺斯艾利斯</OPTION>
+              <OPTION <% selected_match("time_zone", "20"); %> value=20>(GMT-02:00) 中大西洋</OPTION>
+              <OPTION <% selected_match("time_zone", "21"); %> value=21>(GMT-01:00) 亚述尔群岛，佛得角群岛</OPTION>
+              <OPTION <% selected_match("time_zone", "23"); %> value=23>(GMT) 格林尼治平时; 都柏林，里斯本，伦敦:</OPTION>
+              <OPTION <% selected_match("time_zone", "25"); %> value=25>(GMT+01:00) 柏林，巴黎，罗马，斯德哥尔摩，维也纳</OPTION>
+              <OPTION <% selected_match("time_zone", "31"); %> value=31>(GMT+02:00) 雅典，开罗，赫尔辛基，伊斯坦布尔，耶路撒冷</OPTION>
+              <OPTION <% selected_match("time_zone", "37"); %> value=37>(GMT+03:00) 巴格达，科威持，莫斯科，内罗毕</OPTION>
+              <OPTION <% selected_match("time_zone", "40"); %> value=40>(GMT+04:00) 阿布扎比，马斯喀持，第比利斯</OPTION>
+              <OPTION <% selected_match("time_zone", "42"); %> value=42>(GMT+05:00) 伊斯兰堡，卡拉奇，塔什干</OPTION>
+              <OPTION <% selected_match("time_zone", "43"); %> value=43>(GMT+06:00) 阿拉木图，达卡，新西伯利亚</OPTION>
+              <OPTION <% selected_match("time_zone", "44"); %> value=44>(GMT+07:00) 曼谷，雅加达，河内</OPTION>
+              <OPTION <% selected_match("time_zone", "46"); %> value=46>(GMT+08:00) 北京，香港特别行政区，新加坡，台北</OPTION>
+              <OPTION <% selected_match("time_zone", "45"); %> value=45>(GMT+08:00) 西澳大利亚;珀斯</OPTION>
+              <OPTION <% selected_match("time_zone", "47"); %> value=47>(GMT+09:00) 东京，大阪，札幌，汉城，雅库茨克</OPTION>
+              <OPTION <% selected_match("time_zone", "48"); %> value=48>(GMT+09:30) 中澳大利亚; 达尔文，阿德莱德</OPTION>
+              <OPTION <% selected_match("time_zone", "50"); %> value=50>(GMT+10:00) 堪培拉，关岛</OPTION>
+              <OPTION <% selected_match("time_zone", "51"); %> value=51>(GMT+10:00) 东澳大利亚; 布里斯班，墨尔本，悉尼</OPTION>
+              <OPTION <% selected_match("time_zone", "53"); %> value=53>(GMT+11:00) 马加丹，所罗门群岛，新喀里多尼亚</OPTION>
+              <OPTION <% selected_match("time_zone", "54"); %> value=54>(GMT+12:00) 斐济，勘察加半岛，马绍尔群岛，惠灵顿</OPTION>
+              </SELECT>
+            </TD>
+        </TR>
+        <TR> 
+            <td colspan="2">
+		<input type="checkbox" name="Daylight" <% checked_match("daylight", "1"); %>>自动按夏时制调整
+	    </td>
+	</TR>
+       
+		<tr>
+		        
+			<td colspan="2">
+				<img src="/img/spacer.gif" width="100%" height="2" border="0">
+			</td>
+		</tr>
+		
+		<tr>			
+			<td colspan="2" align='center'>
+			       <input type="hidden" name="fir_rec" value=<% nvram_get("available_localtime"); %>>
+			       <script>
+			       if(document.formname.fir_rec.value!=0)
+			         document.write("<b>当前时间： <% localtime(); %></b>")
+				</script>
+			<p>
+			<p>
+	                </td>	
+	        </tr>    
+		
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+		
+	
+		<tr>
+			<td colspan="2" align="center">
+				<input type=hidden name="Button" value="Apply">
+				<input type="Button" name="ButtonApp" value="应用" onClick="return checkData()">
+				<!--<input type="Button" name="ButtonApp" value="Apply" onclick="document.formname.submit()">-->
+				<input type="button" name="Cancel" value="取消" onclick="refresh()">
+			</td>
+			</tr>
+	</table>
+</form>
+</body>
+</html>

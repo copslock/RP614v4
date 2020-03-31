@@ -1,0 +1,79 @@
+<html>
+<head>
+<META name="description" content="WGR614">
+<META http-equiv="Content-Type" content="text/html; charset=GB2312">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+
+<title>更新设置</title>
+<script language="javascript" type="text/javascript">
+<!--
+var pchar = "|"; // progress char
+var maxchars = 55; 
+var delay_time = 750; // msecs
+var charcount = 0; 
+
+function makeStr(strSize, fillChar)
+{
+	var temp = "";
+	for (i=0; i < strSize ; i ++)
+		temp = temp + fillChar;
+	return temp;
+}
+
+function updateProgress()
+{
+	var cf = document.forms[0];
+	//var nextF = document.forms[0].next_file.value;
+	if (charcount < maxchars)
+	{
+	    if (cf.progress != null)
+	    {
+		    charcount ++;
+	        cf.progress.value = makeStr(charcount,pchar);
+		    setTimeout("updateProgress()",delay_time);
+		}
+		else 
+		    setTimeout("location.replace('" + nextF + "')", delay_time);
+		
+	}
+	else
+	{ 
+		cf.submit();
+	}
+}
+//-->
+</script>
+<style type="text/css">
+TD {FONT-SIZE: 10pt; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif}
+H1 {FONT-WEIGHT: bold; FONT-SIZE: 12pt; BACKGROUND: white; COLOR: #09c; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif}
+P { FONT-SIZE: 10pt; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif }
+.prgbar { color: #0000FF}
+</style>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="updateProgress();">
+<form name="update" action="/cgi-bin/TraceWanDet.cgi" method="post" onSubmit="">
+<input type="hidden" name="page" value="Blank_update_proc.htm">
+<input type="hidden" name="action" value="DetWanIsSuccecc">
+	<input type="hidden" name="SW_Step" value="98">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+</tr>
+<tr>
+ <td nowrap><h1>正在更新设置</h1></td>
+ <td nowrap width="35%">&nbsp;</td>
+ <td nowrap><input type="text" name="progress" value="" style="color: #0000ff" ></td>
+</tr>
+<tr> <!-- RULE -->
+ <td colspan="3" background="/img/liteblue_1.gif" height="12"> &nbsp;</td>
+ <!--<td colspan="4" height="12"><hr color="#0099CC"></td>-->
+</tr>
+<tr>
+ <td colspan="3" nowrap>正在更新设置并测试因特网连接，请稍候。</td>
+</tr>
+
+</table>
+</form>
+</BODY>
+</html>

@@ -1,0 +1,758 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<meta name="generator" content="Adobe GoLive 5">
+<title>以太网</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+var MacAddress;
+function goTestApply(F)
+{
+	//window.open('http://www.netgear.com/', '');	
+	if (sumvalue(F)){
+	   // window.open('test_conn.html', '');
+	  
+	if(F.blankstate.value!=1)
+	{
+		document.formname.ResetFlag.value=1;
+		window.open('dhcp_conn.html', 'formether');
+		setTimeout("document.formname.submit()",1000);	
+	}else
+		document.formname.submit();		
+	}
+}
+
+function Cancel()
+{
+	location="basicformether.html"
+}
+
+function RunTest(F) {
+	
+	F.DoTest.value="yes";
+	goTestApply(F);
+	F.DoTest.value="";
+	
+}
+
+function loadcheck(){
+    var x=document.formname.Spoofmac.value;
+    var y="";
+    var j=0;
+    //var system = navigator.userAgent;
+    var system = "";
+	loadhelp('_basic2',' ');
+	system = OScheck();
+	if(system.indexOf("Mac") >=0 ) {
+		document.formname.WPethr1.size="5"
+		document.formname.WPethr2.size="5"
+		document.formname.WPethr3.size="5"
+		document.formname.WPethr4.size="5"
+		document.formname.WMask1.size="5"
+		document.formname.WMask2.size="5"
+		document.formname.WMask3.size="5"
+		document.formname.WMask4.size="5"
+		document.formname.WGateway1.size="5"
+		document.formname.WGateway2.size="5"
+		document.formname.WGateway3.size="5"
+		document.formname.WGateway4.size="5"
+		document.formname.PDAddr1.size="5"
+		document.formname.PDAddr2.size="5"
+		document.formname.PDAddr3.size="5"
+		document.formname.PDAddr4.size="5"
+		document.formname.LDAddr1.size="5"
+		document.formname.LDAddr2.size="5"
+		document.formname.LDAddr3.size="5"
+		document.formname.LDAddr4.size="5"
+		document.formname.Spoofmac.size="25"
+		if(isIE()){
+			document.formname.SysName.size="24"
+			document.formname.Domain.size="24"
+		}
+		else{
+			document.formname.SysName.size="15"
+			document.formname.Domain.size="15"
+		}
+	}
+	else {
+		document.formname.WPethr1.size="4"
+		document.formname.WPethr2.size="4"
+		document.formname.WPethr3.size="4"
+		document.formname.WPethr4.size="4"
+		document.formname.WMask1.size="4"
+		document.formname.WMask2.size="4"
+		document.formname.WMask3.size="4"
+		document.formname.WMask4.size="4"
+		document.formname.WGateway1.size="4"
+		document.formname.WGateway2.size="4"
+		document.formname.WGateway3.size="4"
+		document.formname.WGateway4.size="4"
+		document.formname.PDAddr1.size="4"
+		document.formname.PDAddr2.size="4"
+		document.formname.PDAddr3.size="4"
+		document.formname.PDAddr4.size="4"
+		document.formname.LDAddr1.size="4"
+		document.formname.LDAddr2.size="4"
+		document.formname.LDAddr3.size="4"
+		document.formname.LDAddr4.size="4"
+		document.formname.Spoofmac.size="17"
+		if(isIE()){
+			document.formname.SysName.size="23"
+			document.formname.Domain.size="23"
+		}
+		else{
+			document.formname.SysName.size="15"
+			document.formname.Domain.size="15"
+		}
+	}
+	
+	checkform(document.formname);	
+   	if(document.formname.WANAssign[1].checked)
+	   fix(document.formname);
+	MacAddress=document.formname.Spoofmac.value;
+	if(document.formname.Spoofmac.value!="")
+	{
+	        for(i=0;i<x.length;i++)
+	        {
+	        if(i==(j+2))
+	        {
+	          y=y+":";
+	          j=j+2;
+	         } 
+	        y=y+x.charAt(i);
+	        
+	        }
+	        document.formname.Spoofmac.value=y;	
+	}
+	
+	var wan_proto = '<% nvram_get("wan_proto"); %>';
+
+	if (wan_proto == 'static')
+		document.formname.WANAssign[1].checked = true;
+	else
+		document.formname.WANAssign[0].checked = true;
+		
+	changetext();
+	setIP();
+	setDNS();
+	
+}
+function loadhelp(fname,anchname) {
+	if (anchname!=' ')
+		top.helpframe.location.href="help/help"+fname+".html#"+anchname
+	else
+		top.helpframe.location.href="help/help"+fname+".html"
+}
+
+function checkform(F)
+{
+	load4(F.WANIPethr,F.WPethr1,F.WPethr2,F.WPethr3,F.WPethr4);
+	load4(F.WANMask,F.WMask1,F.WMask2,F.WMask3,F.WMask4);
+	load4(F.WANGateway,F.WGateway1,F.WGateway2,F.WGateway3,F.WGateway4);
+	load4(F.DNSAddr1,F.PDAddr1,F.PDAddr2,F.PDAddr3,F.PDAddr4);
+	if(F.DNSAddr2.value != '0.0.0.0')
+		load4(F.DNSAddr2,F.LDAddr1,F.LDAddr2,F.LDAddr3,F.LDAddr4); 
+}  
+function sumvalue(F)
+{    
+	var lanIp = '<% nvram_get("lan_ipaddr"); %>';
+	F.LDAddr1.value=strim(F.LDAddr1.value);
+	F.LDAddr2.value=strim(F.LDAddr2.value);
+	F.LDAddr3.value=strim(F.LDAddr3.value);
+	F.LDAddr4.value=strim(F.LDAddr4.value);
+	
+	if(F.WANAssign[1].checked)	
+	{
+		F.WANIPethr.value = IPv4toString(getValue(F.WPethr1.value), getValue(F.WPethr2.value), getValue(F.WPethr3.value), getValue(F.WPethr4.value));
+		F.WANMask.value = IPv4toString(getValue(F.WMask1.value), getValue(F.WMask2.value), getValue(F.WMask3.value), getValue(F.WMask4.value));
+		F.WANGateway.value = IPv4toString(getValue(F.WGateway1.value), getValue(F.WGateway2.value), getValue(F.WGateway3.value), getValue(F.WGateway4.value));
+		
+		//check Wan IP addr
+		if (checkIP(F.WPethr1, F.WPethr2, F.WPethr3, F.WPethr4, 254))
+		{
+			alert("IP地址无效，请重新输入！");
+			return false;
+		}
+		if(!isValidIP(F.WANIPethr.value))
+		{
+			alert("IP地址无效，请重新输入！");
+			return false;
+		}
+		//check submask addr
+		if (checkIP(F.WMask1, F.WMask2, F.WMask3, F.WMask4, 254))
+		{
+			alert("子网掩码无效，请重新输入！");
+			return false;
+		}
+		if(!isValidMask(F.WANMask.value))
+		{
+			alert("子网掩码无效，请重新输入！");
+			return false;
+		}
+		//check gateway ip addr
+		if (checkIP(F.WGateway1, F.WGateway2, F.WGateway3, F.WGateway4, 254))
+		{
+			alert("网关IP地址无效，请重新输入！");
+			return false;
+		}
+		if(!isValidIP(F.WANGateway.value))
+		{
+			alert("网关IP地址无效，请重新输入！");
+			return false;
+		}
+
+		if(isStringsEqual(F.WANIPethr.value, F.WANGateway.value))	
+		{
+			alert("IP地址无效！ 广域网IP地址与网关IP地址不能相同。");
+			return false;
+		}
+		else if(isStringsEqual(F.WANIPethr.value, lanIp))
+		{
+			alert("IP地址无效！ 广域网IP地址与局域网IP地址不能相同。");
+			return false;
+		}
+		else if(isStringsEqual(F.WANMask.value, lanIp))
+		{
+			alert("子网掩码无效！ 子网掩码地址与局域网IP地址不能相同。");
+			return false;
+		}
+		else if(isStringsEqual(F.WANGateway.value, lanIp))
+		{
+			alert("网关地址无效！ 网关地址与局域网IP地址不能相同。");
+			return false;
+		}
+		if (CheckGateway(F.WANIPethr.value, F.WANMask.value,F.WANGateway.value) == false)
+			return false; 
+	}
+	else{
+		F.WANIPethr.value = '0.0.0.0';
+		F.WANMask.value = '0.0.0.0';
+		F.WANGateway.value = '0.0.0.0';
+	}
+	if(F.DNSAssign[1].checked)
+	{
+		var wanIp = F.WANIPethr.value;
+		F.DNSAddr1.value = IPv4toString(getValue(F.PDAddr1.value), getValue(F.PDAddr2.value), getValue(F.PDAddr3.value), getValue(F.PDAddr4.value));
+		F.DNSAddr2.value = IPv4toString(getValue(F.LDAddr1.value), getValue(F.LDAddr2.value), getValue(F.LDAddr3.value), getValue(F.LDAddr4.value));
+		
+		//check primary dns addr
+		if (checkIP(F.PDAddr1, F.PDAddr2, F.PDAddr3, F.PDAddr4, 254))
+		{
+			alert("首选域名服务器地址无效，请重新输入！");
+			return false;
+		}
+		if(!isValidIP(F.DNSAddr1.value))
+		{
+			alert("首选域名服务器地址无效，请重新输入！");
+			return false;
+		}
+		else if(isStringsEqual(F.DNSAddr1.value,wanIp) || isStringsEqual(F.DNSAddr1.value,lanIp))
+		{
+			alert("首选域名服务器地址无效，域名服务器地址与广域网或局域网的IP地址相同。");
+			return false;		
+		}
+		
+		//check secondary DNS addr
+		if(F.LDAddr1.value.length>0 || F.LDAddr2.value.length>0 ||F.LDAddr3.value.length>0 ||F.LDAddr4.value.length>0 )
+		{
+			if (checkIP(F.LDAddr1, F.LDAddr2, F.LDAddr3, F.LDAddr4, 254))
+			{
+				alert("备用域名服务器地址无效，请重新输入！");
+				return false;
+			}
+			if(F.DNSAddr2.value.length > 3 && !isValidIP(F.DNSAddr2.value))
+			{
+				alert("备用域名服务器地址无效，请重新输入！");
+				return false;
+			}
+			else if(isStringsEqual(F.DNSAddr1.value, F.DNSAddr2.value))	
+			{
+				alert("备用域名服务器地址无效，域名服务器地址与备用域名服务器地址相同。");
+				return false;
+			}
+			else if(isStringsEqual(F.DNSAddr2.value,wanIp) || isStringsEqual(F.DNSAddr2.value,lanIp))
+			{
+				alert("备用域名服务器地址无效，域名服务器地址与广域网或局域网的IP地址相同。");
+				return false;		
+			}
+			else if(F.DNSAddr2.value.length <= 3 || F.DNSAddr2.value.length > 15 )
+			{
+				 F.DNSAddr2.value='0.0.0.0';  
+			}
+		}
+	}
+	else{
+		F.DNSAddr1.value= '0.0.0.0';
+		F.DNSAddr2.value= '0.0.0.0';
+	}	
+	if (F.MACAssign[2].checked)
+	{
+		var macAddr;
+		if (F.Spoofmac.value.indexOf(':') == -1) //can't find out
+			macAddr = StringtoMac(F.Spoofmac.value);
+		else
+			macAddr = F.Spoofmac.value;
+			
+		if((isValidMAC(macAddr) == false))
+		{
+			alert("MAC地址无效");
+			F.Spoofmac.focus();
+			return false;
+		}
+		else{
+			top.contents.location.href="contents_normal.html"
+			return true;				
+		}
+   	}
+	if(F.blankstate.value!=1)   	
+   		top.contents.location.href="contents_normal.html"
+        return true;
+}
+
+function Hex(val) {
+	var h = (val-0).toString(16);
+	if(h.length==1) h='0'+h;
+	return h.toUpperCase();
+}
+
+function CheckGateway(wanIp,netmaskIp,gatewayIp) {
+	if(gatewayIp.length==0) return true;
+	var i1,i2,i3, wip, nip, gip;
+
+	i1=wanIp.indexOf('.');
+	i2=wanIp.indexOf('.',(i1+1));
+	i3=wanIp.indexOf('.',(i2+1));
+	wip = Hex(wanIp.substring(0,i1)) + Hex(wanIp.substring((i1+1),i2)) +Hex(wanIp.substring((i2+1),i3))+Hex(wanIp.substring((i3+1),wanIp.length));
+	wip = '0x'+wip;
+
+	i1=netmaskIp.indexOf('.');
+	i2=netmaskIp.indexOf('.',(i1+1));
+	i3=netmaskIp.indexOf('.',(i2+1));
+	nip = Hex(netmaskIp.substring(0,i1)) + Hex(netmaskIp.substring((i1+1),i2)) +Hex(netmaskIp.substring((i2+1),i3)) +Hex(netmaskIp.substring((i3+1),netmaskIp.length));
+	nip = '0x'+nip;
+
+	i1=gatewayIp.indexOf('.');
+	i2=gatewayIp.indexOf('.',(i1+1));
+	i3=gatewayIp.indexOf('.',(i2+1));
+	gip = Hex(gatewayIp.substring(0,i1)) + Hex(gatewayIp.substring((i1+1),i2)) +Hex(gatewayIp.substring((i2+1),i3)) +Hex(gatewayIp.substring((i3+1),gatewayIp.length));
+	gip = '0x'+gip;
+	if((wip & nip) != (gip & nip)){
+		alert('IP地址'+wanIp+' 未处于'+gatewayIp+'/'+netmaskIp+' 网络。');
+		return false;
+	}
+}
+
+function goback()
+{
+	window.location.replace("basicform.html");
+}
+
+function fix(F)
+{
+	F.DNSAssign[1].checked=true;
+	F.DNSAssign[0].disabled=true;
+}
+
+function dyn(F)
+{
+	F.DNSAssign[0].disabled=false;
+}
+
+function autochoose(F)
+{
+	if(F.WANAssign[1].checked)
+   		F.DNSAssign[1].checked=true;
+}
+function strim(s)
+{
+	var i=0;
+	var j=0;
+	var z="";
+
+	Loop:
+		for(i=0;i<s.length;i++) {
+    		if(s.charAt(i)!=" ") {
+       			j=i;
+       			break Loop;
+    	}   
+	}
+	if(i==s.length)
+   		s="";
+	s=s.slice(j,s.length);
+
+	Loop2:
+		for(i=s.length-1;i>=0;i--) {
+ 			if(s.charAt(i)!=" ") {
+       			j=i;
+       			break Loop2;
+    		}   
+		}
+	s=s.slice(0,j+1);
+	return(s);
+}
+
+function OScheck()
+{
+	var theAgent = navigator.userAgent;
+	if (theAgent.indexOf("Mac") >= 0) {
+		return "MacOS";
+	}
+	if (theAgent.indexOf("Win") >= 0) {
+		return "Windows95/98/NT";
+	}
+	return "UNIX";	
+}
+
+//add by jenny 051228
+function setIP()
+{
+	if(document.formname.WANAssign[0].checked)
+ 	{
+	    document.formname.DNSAssign[0].disabled=false; 	    
+ 	    document.formname.WANAssign[1].checked = false;
+ 	    document.formname.WPethr1.disabled = true;
+ 	    document.formname.WPethr2.disabled = true;
+ 	    document.formname.WPethr3.disabled = true;
+ 	    document.formname.WPethr4.disabled = true;
+ 	    
+ 	    document.formname.WMask1.disabled = true;
+ 	    document.formname.WMask2.disabled = true;
+ 	    document.formname.WMask3.disabled = true;
+ 	    document.formname.WMask4.disabled = true;
+ 	    
+ 	    document.formname.WGateway1.disabled = true;
+ 	    document.formname.WGateway2.disabled = true;
+ 	    document.formname.WGateway3.disabled = true;
+ 	    document.formname.WGateway4.disabled = true;
+ 	   	    	
+	}
+	else
+	{
+	    document.formname.WANAssign[0].checked = false;
+ 	    document.formname.WPethr1.disabled = false;
+ 	    document.formname.WPethr2.disabled = false;
+ 	    document.formname.WPethr3.disabled = false;
+ 	    document.formname.WPethr4.disabled = false;
+ 	    
+ 	    document.formname.WMask1.disabled = false;
+ 	    document.formname.WMask2.disabled = false;
+ 	    document.formname.WMask3.disabled = false;
+ 	    document.formname.WMask4.disabled = false;
+ 	    
+ 	    document.formname.WGateway1.disabled = false;
+ 	    document.formname.WGateway2.disabled = false;
+ 	    document.formname.WGateway3.disabled = false;
+ 	    document.formname.WGateway4.disabled = false;
+ 	    
+ 	    setDNS();	    
+	}	
+}
+
+function setDNS()
+{
+	if(document.formname.WANAssign[1].checked)
+	{
+	   document.formname.DNSAssign[1].checked = true;
+	   
+	   document.formname.PDAddr1.disabled = false;
+ 	   document.formname.PDAddr2.disabled = false;
+ 	   document.formname.PDAddr3.disabled = false;
+ 	   document.formname.PDAddr4.disabled = false;		
+	   
+	   document.formname.LDAddr1.disabled = false;
+ 	   document.formname.LDAddr2.disabled = false;
+ 	   document.formname.LDAddr3.disabled = false;
+ 	   document.formname.LDAddr4.disabled = false;	 
+	   	
+	}
+	else if(document.formname.DNSAssign[0].checked)
+	{
+	   document.formname.DNSAssign[1].checked = false;
+	   
+	   document.formname.PDAddr1.disabled = true;
+ 	   document.formname.PDAddr2.disabled = true;
+ 	   document.formname.PDAddr3.disabled = true;
+ 	   document.formname.PDAddr4.disabled = true;
+ 	   
+ 	   document.formname.LDAddr1.disabled = true;
+ 	   document.formname.LDAddr2.disabled = true;
+ 	   document.formname.LDAddr3.disabled = true;
+ 	   document.formname.LDAddr4.disabled = true; 	    	   		
+	}
+	else
+	{
+	   document.formname.DNSAssign[0].checked = false;
+	   
+	   document.formname.PDAddr1.disabled = false;
+ 	   document.formname.PDAddr2.disabled = false;
+ 	   document.formname.PDAddr3.disabled = false;
+ 	   document.formname.PDAddr4.disabled = false;		
+	   
+	   document.formname.LDAddr1.disabled = false;
+ 	   document.formname.LDAddr2.disabled = false;
+ 	   document.formname.LDAddr3.disabled = false;
+ 	   document.formname.LDAddr4.disabled = false;	   	
+	}	
+}
+//end
+
+function changetext() 
+{
+	var temp = "";
+	if(isIE()) {
+		if(document.formname.MACAssign[0].checked) {
+		 	document.formname.Spoofmac.style.color="#888888";
+		}
+		
+		if(document.formname.MACAssign[1].checked) {
+		 	document.formname.Spoofmac.style.color="#888888";
+		}
+		
+		if(document.formname.MACAssign[2].checked) {
+		 	document.formname.Spoofmac.style.color="#000000";
+		}
+	}
+	else {
+		temp = browserVer();
+		//alert(temp);
+		if(temp.indexOf("new") >=0 ) {		
+			if(document.formname.MACAssign[0].checked) {
+		 		document.formname.Spoofmac.style.color="#888888";
+			}
+			if(document.formname.MACAssign[1].checked) {
+			 	document.formname.Spoofmac.style.color="#888888";
+			}
+			if(document.formname.MACAssign[2].checked) {
+			 	document.formname.Spoofmac.style.color="#000000";
+			}
+		}
+		else {
+		}
+	}
+}
+
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff"  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadcheck();">
+		<form name="formname" action="cgi-bin/apply.cgi" method="POST" target="_parent">
+		<input type="hidden" name="page" value="basicform1.html">
+		<input type=hidden name="action" value="Apply">		
+		<input type=hidden name="DoTest" value="">		
+		<input type="hidden" name="Load" value="W">
+		<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		
+			<tr>
+				<td><a href="javascript:loadhelp('_basic2','accountname')"><b>帐户名</b>&#xA0;（如果需要）</a></td>
+				<td width="48%" align="right">
+				<input type="hidden" name="Encap" value="0">
+				<input type="hidden" name="ResetFlag" value="0">
+				<input type="hidden" name="IspName" value="101">
+				<input type="text" name="SysName" maxlength="50" tabindex="3" size="15" value="<% nvram_get("wan_hostname"); %>"></td>
+			</tr>
+			
+			<tr>
+				<td><a href="javascript:loadhelp('_basic2','Domain')"><b>域名</b>&#xA0;（如果需要）</a></td>
+				<td width="48%" align="right"><input type="text" name="Domain" maxlength="50" size="15" tabindex="4" value="<% nvram_get("lan_domain"); %>"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+				</td>
+			</tr></table>
+<!-- END RULE //-->
+		<table border="0" cellpadding="0" cellspacing="3" width="100%">
+			
+			<tr>
+				<td width=""30%><a href="javascript:loadhelp('_basic2','InternetIP')"><b>因特网IP地址</b></a></td><td></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="radio" value="Dynamic" name="WANAssign" onClick="setIP()" tabindex="8" <% checked_match("wan_proto", "dhcp"); %> onClick="dyn(this.form)">从ISP处动态获取</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="radio" value="Fixed" name="WANAssign" onClick="setIP()" tabindex="9" <% checked_match("wan_proto", "static"); %> onClick="fix(this.form)">使用静态IP地址</td>
+			</tr>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="3" width="100%">
+			<tr>
+				<td><img src="img/spacer.gif" width="20" height="12" border="0">IP 地址</td>
+				<td  align="right"><img src="img/spacer.gif" width="220" height="1" border="0"><br>
+				    <input type="hidden" name="WANIPethr" size="15" 
+				    onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+				    value=<% nvram_get("wan_ipaddr"); %> maxlength="15" >
+				    
+				    <input type="text" class="num" name="WPethr1" size="4" 
+				    onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+				    value="" maxlength="3" tabindex="10" onkeypress="chk_num(event)">.
+				     <input type="text" class="num" name="WPethr2" size="4" 
+				    onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+				    value="" maxlength="3" tabindex="11" onkeypress="chk_num(event)">.
+				     <input type="text" class="num" name="WPethr3" size="4" 
+				    onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+				    value="" maxlength="3" tabindex="12" onkeypress="chk_num(event)">.
+				     <input type="text" class="num" name="WPethr4" size="4" 
+				    onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+				    value="" maxlength="3" tabindex="13" onkeypress="chk_num(event)">
+				    </td>
+			</tr>
+			
+			<tr>
+				<td><img src="img/spacer.gif" width="20" height="12" border="0">IP子网掩码</td>
+				<td width="50%" align="right"><input type="hidden" name="WANMask" size="15" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+					value=<% nvram_get("wan_netmask"); %> maxlength="15">
+					<input type="text" class="num" name="WMask1" size="4" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+					value="" maxlength="3"  tabindex="14" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="WMask2" size="4" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+					value="" maxlength="3"  tabindex="15" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="WMask3" size="4" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+					value="" maxlength="3"  tabindex="16" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="WMask4" size="4" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"  
+					value="" maxlength="3"  tabindex="17" onkeypress="chk_num(event)">
+					</td>
+			</tr>
+			
+			<tr>
+				<td><img src="img/spacer.gif" width="20" height="12" border="0">网关IP地址</td>
+				<td width="50%" align="right"><input type="hidden" name="WANGateway" size="15" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"   
+					value=<% nvram_get("wan_gateway"); %> maxlength="15">
+					<input type="text" class="num" name="WGateway1" size="4" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"   
+					value="" maxlength="3"  tabindex="18" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="WGateway2" size="4" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"   
+					value="" maxlength="3"  tabindex="19" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="WGateway3" size="4" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"   
+					value=""$ maxlength="3"  tabindex="20" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="WGateway4" size="4" 
+					onfocus="if (this.form.WANAssign[0].checked) this.form.WANAssign[0].focus();"   
+					value="" maxlength="3"  tabindex="21" onkeypress="chk_num(event)">
+					</td>
+			</tr>			
+<tr>
+	<td colspan="2">
+		<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+	</td>
+</tr>
+<!-- END RULE //-->
+			
+			<tr>
+				<td colspan="2"><a href="javascript:loadhelp('_basic2','DNSaddress')"><b>域名服务器（DNS）地址 </b></a></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="radio" value="Dynamic" name="DNSAssign" onClick="setDNS()" tabindex="22" <% checked_match("wan_autodns", "1"); %> onClick="autochoose(this.form)">从ISP处动态获取</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="radio" value="Fixed" name="DNSAssign" onClick="setDNS()" tabindex="23" <% checked_match("wan_autodns", "0"); %>>使用下面的域名服务器地址</td>
+			</tr>
+			<tr>
+				<td><img src="img/spacer.gif" width="20" height="12" border="0">首选域名服务器</td>
+				<td width="50%" align="right"><input type="hidden" name="DNSAddr1" size="15" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value=<% nvram_get("wan_dns1"); %> maxlength="15">
+					<input type="text" class="num" name="PDAddr1" size="4" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="3"  tabindex="24" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="PDAddr2" size="4" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="3"  tabindex="25" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="PDAddr3" size="4" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="3"  tabindex="26" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="PDAddr4" size="4" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="3"  tabindex="27" onkeypress="chk_num(event)">
+					</td>
+			</tr>
+			<tr>
+				<td><img src="img/spacer.gif" width="20" height="12" border="0">备用域名服务器</td>
+				<td width="50%" align="right"><input type="hidden" name="DNSAddr2" size="15" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value=<% nvram_get("wan_dns2"); %> maxlength="15">
+					<input type="text" class="num" name="LDAddr1" size="4" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="3" tabindex="28" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="LDAddr2" size="4" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="3" tabindex="29" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="LDAddr3" size="4" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="3" tabindex="30" onkeypress="chk_num(event)">.
+					<input type="text" class="num" name="LDAddr4" size="4" 
+					onfocus="if (this.form.DNSAssign[0].checked) this.form.DNSAssign[0].focus();" 
+					value="" maxlength="3" tabindex="31" onkeypress="chk_num(event)">
+					</td>
+			</tr>
+		
+			
+<!-- RULE //-->
+	<tr>
+		<td colspan="2">
+			<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+		</td>
+	</tr>
+<!-- END RULE //-->
+	
+	<tr>
+		<td colspan="2">
+		<a href="javascript:loadhelp('_basic2','localaddress')"><b>路由器MAC地址</b></a> 
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="radio" value="default" name="MACAssign" <% checked_match("wan_mac_mode", "0"); %> tabindex="32" onclick="changetext();">使用缺省MAC地址</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="radio" value="thisPC" name="MACAssign" <% checked_match("wan_mac_mode", "1"); %> tabindex="33" onclick="changetext();">使用计算机MAC地址</td>
+	</tr>
+	</table>
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+		<td width="60%" align="left">
+			<input type="radio" value="spoofmac" name="MACAssign" <% checked_match("wan_mac_mode", "2"); %> tabindex="35" onclick="changetext();">使用下面的MAC地址
+		</td>
+		<td width="50%" align="right">
+			<input type="text" class="num" name="Spoofmac" size="17" maxlength="17" value="<% nvram_get("wan_spoofmac"); %>" 
+			onfocus="if (this.form.MACAssign[0].checked) this.form.MACAssign[0].focus();if (this.form.MACAssign[1].checked) this.form.MACAssign[1].focus();" tabindex="34">
+		</td>
+	</tr>	
+	                <input type="hidden" name="blankstate" value="<% nvram_get("blankstate"); %>">
+			<input type="hidden" name="wanFinish" value="off">	
+			<input type="hidden" name="Button" value="Apply">	
+		<!-- RULE //-->
+<tr>
+	<td colspan="2">
+		<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+	</td>
+</tr>
+
+		</tr>
+			
+		<tr>
+			<td colspan="2" align="center">
+			<input type=hidden name="Button" value="Apply">
+			<!--<input type="Button" value="__Apply" OnClick="if (sumvalue(this.form)) document.formname.submit();">-->
+			<input type="Button" value="应用" OnClick="goTestApply(this.form)">
+			<input type="Button" value="取消" OnClick="Cancel()">
+			<input type="Button" value="测试" OnClick="RunTest(this.form)">
+			<!--<input type="Button" value="Test" OnClick="goTestApply(this.form)">-->
+			</td></tr>
+			
+	</table>
+</form>
+		<p>&nbsp;</p>
+	</body>
+
+</html>

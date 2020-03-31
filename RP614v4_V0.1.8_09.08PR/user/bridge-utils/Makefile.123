@@ -1,0 +1,21 @@
+NO_SHARED_LIBS = 1
+FLTFLAGS += -s 8192
+ifndef KERNEL_DIR
+KERNEL_DIR=$(ROOTDIR)/$(LINUXDIR)
+endif
+
+DESTDIR=
+KERNEL_HEADERS=-I$(KERNEL_DIR)/include
+
+SUBDIRS=libbridge brctl doc
+
+romfs:
+	$(ROMFSINST)   brctl/brctl /bin/brctl
+	$(ROMFSINST)   brctl/brctld /bin/brctld
+
+all:
+	for x in $(SUBDIRS); do (cd $$x && $(MAKE) ); done
+
+clean:
+	for x in $(SUBDIRS); do (cd $$x && $(MAKE) clean ); done
+

@@ -1,0 +1,521 @@
+
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=GB2312">
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+	<title>时间安排</title> 
+	<link rel="stylesheet" href="/form1.css" type="text/css">	
+	<script LANGUAGE="javascript"src="/utility.js"></script>
+	<script language="javascript" src="/browser.js"></script>	
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+var ns = false;
+var ie = false;
+if(isIE())
+	ie=true;
+else
+	ns=true;
+			
+ns = (document.layers) ? true : false;
+ie = (document.all) ? true : false;
+	
+function BlockAllClick(form) {
+	if(form.BEveryday.checked) {
+		form.BlockMon.checked = true;
+		form.BlockTue.checked = true;
+		form.BlockWed.checked = true;
+		form.BlockThu.checked = true;
+		form.BlockFri.checked = true;
+		form.BlockSat.checked = true;
+		form.BlockSun.checked = true;
+		
+		if(ie) {
+			form.BlockMon.disabled = true;
+			form.BlockTue.disabled = true;
+			form.BlockWed.disabled = true;
+			form.BlockThu.disabled = true;
+			form.BlockFri.disabled = true;
+			form.BlockSat.disabled = true;
+			form.BlockSun.disabled = true;
+		}
+
+	} else {
+/*				form.BlockMon.checked = false;
+		form.BlockTue.checked = false;
+		form.BlockWed.checked = false;
+		form.BlockThu.checked = false;
+		form.BlockFri.checked = false;
+		form.BlockSat.checked = false;
+		form.BlockSun.checked = false;
+*/
+		if(ie) {
+			form.BlockMon.disabled = false;
+			form.BlockTue.disabled = false;
+			form.BlockWed.disabled = false;
+			form.BlockThu.disabled = false;
+			form.BlockFri.disabled = false;
+			form.BlockSat.disabled = false;
+			form.BlockSun.disabled = false;
+		}
+	}
+
+	return;
+}
+
+function dayClick(day) 
+{
+	if (document.formname.BEveryday.checked)
+	 	day.checked=true;
+		return;
+}
+	
+function BlockDayFocus(form) 
+{
+	if(form.BEveryday.checked) {
+		form.BEveryday.focus();
+		form.BEveryday.focus();
+	}
+}
+
+function BlockPeriodClick(form) 
+{
+	if(form.BlockAllday.checked) {
+		if(ie) {
+			form.StartHour.disabled = true;
+			form.StartMinute.disabled = true;
+			form.EndHour.disabled = true;
+			form.EndMinute.disabled = true;
+			
+			form.StartHour.value = "";
+			form.StartMinute.value = "";
+			form.EndHour.value = "";
+			form.EndMinute.value = "";
+		}
+	} 
+	else {
+		if(ie) {
+			form.StartHour.disabled = false;
+			form.StartMinute.disabled = false;
+			form.EndHour.disabled = false;
+			form.EndMinute.disabled = false;
+		}
+	}
+	return;
+}
+
+function BlockTimeFocus(form) 
+{
+	if(form.BlockAllday.checked) {
+		form.BlockAllday.focus();
+		form.BlockAllday.focus();
+	}
+}
+
+function BlockAllClickCheck(form) 
+{
+	if(form.BEveryday.checked) {
+		form.BlockMon.checked = true;
+		form.BlockTue.checked = true;
+		form.BlockWed.checked = true;
+		form.BlockThu.checked = true;
+		form.BlockFri.checked = true;
+		form.BlockSat.checked = true;
+		form.BlockSun.checked = true;
+		
+		if(ie) {
+			form.BlockMon.disabled = true;
+			form.BlockTue.disabled = true;
+			form.BlockWed.disabled = true;
+			form.BlockThu.disabled = true;
+			form.BlockFri.disabled = true;
+			form.BlockSat.disabled = true;
+			form.BlockSun.disabled = true;
+		}
+	} 
+	block_all(form);
+	return;
+}
+
+function block_all(form){
+/*
+ if(!form.SysClock.checked)
+ {
+     	if(ie) {
+		form.Daylight.disabled = true;
+		form.BEveryday.disabled = true;
+		form.AlertGMT.disabled = true;
+		form.BlockAllday.disabled = true;
+		
+		form.StartHour.disabled = true;
+		form.StartMinute.disabled = true;
+		form.EndHour.disabled = true;
+		form.EndMinute.disabled = true;
+		
+		blockday(form);
+	}
+     
+ }
+*/
+}
+function timeover(form)
+{
+	var tStartHour,tEndHour,tStartMinute,tEndMinute;
+	
+        if(!form.BEveryday.checked) {
+		if((form.BlockMon.checked == false)&&(form.BlockTue.checked ==false)&&(form.BlockWed.checked ==false)&&(form.BlockThu.checked==false)&&(form.BlockFri.checked == false)&&(form.BlockSat.checked ==false)&&(form.BlockSun.checked ==false))
+		{
+			alert("所有日期均不进行限制");
+			return false; 
+		}
+	}
+	if(!form.BlockAllday.checked){
+/*	
+	   if((form.StartHour.value==0)&&(form.EndHour.value==0))
+	   {
+	      alert("所有时间均不进行限制");
+	      return false;
+	      }
+*/	      
+	}	
+	
+	tStartHour = parseInt(form.StartHour.value);
+	tEndHour = parseInt(form.EndHour.value);
+	tStartMinute = parseInt(form.StartMinute.value);
+	tEndMinute = parseInt(form.EndMinute.value);
+		
+/*		
+	if(tStartHour - tEndHour > 0) {  
+		alert("时间输入无效！");
+		return false;
+	}
+	else if((tStartHour - tEndHour == 0)&&
+		(tStartMinute - tEndMinute >= 0)) {    
+		alert("时间输入无效！");
+		return false;
+	}
+*/	
+	
+	if((tStartHour < 0)||(tStartHour > 23)||
+	   (tEndHour < 0 )||(tEndHour > 23)||
+	   (tStartMinute < 0)||(tStartMinute > 59)||
+	   (tEndMinute < 0)||(tEndMinute > 59)) {  
+		alert("时间输入无效！");
+		return false;
+	}
+
+
+	if((!_isNumeric(form.StartHour.value)) ||
+	   (!_isNumeric(form.EndHour.value)) ||
+	   (!_isNumeric(form.StartMinute.value)) ||
+	   (!_isNumeric(form.EndMinute.value))){
+		alert("时间输入无效！");
+		return false;
+	}
+	return true;        
+}
+
+function loadhelp(fname,anchname) {
+
+	if (anchname!=' ')
+		parent.helpframe.location.href="/help/help"+fname+".html#"+anchname
+	else
+		parent.helpframe.location.href="/help/help"+fname+".html"
+}
+
+function refresh()
+{
+	window.location.href="filterscheduleform.html";
+}
+function syntime(form)
+{
+  if(form.HideClock.value=="checked")
+       window.location.href="Synchronize_Time.html";
+  else
+       alert("请首先启用系统时钟");
+ 		
+}
+function All_Block(F)
+{
+	if(F.SysClock.checked)
+	{
+		UnBlockAllClick(F);
+	}else{
+		BlockAllClickCheck(F);
+	}
+}
+function UnBlockAllClick(F)
+{
+	if(ie) 
+	{
+		F.Daylight.disabled = false;
+		F.BEveryday.disabled = false;
+		F.AlertGMT.disabled = false;
+		F.BlockAllday.disabled = false;
+		if(F.BEveryday.checked)
+		{
+			blockday(F);
+			F.BEveryday.disabled=false;
+		}else{
+			Unblockday(F);
+		}
+		if(F.BlockAllday.checked)
+		{
+			F.StartHour.disabled = true;
+			F.StartMinute.disabled = true;
+			F.EndHour.disabled = true;
+			F.EndMinute.disabled = true;
+		}else{
+			F.StartHour.disabled = false;
+			F.StartMinute.disabled = false;
+			F.EndHour.disabled = false;
+			F.EndMinute.disabled = false;
+		}
+	}		
+	return;
+}
+function blockday(form)
+{
+   form.BlockSun.disabled=true;
+   form.BlockMon.disabled=true;
+   form.BlockTue.disabled=true;
+   form.BlockWed.disabled=true;
+   form.BlockThu.disabled=true;
+   form.BlockFri.disabled=true;
+   form.BlockSat.disabled=true;
+}
+function Unblockday(form)
+{
+   form.BlockSun.disabled=false;
+   form.BlockMon.disabled=false;
+   form.BlockTue.disabled=false;
+   form.BlockWed.disabled=false;
+   form.BlockThu.disabled=false;
+   form.BlockFri.disabled=false;
+   form.BlockSat.disabled=false;
+}
+-->
+</script> 
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_schedule',' ')">
+<form name="formname" action="/cgi-bin/apply.cgi" method="POST"> 
+<input type="hidden" name="page" value="filterscheduleform.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="F">
+<input type=hidden name=iniDays value=<% nvram_get("fw_inidays"); %>>
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>时间安排</h1>
+			</td>
+		</tr>
+
+<!-- RULE -->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE -->
+
+<!--		<tr>
+			<td colspan="2">
+				<p>
+					<b>Time Zone</b> 
+				</p>
+			</td>
+		</tr>
+	   <TR>
+          <TD colSpan="2">
+          	  <SELECT class=ttext name=AlertGMT size=1> 
+          	  <OPTION <% selected_match("time_zone", "0"); %> value=0>(GMT-12:00) Eniwetok, Kwajalein</OPTION>
+              <OPTION <% selected_match("time_zone", "1"); %> value=1>(GMT-11:00) Midway Island, Samoa</OPTION>
+              <OPTION <% selected_match("time_zone", "2"); %> value=2>(GMT-10:00) Hawaii</OPTION>
+              <OPTION <% selected_match("time_zone", "3"); %> value=3>(GMT-09:00) Alaska</OPTION>
+              <OPTION <% selected_match("time_zone", "4"); %> value=4>(GMT-08:00) Pacific Time (USA/Canada); Tijuana</OPTION>
+              <OPTION <% selected_match("time_zone", "5"); %> value=5>(GMT-07:00) Mountain Time (USA/Canada)</OPTION>
+              <OPTION <% selected_match("time_zone", "6"); %> value=6>(GMT-06:00) Central Time (USA/Canada); Central America</OPTION>
+              <OPTION <% selected_match("time_zone", "7"); %> value=7>(GMT-05:00) Eastern Time (USA/Canada); Indiana (East)</OPTION>
+              <OPTION <% selected_match("time_zone", "8"); %> value=8>(GMT-04:00) Atlantic Time (Canada); Caracas, La Paz</OPTION>
+              <OPTION <% selected_match("time_zone", "9"); %> value=9>(GMT-03:00) Newfoundland, Brasilia, Buenos Aires</OPTION>
+              <OPTION <% selected_match("time_zone", "10"); %> value=10>(GMT-02:00) Mid-Atlantic</OPTION>
+              <OPTION <% selected_match("time_zone", "11"); %> value=11>(GMT-01:00) Azores, Cape Verde Is.</OPTION>
+              <OPTION <% selected_match("time_zone", "12"); %> value=12>(GMT) Greenwich Mean Time: Dublin, Lisbon, London</OPTION>
+              <OPTION <% selected_match("time_zone", "13"); %> value=13>(GMT+01:00) Berlin, Paris, Rome, Stockholm, Vienna</OPTION>
+              <OPTION <% selected_match("time_zone", "14"); %> value=14>(GMT+02:00) Athens, Cairo, Helsinki, Istanbul, Jerusalem</OPTION>
+              <OPTION <% selected_match("time_zone", "15"); %> value=15>(GMT+03:00) Baghdad, Kuwait, Moscow, Nairobi</OPTION>
+              <OPTION <% selected_match("time_zone", "16"); %> value=16>(GMT+04:00) Abu Dhabi, Muscat, Tbilisi</OPTION>
+              <OPTION <% selected_match("time_zone", "17"); %> value=17>(GMT+05:00) Islamabad, Karachi, Tashkent</OPTION>
+              <OPTION <% selected_match("time_zone", "18"); %> value=18>(GMT+06:00) Almaty, Dhaka, Novosibirsk</OPTION>
+              <OPTION <% selected_match("time_zone", "19"); %> value=19>(GMT+07:00) Bangkok, Jakarta, Hanoi</OPTION>
+              <OPTION <% selected_match("time_zone", "20"); %> value=20>(GMT+08:00) Beijing, Hong Kong, Singapore, Taipei</OPTION>
+              <OPTION <% selected_match("time_zone", "26"); %> value=26>(GMT+08:00) Western Australia; Perth</OPTION>
+              <OPTION <% selected_match("time_zone", "21"); %> value=21>(GMT+09:00) Tokyo, Osaka, Sapporo, Seoul, Yakutsk</OPTION>
+              <OPTION <% selected_match("time_zone", "25"); %> value=25>(GMT+09:30) Central Australia; Darwin, Adelaide</OPTION>
+              <OPTION <% selected_match("time_zone", "22"); %> value=22>(GMT+10:00) Canberra, Guam</OPTION>
+              <OPTION <% selected_match("time_zone", "27"); %> value=27>(GMT+10:00) Eastern Australia; Brisbane, Melbourne, Sydney</OPTION>
+              <OPTION <% selected_match("time_zone", "23"); %> value=23>(GMT+11:00) Magadan, Solomon Is., New Caledonia</OPTION>
+              <OPTION <% selected_match("time_zone", "24"); %> value=24>(GMT+12:00) Fiji, Kamchatka, Marshall Is., Wellington</OPTION>
+              <OPTION <% selected_match("time_zone", "46"); %> value=46>(GMT+08:00) Beijing, Hong Kong, Singapore, Taipei</OPTION>              
+			  
+              </SELECT>
+            </TD>
+        </TR>
+        
+		     
+         <tr>
+			<td colspan="2" align="left">
+				
+					<input type="checkbox" name="Daylight" <% checked_match("daylight", "1"); %>>Adjust for Daylight Savings Time
+					<br>
+					<input type="checkbox" name="SysClock" <% checked_match("SysClock", "1"); %> OnClick="All_Block(this.form);">Enable System Clock
+					<input type="hidden" name="HideClock" value=<% nvram_get("SysClock"); %> >
+				
+					
+			</td>
+		</tr> 
+        <tr>
+			<td colspan="2" align="center">
+				<p>
+				       <input type="hidden" name="fir_rec" value=<% nvram_get("available_localtime"); %>>
+				       <script>
+				       if(document.formname.fir_rec.value!=0)
+				         document.write("<b><% localtime(); %></b>")
+					 
+					</script>
+				</p>
+			</td>
+		</tr>
+	   <tr>
+			<td colspan="2" align="center">
+				<input type=button name="SynTime" value="Synchronize Time" OnClick="syntime(document.forms[0]);">
+			</td>
+		</tr>	
+		 <tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+			</td>
+		</tr>      
+-->		<tr>
+			<td colspan="2">
+				<b>在下列日期进行限制：</b>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+					<input type="checkbox" name="BEveryday" <% checkbox_checked("fw_everyday"); %> onclick=BlockAllClick(this.form);>每天
+			</td>
+		</tr>
+		<tr>
+			<td nowrap colspan="2">
+				 
+				<input type="checkbox" name=BlockSun <% checked_getblockdays("fw_blockdays", "0"); %> onclick=dayClick(this.form.BlockSun); 
+            		   onfocus=BlockDayFocus(this.form);>星期日
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				 
+				<input type="checkbox" name=BlockMon <% checked_getblockdays("fw_blockdays", "1"); %> onclick=dayClick(this.form.BlockMon); 
+            		   onfocus=BlockDayFocus(this.form);>星期一
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">				 
+				<input type="checkbox" name=BlockTue <% checked_getblockdays("fw_blockdays", "2"); %> onclick=dayClick(this.form.BlockTue); 
+            		   onfocus=BlockDayFocus(this.form);>星期二
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				 
+				<input type="checkbox" name=BlockWed <% checked_getblockdays("fw_blockdays", "3"); %> onclick=dayClick(this.form.BlockWed); 
+            	 	   onfocus=BlockDayFocus(this.form);>星期三 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">				 
+				<input type="checkbox" name=BlockThu <% checked_getblockdays("fw_blockdays", "4"); %> onclick=dayClick(this.form.BlockThu); 
+            		   onfocus=BlockDayFocus(this.form);>星期四
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				 
+				<input type="checkbox" name=BlockFri <% checked_getblockdays("fw_blockdays", "5"); %> onclick=dayClick(this.form.BlockFri); 
+            		   onfocus=BlockDayFocus(this.form);>星期五
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">				 
+				<input type="checkbox"  name=BlockSat <% checked_getblockdays("fw_blockdays", "6"); %> onclick=dayClick(this.form.BlockSat); 
+            		   onfocus=BlockDayFocus(this.form);>星期六
+			</td>
+		</tr>
+<!-- RULE -->
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE -->
+		<tr>
+			<td colspan="2"><a href="javascript:loadhelp('_schedule','Schedule')">
+				<b>在下列时间进行限制：</b> （使用24小时制）
+			</a></td>
+		</tr>
+		<tr>
+			<td colspan="2">				
+				<input type="checkbox" name=BlockAllday <% checkbox_checked("fw_blockallday"); %> onclick=BlockPeriodClick(this.form); >全天
+			</td>
+		</tr>
+		<tr>
+			<td width="50%">
+				限制开始时间： 
+			</td>	
+			<td width="50%">
+				<input type="TEXT" class="num" name="StartHour" size="3" maxlength="2" value="<% nvram_get("fw_starthour"); %>" 
+					onfocus="BlockTimeFocus(this.form);" onkeypress="chk_num(event)">时 
+				<input type="TEXT" class="num" name="StartMinute" size="3" maxlength="2" value="<% nvram_get("fw_startmin"); %>" 
+					onfocus="BlockTimeFocus(this.form);" onkeypress="chk_num(event)">分 
+			</td>
+		</tr>
+		<tr>
+			<td width="50%">
+				限制结束时间： 
+			</td>
+			<td>
+				<input type="TEXT" class="num" name="EndHour" size="3" maxlength="2" value="<% nvram_get("fw_endhour"); %>" onfocus="BlockTimeFocus(this.form);" onkeypress="chk_num(event)">时 
+				<input type="TEXT" class="num" name="EndMinute" size="3" maxlength="2" value="<% nvram_get("fw_endmin"); %>" onfocus="BlockTimeFocus(this.form);" onkeypress="chk_num(event)">分 
+			</td>
+		</tr>
+		
+		
+
+		<tr>
+			<td colspan="2">
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+          		 	<input type=hidden name="saveAllDay">
+          		 	<input type=hidden name="Button" value="Apply">
+					<input type="Button" name="ButtonApply" value="应用" onClick="if (timeover(document.forms[0])) document.formname.submit();"> 
+					<input type="RESET" name="Cancel" value="取消" onClick="refresh()"> 
+			</td>
+		</tr>
+	</table>
+</form>
+<p>
+</p>
+<SCRIPT language=JavaScript>
+<!--
+	BlockAllClickCheck(document.forms[0]);
+	BlockPeriodClick(document.forms[0]);
+// -->
+</SCRIPT>
+</body>
+</html>

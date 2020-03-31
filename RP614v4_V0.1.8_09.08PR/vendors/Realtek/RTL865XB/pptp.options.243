@@ -1,0 +1,24 @@
+updetach
+name chap241
+#lock
+debug 
+#
+#usepeerwins
+usepeerdns
+#
+noauth 
+#require-mschap-v2
+#require-mppe-128
+#
+noccp
+novj
+novjccomp
+nopcomp
+noaccomp
+
+# persistent
+persist
+
+# LCP Control
+lcp-echo-failure	5
+lcp-echo-interval	30

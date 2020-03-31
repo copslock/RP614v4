@@ -1,0 +1,269 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta name="generator" content="Adobe GoLive 5">
+<title>端口触发服务</title>
+<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" src="/browser.js"></script>
+<script LANGUAGE="javascript"src="/utility.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+var df_sel = false;
+var fwpt_action = "add";
+
+function loadhelp(num)
+{
+	top.helpframe.document.location.href="/help/help"+num+".html";
+}
+
+function setsrc()
+{
+	var cf = document.forms[0];
+	var type = cf.src_ip_type.selectedIndex;
+	if (type == 1)
+	{
+		cf.src_ip1.disabled = false;
+		cf.src_ip2.disabled = false;
+		cf.src_ip3.disabled = false;
+		cf.src_ip4.disabled = false;
+	}
+	else
+	{
+		cf.src_ip1.disabled = true;
+		cf.src_ip2.disabled = true;
+		cf.src_ip3.disabled = true;
+		cf.src_ip4.disabled = true;
+	}
+}
+
+function setDisable(disable)
+{
+	var cf = document.forms[0];
+	cf.pt_name.disabled = disable;
+	cf.pt_type.disabled = disable;
+	cf.pt_port.disabled = disable;
+	cf.in_port_type.disabled = disable;
+	cf.in_port_start.disabled = disable;
+	cf.in_port_end.disabled = disable;
+}
+
+function loadSettings()
+{
+	var cf = document.forms[0];
+/*	var src_ip_type = "";
+	if (src_ip_type == "2")
+	{
+		var src_ip = cf.src_ip.value.split(".");
+		cf.src_ip1.value = src_ip[0];
+		cf.src_ip2.value = src_ip[1];
+		cf.src_ip3.value = src_ip[2];
+		cf.src_ip4.value = src_ip[3];
+		cf.src_ip_type.selectedIndex = 1;
+	}
+	else
+	{
+		cf.src_ip_type.selectedIndex = 0;
+		cf.src_ip1.value = "";
+		cf.src_ip2.value = "";
+		cf.src_ip3.value = "";
+		cf.src_ip4.value = "";
+	}
+	setsrc();
+*/
+	cf.src_ip_type.selectedIndex = 1;
+	cf.src_ip1.value ="<% field_nvram_get("cur_trigger_port_ip", ".", "1"); %>";
+	cf.src_ip2.value ="<% field_nvram_get("cur_trigger_port_ip", ".", "2"); %>";
+	cf.src_ip3.value ="<% field_nvram_get("cur_trigger_port_ip", ".", "3"); %>";
+	cf.src_ip4.value ="<% field_nvram_get("cur_trigger_port_ip", ".", "4"); %>";
+	if((cf.src_ip1.value == 0 )&&(cf.src_ip2.value == 0 )&&(cf.src_ip3.value == 0 )&&(cf.src_ip4.value == 0 ))
+	{
+		cf.src_ip1.value ="";
+		cf.src_ip2.value ="";
+		cf.src_ip3.value ="";
+		cf.src_ip4.value ="";
+		cf.src_ip_type.selectedIndex = 0;
+	}
+	setsrc();
+	var pt_type = "<% trigger_port_info("o_proto"); %>";
+	if (pt_type == "tcp")
+		cf.pt_type.selectedIndex = 0;
+	else
+		cf.pt_type.selectedIndex = 1;
+	cf.pt_port.value = "<% trigger_port_info("o_startp"); %>";
+
+	var in_port_type = "<% trigger_port_info("i_proto"); %>";
+	if (in_port_type == "both")
+		cf.in_port_type.selectedIndex = 0;
+	else if (in_port_type == "tcp")
+		cf.in_port_type.selectedIndex = 1;
+	else
+		cf.in_port_type.selectedIndex = 2;
+	cf.in_port_start.value = "<% trigger_port_info("i_startp"); %>";
+	cf.in_port_end.value = "<% trigger_port_info("i_endp"); %>";
+
+	if (df_sel)
+		setDisable(true);
+}
+
+function checkPort(name, port)
+{
+	var msg = "";
+	var portNum = parseInt(port);
+
+	if (port.length == 0)
+		msg = name + " 不能为空\n";
+	if (isNaN(portNum) || portNum == 80 || portNum < 1 || portNum > 65535)
+		msg = "无效的" + name + "，必须介于1到65535之间，80除外\n";
+	return msg;
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	var IPaddr = "";
+	var lanIp = '<% nvram_get("lan_ipaddr"); %>';
+	if(!isValidName(cf.pt_name.value,15))
+	{
+		msg += "服务名称类型无效\n";
+	}        
+
+	if (cf.src_ip_type.selectedIndex == 1)
+	{
+		if(checkIP(cf.src_ip1,cf.src_ip2,cf.src_ip3,cf.src_ip4,254)||(parseInt(cf.src_ip4.value)==0))
+			msg+= "服务用户IP地址无效\n";
+			
+		IPaddr = IPv4toString(getValue(cf.src_ip1.value), getValue(cf.src_ip2.value), getValue(cf.src_ip3.value), getValue(cf.src_ip4.value));
+		if(!isValidIP(IPaddr))
+		{
+			msg+= "内部IP地址无效！\n";
+		}
+		if(isStringsEqual(IPaddr, lanIp))
+		{
+			alert("服务器IP地址不能是路由器的局域网IP地址。");
+			return false;
+		}
+	}
+
+	msg += checkPort("触发端口", cf.pt_port.value);
+
+	msg += checkPort("入站连接的起始端口", cf.in_port_start.value);
+
+	if (cf.in_port_end.value.length > 0)
+	{
+		msg += checkPort("入站连接的结束端口", cf.in_port_end.value);
+		if (parseInt(cf.in_port_end.value) < parseInt(cf.in_port_start.value))
+			msg += "入站连接端口范围无效\n";
+	}
+
+	if (msg.length > 0)
+	{
+		alert(msg);
+		return false;
+	}
+	
+	cf.src_ip.value = cf.src_ip1.value+'.'+cf.src_ip2.value+'.'+cf.src_ip3.value+'.'+cf.src_ip4.value;
+	if (cf.in_port_end.value.length == 0)
+		cf.in_port_end.value = cf.in_port_start.value;
+
+	setDisable(false);
+	return true;
+}
+
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" onload="loadSettings();loadhelp('_porttriggering');">
+<FORM name="formname" action="/cgi-bin/apply.cgi" method=post>
+<input type="hidden" name="page" value="port_trigger.html">
+<input type=hidden name="action" value="Apply">
+<input type="hidden" name="Load" value="E1">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+	<td colspan="2"><h1>端口触发 - 服务</h1></td></tr>
+<tr>
+	<td colspan="2"><img src="/img/liteblue.gif" width="100%" height="2" border="0"></td></tr>
+<tr>
+<td colspan="2">
+	<table border ="0" cellpadding ="0" cellspacing ="0" width="100%">
+	<tr>
+	<td colspan="2"><tabindex="-1"><b>服务</b></a></td></tr>
+	<tr>
+	<TD NOWRAP width="37%">服务名称</td>
+	<TD NOWRAP width="63%"><input type="text" name="pt_name" size="15" maxlength="15" value="<% trigger_port_info("service"); %>"></td>
+	</tr>
+	<tr>
+	<td nowrap width="37%">服务用户</td>
+	<td nowrap width="63%">
+	<select name="src_ip_type" tabindex=2 onChange="setsrc();">
+		<option value=1>所有人</option>
+		<option value=2>单一地址</option>
+	</select>
+	</td>
+	</tr>
+	<tr></tr>
+	<tr>
+	<td nowrap width="37%"></td>
+	<td nowrap width="63%"><span class="num">
+		<input type="text" class="num" size="4" name="src_ip1" tabindex=3 maxlength="3" value="" onkeypress="chk_num(event)">.
+		<input type="text" class="num" size="4" maxlength="3" name="src_ip2" tabindex=4 value="" onkeypress="chk_num(event)">.
+		<input type="text" class="num" size="4" maxlength="3" name="src_ip3" tabindex=5 value="" onkeypress="chk_num(event)">.
+		<input type="text" class="num" size="4" maxlength="3" name="src_ip4" tabindex=6 value="" onkeypress="chk_num(event)">
+	</span></td>
+	</tr>      
+	<tr>
+	<TD NOWRAP width="37%">服务类型</td>
+	<TD NOWRAP width="63%">
+		<select name="pt_type" tabindex=7 size="1">
+		<option value=6>TCP</option>
+		<option value=17>UDP</option>
+		</SELECT></TD>
+	</TR>
+	<tr>
+	<TD NOWRAP width="37%">触发端口</td>
+	<TD NOWRAP width="63%"><input type="text" class="num" name="pt_port" size="6" maxlength="5" value="<% trigger_port_info("o_startp"); %>" tabindex=8 onkeypress="chk_num(event)">(1~65535)</td>
+	</tr>
+	<tr>
+	<td colspan="2"><img src="/img/liteblue.gif" width="100%" height="2" border="0">&nbsp;</td></tr>
+	<tr>
+	<td colspan="2"><tabindex="-1"><b>要求的入站连接</b></a></td></tr>
+	<tr>
+	<TD NOWRAP width="37%">连接类型</td>
+	<TD NOWRAP width="63%">
+		<select name="in_port_type" tabindex=9 size="1">
+		<option value=100>TCP/UDP</option>
+		<option value=6>TCP</option>
+		<option value=17>UDP</option>
+		</SELECT></TD>
+	</TR>
+	<tr>
+	<TD NOWRAP width="37%">起始端口</td>
+	<TD NOWRAP width="63%"><input type="text" class="num" name="in_port_start" size="6" maxlength="5"
+				    value="<% trigger_port_info("i_startp"); %>" onFocus="this.select();" onkeypress="chk_num(event)">(1~65535)</td>
+	</tr>
+	<tr>
+	<TD NOWRAP width="37%">结束端口</td>
+	<TD NOWRAP width="63%"><input type="text" class="num" name="in_port_end" size="6" maxlength="5" value="<% trigger_port_info("i_endp"); %>" onFocus="this.select();" onkeypress="chk_num(event)">(1~65535)
+		    		<input type="hidden" name="TriggerFin" value=1></td>
+	</tr>
+	</table>
+</td>
+</tr>
+	<tr>
+		<td colspan="2"><img src="/img/liteblue.gif" width="100%" height="2" border="0"></td>
+	</tr>
+	<td colspan="2" align="center">
+		<input type=hidden name="Button" value="Apply">		
+		<input type="submit" value="应用" onclick="if(!checkData()) return false;">
+		<input type="button" name="cancel" value="取消" onClick="location.href='/port_trigger.html'">
+	</td>
+	</tr>
+</table>
+<input type="hidden" name="src_ip" value="">
+<input type="hidden" name="out_port_type" value="0">
+<input type="hidden" name="TriggerEn" value="<% trigger_port_info("enable"); %>">
+</form>
+</body>
+</html>

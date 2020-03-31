@@ -1,0 +1,232 @@
+
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=GB2312">
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+	<title>路由器表格</title> 
+	<link rel="stylesheet" href="/form1.css" type="text/css">
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+	
+function loadhelp(fname,anchname) {
+	if (anchname!=' ')
+		top.helpframe.location.href="help/help"+fname+".html#"+anchname
+	else
+		top.helpframe.location.href="help/help"+fname+".html"
+}
+
+function newwindow(F)
+{
+	if((F.status.value =="checked")||(F.EncapAolDhcp.value=="checked"))
+		window.open('enatherstatus.html', 'enstatherstatus', 'width=380,height=400,status=yes');
+	else if(F.EncapPTelstra.value=="checked")
+		window.open('telstrastatus.html', 'pptpstatus', 'width=380,height=320,status=yes');	
+	else if((F.EncapPPTP.value =="checked"))
+		window.open('pptpstatus.html', 'pptpstatus', 'width=380,height=320,status=yes');
+	else
+	  window.open('pppoestatus.html', 'pppoestatus', 'width=380,height=380,status=yes');
+	}
+
+function checkWireless(){
+	var showWireless=<% nvram_get("wireless"); %>;
+	
+	return showWireless;
+}
+//-->
+</script> 
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_SysStatus')">
+<form method="POST">
+<input type=hidden name=status value=<% checked_match("wan_proto", "static"); %>>
+<input type="hidden" name=EncapPTelstra  value=<% checked_match("wan_proto", "telstra"); %>>
+<input type="hidden" name=EncapPPTP  value=<% checked_match("wan_proto", "pptp"); %>>
+<input type="hidden" name=EncapAolDhcp  value=<% checked_match("wan_proto", "dhcp"); %>>
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<a><h1>路由器状态</h1></a>
+			</td>
+		</tr>
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="img/liteblue.gif" width="100%" height="2" border="0">
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td width="60%">
+				<b>帐户名</b> 
+			</td>
+			<td width="40%">
+				<% nvram_get("wan_hostname"); %>
+			</td>
+		</tr>
+		
+<!--		<tr>
+			<td width="60%">
+				<b>Hardware Version </b> 
+				
+			</td>
+			<td width="40%">
+				<% nvram_get("hw_version"); %>
+			</td>
+		</tr>
+-->		
+		<tr>
+			<td width="60%">
+				<b>固件版本 </b> 
+			</td>
+			<td width="40%">
+				<% nvram_get("os_version"); %>
+			</td>
+		</tr>
+		
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td colspan="2">
+			     <a href="javascript:loadhelp('_SysStatus','internet_port')">
+				<span class="subhead">因特网端口 </span> 
+			     </a>
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>MAC 地址 </b> 
+			</td>
+			<td width="40%">
+				<% nvram_get("wan0_hwaddr"); %>
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>IP 地址 </b> 
+			</td>
+			<td width="40%">
+				<% nvram_get("wan0_ipaddr"); %> 
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>DHCP </b> 
+			</td>
+			<td width="40%">
+				<% wan_dhcp_get(); %> 
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>IP子网掩码 </b>
+			</td>
+			<td width="40%">
+				<% nvram_get("wan0_netmask"); %> 
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>域名服务器</b>
+			</td>
+			<td width="40%">
+				<% nvram_get("wan0_dns1"); %> 
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b></b> 
+			</td>
+			<td width="40%">
+				<% nvram_get("wan0_dns2"); %>
+			</td>
+		</tr>
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td colspan="2">
+			        <a href="javascript:loadhelp('_SysStatus','lan_port')">
+				<span class="subhead">局域网端口 </span> 
+				</a>
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>MAC 地址 </b> 
+			</td>
+			<td width="40%">
+				<% nvram_get("lan_hwaddr"); %>
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>IP 地址 </b> 
+			</td>
+			<td width="40%">
+				<% nvram_get("lan_ipaddr"); %> 
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>DHCP </b> 
+			</td>
+			<td width="40%">
+				<% lan_dhcp_get(); %>  
+			</td>
+		</tr>
+		<tr>
+			<td width="60%">
+				<b>IP子网掩码 </b> 
+			</td>
+			<td width="40%">
+				<% nvram_get("lan_netmask"); %>  
+			</td>
+		</tr>
+<!--begin of wireless part-->
+<script language="javascript">
+	if( checkWireless() )
+	{
+		var str;
+		str='<INPUT name="zComDummy" type="hidden" value="$$Z#zComDummy$$">'
+		str=str+'<tr><td colspan="2"><img src="img/liteblue.gif" width="100%" height="2" border="0"></td></tr>';
+		str=str+'<tr><td colspan="2"><span class="subhead">无线端口</span></td></tr>';
+		str=str+'<tr><td width="60%"><b>MAC地址（BSSID）</b></td><td width="40%">$$X#WlMACAddress$$</td></tr>';
+		str=str+'<tr><td width="60%"><b>无线网络标识（SSID）</b></td><td width="40%">$$Z#ESSID$$</td></tr>';
+		str=str+'<tr><td width="60%"><b>地区</b></td><td width="40%">$$X#FreqDomain$$</td></tr>';
+		str=str+'<tr><td width="60%"><b>频道</b></td><td width="40%">$$Z#CType$$</td></tr>';
+		
+		document.write(str);
+	}		
+</script>	
+<!--end of wireless part-->	
+<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<tr>
+			<td align='center' colspan="2">
+				<input type="BUTTON" value="显示统计信息" onclick="window.open('mtenSysStatistics.html','static','width=525,height=240,status=yes, resizable=yes');"> 
+		
+               <INPUT onclick="newwindow(this.form);" type=button value="连接状态"> 
+            </TD>
+		</tr>
+	</table>
+</form>
+</body>
+
+</html>
+

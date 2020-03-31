@@ -1,0 +1,352 @@
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=GB2312">
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+	<title>NETGEAR</title>
+	<link rel="stylesheet" href="contents.css">
+
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function checkWireless()
+{
+	var showWireless=<% nvram_get("wireless"); %>;
+
+	return showWireless;
+}
+
+function checkProduct()
+{
+	var showProduct=<% nvram_get("show_Product"); %>;
+
+	return showProduct;
+}
+
+function opennew()
+{
+	window.open('','new_win');
+}
+
+function openDataSubWin(filename,win_type)
+
+{
+
+	datSubWinVar = window.open(filename,'datasub_win',win_type);
+
+	if (datSubWinVar.focus)
+
+		setTimeout('datSubWinVar.focus()',200);
+
+}
+
+function showLoginMsg()
+{
+	var firstTime = '<% nvram_get("logo_enable"); %>';
+	if (firstTime == "1")
+	{
+		var wx = 400;
+		var wy = 300;
+		var x = (screen.width - wx) / 2;
+		var y = (screen.height - wy) / 2;
+		openDataSubWin('MNU_login.html',"left="+x+",top="+y+",width="+wx+",height="+wy);
+	}
+}
+-->
+</script>
+</head>
+<body bgcolor="#330099" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="showLoginMsg();">
+<table>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="wizard_select.html" target="formframe">设置向导</a>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<img src="img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+<!-- END RULE -->
+	<tr>
+		<td colspan="2">
+			<h1>设置</h1>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="basicform1.html" target="formframe">基本设置</a>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<h1>内容过滤</h1>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="log.html" target="formframe">日志</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="keywordform.html" target="formframe">站点限制</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="pack_frame.html" target="formframe">服务限制</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="filterscheduleform.html" target="formframe">时间安排</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="emailform.html" target="formframe">E-mail</a>
+		</td>
+	</tr>
+		<tr>
+		<td colspan="2">
+			<h1>维护</h1>
+		</td>
+	</tr>
+	</tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="sysstatus.html" target="formframe">路由器状态</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="devices.html" target="formframe">已接设备</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="backup.html" target="formframe">备份设置</a>
+		</td>
+	</tr>
+
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="password.html" target="formframe">设置密码</a>
+		</td>
+	</tr>
+<!--
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="backup.html" target="formframe">Configuration</a>
+		</td>
+	</tr>
+-->
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="upgrade.html" target="formframe">路由器升级</a>
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan="2">
+			<h1>高级</h1>
+		</td>
+	</tr>
+	<script>
+		if( checkWireless() )
+		{
+			var sstr;
+
+			sstr='<tr><td valign="top"><img src="img/redbullet.gif" alt="" width="7" height="7" ></td>';
+			sstr=sstr+'<td>';
+			sstr=sstr+'<a href="accpoint_config2.html" target="formframe">无线设置</a>'
+			sstr=sstr+'</td></tr>';
+			document.write(sstr);
+		}
+	</script>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+<!--			<a href="ports.html" target="formframe">Port Forwarding</a> -->
+                        <a href="ports_app_table.html" target="formframe">端口转发/端口触发</a>
+		</td>
+	</tr>
+<!--
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+		   <a href='port_trigger.html' target='formframe'>Port Triggering
+		</td>
+	</tr>
+-->
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="security.html" target="formframe">广域网设置</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="lanform.html" target="formframe">局域网IP设置</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="ddnsform.html" target="formframe">动态 DNS</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="staticroutes.html" target="formframe">静态路由</a>
+		</td>
+		</tr>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+			<a href="remoteip.html" target="formframe">远程管理</a>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>			
+		<td>
+			<a href="upnp.html" target="formframe">UPnP</a>
+		</td>	
+	</tr>			
+	<!--wireless part  -->
+	<!-- knowledge -->
+	<tr>
+		<td colspan="2">
+			<img src="img/liteblue.gif" width="100%" height="2" border="0">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<h1>在线支持</h1>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+		    <script language="javascript">
+		    <!--
+			var isconnect=<% wanstatus_get(); %>;
+			if (isconnect==1)
+			{
+				if(checkProduct()==1 || checkProduct()==0)
+				{
+					document.write("<a href='http://kbserver.netgear.com/products/rp614v4.asp' target='new_win' onClick='opennew()'>知识库</a> ");
+				}else if(checkProduct()==2)
+				{
+					document.write("<a href='http://kbserver.netgear.com/products/rp614v4.asp' target='new_win' onClick='opennew()'>知识库</a> ");
+				}
+			}
+			else
+				document.write("<a><font color=gray>知识库</font></a>");
+			//-->
+		    </script>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<img src="img/redbullet.gif" alt="" width="7" height="7">
+		</td>
+		<td>
+		    <script language="javascript">
+		    <!--
+			var isconnect=<% wanstatus_get(); %>;
+			if (isconnect==1)
+			{
+				if(checkProduct()==1 || checkProduct()==0)
+				{
+					document.write("<a href='http://documentation.netgear.com/rp614v4/enu/202-10167-01/index.htm' target='new_win' onClick='opennew()'>文档</a> ");
+				}else if(checkProduct()==2)
+				{
+					document.write("<a href='http://documentation.netgear.com/rp614v4/enu/202-10167-01/index.htm' target='new_win' onClick='opennew()'>文档</a> ");
+				}
+			}
+			else
+				document.write("<a><font color=gray>文档</font></a>");
+			//-->
+			</script>
+		</td>
+	</tr>
+<!-- knowledge end -->
+
+	<tr>
+		<td colspan="2">
+			<img src="img/spacer.gif" alt="" width="20" height="20">
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align=center>
+			<a href="gologout.html" target="_top"><font size=3>注销</font></a>
+		</td>
+	</tr>
+</table>
+</body>
+
+</html>

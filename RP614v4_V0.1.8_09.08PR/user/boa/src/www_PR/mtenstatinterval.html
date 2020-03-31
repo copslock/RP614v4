@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<meta http-equiv='content-type' content='text/html;charset=GB2312'>
+    <META NAME="generator" CONTENT="GoLive CyberStudio 3">
+    <META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+    <TITLE>NETGEAR路由器统计信息</TITLE>
+</HEAD>
+<SCRIPT LANGUAGE="JavaScript1.2">
+<!-- hide script from old browsers
+var defaultInterval 
+var interval = 5
+
+function loadInterval()
+{
+     defaultInterval=5;
+	// alert("调用setInterval()之前...")
+	window.focus();
+   	intervalId = setInterval("getStatisticPage()", interval * 1000)
+    intervalId2 = setInterval("setDefaultInterval()", 20)
+    // alert("调用setInterval()之后...")
+}
+
+function setDefaultInterval()
+{
+    // this.interval_frame.SetIntervalForm.interval.value = defaultInterval
+    document.SetIntervalForm.interval.value = defaultInterval;
+    clearInterval(intervalId2)
+    // this.interval_frame.location = "Mainten_System_Statistics.html"
+}
+
+function resetInterval(newInterval)
+{
+    if(newInterval<=0)
+    {
+      alert("范围>0");
+      return;
+      }
+    interval = parseInt(newInterval)
+    if ( isNaN(interval) ) {
+            interval = defaultInterval
+    }
+    document.SetIntervalForm.interval.value = interval
+    clearInterval(intervalId)
+    intervalId = setInterval("getStatisticPage()", interval * 1000)
+}
+
+
+function stopInterval() 
+{
+    clearInterval(intervalId)
+    document.SetIntervalForm.interval.value = ""
+}
+
+function getStatisticPage()
+{
+    	myTitle = "PNC统计信息" ;
+	parent.StatTable.location = "/mtenstatisticTable.html"
+}     
+-->
+</script>
+<BODY BGCOLOR="#FFFFFF" onLoad="loadInterval();">
+<FORM action="/post-query" method="POST" NAME="SetIntervalForm">
+<input type="hidden" name="Load" value="H">
+ 	<P>
+ 	
+      <TR> 
+       <TD><CENTER>
+            <TABLE BORDER=0 WIDTH=510 HEIGHT=34 VALIGN=top>
+ 		<TR> 
+ 		<TD WIDTH=170 align="CENTER" style="{FONT-SIZE: 12px; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif}"><B>轮询时间间隔：</B></TD>
+                </TD>
+            <TD align="CENTER" nowrap><INPUT TYPE="TEXT" NAME="interval" SIZE="4" MAXLENGTH="4" VALUE=" ">（秒）</TD>
+            <TD WIDTH=80> </TD>
+            </CENTER>
+      </TD>
+      
+<TD WIDTH=80> </TD>
+
+<TD WIDTH=80 ALIGN=center VALIGN=middle> 
+                  <CENTER>
+                    
+                  <INPUT TYPE="BUTTON" NAME="SetIntvl" VALUE="设置时间间隔" WIDTH="80" onClick="resetInterval(document.SetIntervalForm.interval.value)">
+                
+                   
+                  </CENTER>
+</TD>
+<TD WIDTH=20> </TD>
+<td WIDTH=100 ALIGN=center VALIGN=middle> 
+                  <CENTER>
+                    
+                     <INPUT TYPE="BUTTON" NAME="stopIntvl" VALUE="停止" WIDTH="80" onClick="return stopInterval()"> 
+                    
+                     
+                  </CENTER>
+   </td></tr>
+   </table>
+    <TABLE BORDER=0 WIDTH=510 HEIGHT=34 VALIGN=top>
+   <tr><td>
+                 <CENTER>
+             <!--   <img src="img/liteblue.gif" width="100%" height="2" border="0">   -->
+             <!--   <FONT SIZE=3>
+                     <input type=button name="close" value="Close Window" onclick="parent.window.close();">               
+                     </FONT> 
+              -->
+                  </CENTER> 
+                  <input type=hidden name="Button" value="Apply">
+</TD> 
+</TR>
+</TABLE>
+</CENTER>
+</TD>
+</TR>
+</P>
+</FORM>
+</BODY>
+</HTML>

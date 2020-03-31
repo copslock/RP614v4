@@ -1,0 +1,117 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=gb2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<title>NETGEAR</title>
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function checkWireless(){
+	var showWireless=<% nvram_get("wireless"); %>;
+	//var showWireless=0;
+	return showWireless;
+}
+function checkProduct()
+{
+	var showProduct=<% nvram_get("show_Product"); %>;
+//var showProduct=2;	
+	return showProduct;
+}
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+	
+		<!--<img src="img/darkblue.gif" width="100%" height="12" border="0" align="top">
+		<width="135" height="111" border="0"align="top">
+		<img src="img/settings.gif" width="430" height="111" border="0"align="top">
+		<img src="img/liteblue.gif" width="100%" height="12" border="0"align="top">-->
+		<img src="img/darkblue.gif" width="100%" height="12" border="1" align="top">
+		<!--<img src="img/hm_icon.gif" border="1" align="middle">-->
+		
+		<script>
+		
+		function isIE()
+		{
+			var browser = new Object();
+			browser.version = parseInt(navigator.appVersion);
+			browser.isNs = false;
+			browser.isIe = false;
+			if(navigator.appName.indexOf("Netscape") != -1)
+				browser.isNs = true;
+			else if(navigator.appName.indexOf("Microsoft") != -1)
+				browser.isIe = true;
+
+			if(browser.isNs)
+				return false;
+			else if (browser.isIe)
+				return true;
+		}
+
+		function OScheck()
+		{
+			var theAgent = navigator.userAgent;
+			if (theAgent.indexOf("Mac") >= 0)
+			{
+				return true;
+			}
+			if (theAgent.indexOf("Win") >= 0)
+			{
+				return false;
+			}
+		}
+
+/*		if(OScheck())
+		{
+			document.write("<img src='img/hm_icon.gif' border='0' align='middle'>");
+		}
+		else
+		{
+			document.write("<img src='img/hm_icon.gif' border='0' align='top'>");
+		}
+*/
+		if( checkWireless() )
+		{
+			if(isIE())
+			{
+				document.write("<img src='img/title_MR.gif' border='0' align='middle'>");
+			}
+			else
+			{
+				document.write("<img src='img/title_MR.gif' border='0' align='top'>");      
+			}
+		}
+		else
+		{
+			if(checkProduct()==1 || checkProduct()==0)
+			{
+				if(isIE())
+				{
+					document.write("<img src='img/title_RP.gif' border='0' align='middle'>");
+				}
+				else
+				{
+					document.write("<img src='img/title_RP.gif' border='0' align='top'>");      
+				}
+			}
+			else if(checkProduct()==2)
+			{
+				if(isIE())
+				{
+					document.write("<img src='img/title_RP614v4.gif' border='0' align='middle'>");
+				}
+				else
+				{
+					document.write("<img src='img/title_RP614v4.gif' border='0' align='top'>");      
+				}
+			}
+		}
+
+		</script>
+
+		<!--<img src="img/settings.gif"  border="0" align="top">-->
+		<!--<img src="img/liteblue.gif" width="100%" height="12" border="1"align="top">-->
+
+	</body>
+</html>

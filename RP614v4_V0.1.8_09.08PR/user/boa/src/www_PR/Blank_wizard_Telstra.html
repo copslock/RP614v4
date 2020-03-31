@@ -1,0 +1,157 @@
+<html>
+<head>
+<META name="description" content="WGR614">
+<META http-equiv="Content-Type" content="text/html; charset=GB2312">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+
+<title>BPA</title>
+<link rel="stylesheet" href="form1.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript">
+<!-- 
+
+function goTestApply()
+{
+	var winoptions = "width=640,height=480,menubar=yes,toolbar=yes,status=yes,location=yes,resizable=yes";
+	if(document.forms[0].runtest.value == "yes")
+		window.open('BAS_wtest_l.htm','test_win',winoptions);
+}
+
+function loadcheck()
+{
+	var cf = document.forms[0];
+	if(isIE()){
+		cf.bpa_username.size="24";
+		cf.bpa_passwd.size="24";
+	}
+	loadhelp('WIZ_bpa');
+}
+
+function loadhelp(fname,anchname) 
+{
+/*
+    if (top.helpframe != null)
+    {
+        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+        	top.helpframe.location.href=fname+"_h.htm";
+        else
+        	top.helpframe.location.href=fname+"_h.htm#" + anchname;
+	}
+*/
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+	var msg = "";
+
+	return true;
+	msg+= checkBlank(cf.bpa_username, "用户名");
+	if(cf.bpa_idletime.value.length<=0)
+	 msg+= "请输入闲置超时时间。\n";
+	else if(!_isNumeric(cf.bpa_idletime.value))
+	 msg+= "闲置超时时间无效，请输入正确的数字。\n";
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	return true;
+}
+function RunTest() {
+	var cf = document.forms[0];
+	if(checkData()) {
+		cf.DoTest.value="yes";
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function loadSettings()
+{
+/*	var cf = document.forms[0];
+
+	cf.bpa_server.value = "";
+	cf.bpa_username.value = "";
+	cf.bpa_passwd.value = "";
+	cf.bpa_idletime.value = "5"; */
+}
+
+//-->
+</script>
+
+
+</head>
+
+<!-- <body bgcolor="#ffffff" onload="loadSettings();loadcheck();goTestApply();"> -->
+<body bgcolor="#ffffff" >
+<!--
+<form name="formname" method="POST" action="wiz_bpa.cgi">
+-->
+
+<form name="formname" method="POST" action="cgi-bin/TraceWanDet.cgi">
+	<input type="hidden" name="Load" value="W">
+	<input type="hidden" name="page" value="Blank_wizard_Telstra.html">
+	<input type="hidden" name="autoconnect" value="0">
+	<input type="hidden" name="DoTest" value="">
+	<input type="hidden" name="Encap" value="3">
+	<input type="hidden" name="CA_Step" value="50">
+
+<table border="0" cellpadding="0" cellspacing="3" width="99%">
+<tr>
+	<td colspan="2"><h1>Telstra BigPond</h1></td>
+</tr>
+
+<tr> <!-- RULE -->
+ <td colspan="2" background="img/liteblue_1.gif" height="12"> &nbsp;</td>
+</tr>
+
+<tr>
+	<td><a href="javascript:loadhelp('WIZ_bpa','login')" tabindex="-1"><b>登录</b></a></td>
+	<td align="right"><input type="text" name="TelUserName" size="15" maxlength="60" value="<% nvram_get("wan_tel_username"); %>" ></td>
+</tr>
+<tr>
+	<td><a href="javascript:loadhelp('WIZ_bpa','password')" tabindex="-1"><b>密码</b></a></td>
+	<td align="right"><input type="password" name="TelPasswd" size="15" maxlength="50" value="<% nvram_get("wan_tel_password"); %>" ></td>
+</tr>
+
+<tr>
+ <td nowrap><a href="javascript:loadhelp('WIZ_bpa','sever')" tabindex="-1"><b>认证服务器</b></a></td>
+ <td align="right"><input type="text" name="TelServName" size="15" maxlength="128" value="<% nvram_get("wan_tel_service"); %>" ></td>
+</tr>
+<tr>
+	<td nowrap><a href="javascript:loadhelp('WIZ_bpa','idletime')" tabindex="-1"><b>闲置超时</b></a>（分钟）</td>
+	<td align="right"><input type="text" class="num" name="TelIdleTime" size="4" maxlength="3" value="<% nvram_get("wan_tel_idle_interval"); %>" ></td>
+</tr>
+<tr> <!-- RULE -->
+ <td colspan="2" background="img/liteblue_1.gif" height="12"> &nbsp;</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center"><div ID="buttons" onmouseover="loadhelp('WIZ_bpa','buttons')">
+<!--
+<input type="SUBMIT" name="apply" value="Apply" onClick="return checkData()">
+<input type="BUTTON" name="Cancel" value="Cancel" onClick="loadSettings();">
+<input type="SUBMIT" name="Test" value="Test" onClick="return checkData()">
+-->
+
+<input type="SUBMIT" name="Next" value=" 下一步 " onClick="return checkData()">
+<input type="SUBMIT" name="Next" value=" 测试 " onClick="return RunTest()">
+
+</div></td></tr>
+</table>
+<input type="hidden" name="runtest" value="no">
+</form>
+<p></p>
+</body>
+
+</html>

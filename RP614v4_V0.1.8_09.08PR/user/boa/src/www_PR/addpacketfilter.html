@@ -1,0 +1,898 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=GB2312">
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv="Pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+	<link rel="stylesheet" href="/form1.css" type="text/css">
+	<title>服务限制设置</title>
+	<script LANGUAGE="javascript"src="/utility.js"></script>
+	<script language="javascript" src="/browser.js"></script>
+<script language="JavaScript">
+<!--
+function finishcheck(formname)
+{   
+	var temp_lport = getValue(formname.Portstart.value);
+	var temp_hport = getValue(formname.Portend.value);
+
+        if(!isValidPortRange(temp_lport)||!isValidPortRange(temp_hport))
+        {
+  		alert('起始/结束端口值无效。');			
+		return false;		      	
+        }
+	if (parseInt(formname.Portstart.value)- parseInt(formname.Portend.value)>0)
+	{
+		alert("结束端口必须大于起始端口");
+		return false;
+	}
+	if(CheckIsEmpty(formname.UserDefined.value))
+	{
+		alert("I用户自定义服务类型无效。");
+		return false;		
+	}        
+	var Iptest = /[0-9]{1,3}/;
+	var ipaddr0,ipaddr1;
+	if(formname.iptype[0].checked==true)
+	{
+		if((document.formname.F_PCIP1.value<=0) || (document.formname.F_PCIP1.value>255) || (Iptest.test(document.formname.F_PCIP1.value)!=true)||
+		 	(document.formname.F_PCIP2.value<0) || (document.formname.F_PCIP2.value>255) || (Iptest.test(document.formname.F_PCIP2.value)!=true)||
+		 	(document.formname.F_PCIP3.value<0) || (document.formname.F_PCIP3.value>255) || (Iptest.test(document.formname.F_PCIP3.value)!=true)||
+		 	(document.formname.F_PCIP4.value<=0) || (document.formname.F_PCIP4.value>=255) || (Iptest.test(document.formname.F_PCIP4.value)!=true))
+	 	{
+	 		alert("IP地址无效。");
+	 		return false;
+	 	}
+		ipaddr0 = IPv4toString(getValue(document.formname.F_PCIP1.value),getValue(document.formname.F_PCIP2.value),getValue(document.formname.F_PCIP3.value),getValue(document.formname.F_PCIP4.value));
+		if(!isValidIP(ipaddr0))
+		{
+		    alert("IP地址无效。");
+		    return false;
+		}
+		add(document.formname.filteripstart,document.formname.F_PCIP1,document.formname.F_PCIP2,document.formname.F_PCIP3,document.formname.F_PCIP4);
+  		add(document.formname.filteripend,document.formname.F_PCIP1,document.formname.F_PCIP2,document.formname.F_PCIP3,document.formname.F_PCIP4);	  		
+		formname.filteriptype.value=0;
+	}
+	else if(formname.iptype[1].checked==true)  	
+	{
+  		if((document.formname.F_StartIP1.value<=0) || (document.formname.F_StartIP1.value>255) || (Iptest.test(document.formname.F_StartIP1.value)!=true)||
+		 	(document.formname.F_StartIP2.value<0) || (document.formname.F_StartIP2.value>255) || (Iptest.test(document.formname.F_StartIP2.value)!=true)||
+		 	(document.formname.F_StartIP3.value<0) || (document.formname.F_StartIP3.value>255) || (Iptest.test(document.formname.F_StartIP3.value)!=true)||
+		 	(document.formname.F_StartIP4.value<=0) || (document.formname.F_StartIP4.value>=255) || (Iptest.test(document.formname.F_StartIP4.value)!=true))
+		 	{
+		 		alert("起始IP无效，请重新输入！");
+		 		return false;
+		 	}
+		if ((document.formname.F_EndIP1.value<0) || (document.formname.F_EndIP1.value>255) || (Iptest.test(document.formname.F_EndIP1.value)!=true)||
+		 	(document.formname.F_EndIP2.value<0) || (document.formname.F_EndIP2.value>255) || (Iptest.test(document.formname.F_EndIP2.value)!=true)||
+		 	(document.formname.F_EndIP3.value<0) || (document.formname.F_EndIP3.value>255) || (Iptest.test(document.formname.F_EndIP3.value)!=true)||
+		 	(document.formname.F_EndIP4.value<=0) || (document.formname.F_EndIP4.value>=255) || (Iptest.test(document.formname.F_EndIP4.value)!=true))
+		 	{
+		 		alert("结束IP无效，请重新输入！");
+		 		return false;
+		 	}
+		var startip=iplength(document.formname.F_StartIP1)+iplength(document.formname.F_StartIP2)+iplength(document.formname.F_StartIP3)+iplength(document.formname.F_StartIP4);		
+		var endip  =iplength(document.formname.F_EndIP1)+iplength(document.formname.F_EndIP2)+iplength(document.formname.F_EndIP3)+iplength(document.formname.F_EndIP4);
+				 	
+		if (startip-endip>=0)
+	 	{ 		
+	 		alert("IP地址范围无效。");
+	 		return false;
+	 	}
+		ipaddr0 = IPv4toString(getValue(document.formname.F_StartIP1.value),getValue(document.formname.F_StartIP2.value),getValue(document.formname.F_StartIP3.value),getValue(document.formname.F_StartIP4.value));
+		ipaddr1 = IPv4toString(getValue(document.formname.F_EndIP1.value),getValue(document.formname.F_EndIP2.value),getValue(document.formname.F_EndIP3.value),getValue(document.formname.F_EndIP4.value));
+		if(!isValidIP(ipaddr0)||!isValidIP(ipaddr1))
+		{
+		    alert("IP地址无效。");
+		    return false;
+		}
+		add(document.formname.filteripstart,document.formname.F_StartIP1,document.formname.F_StartIP2,document.formname.F_StartIP3,document.formname.F_StartIP4);
+  		add(document.formname.filteripend,document.formname.F_EndIP1,document.formname.F_EndIP2,document.formname.F_EndIP3,document.formname.F_EndIP4);		
+		formname.filteriptype.value=1;
+	}
+	else if(formname.iptype[2].checked==true)	
+	{    
+	    formname.filteriptype.value=2;
+	}
+	document.formname.verify.value=document.formname.Portstart.value;
+	document.formname.verend.value=document.formname.Portend.value;
+	document.forms[0].Protocol.disabled=false;
+	document.formname.submit();
+}
+
+function loadhelp(fname,anchname) 
+{
+	if(anchname!=' ')
+	    	parent.helpframe.location.href="/help/help"+fname+".html#"+anchname
+	else
+	    	parent.helpframe.location.href="/help/help"+fname+".html"
+}
+
+function disableItem(init)
+{
+    loadhelp('_addservices',' ');   
+	ctrl=document.forms[0].Portstart;
+	ctr2=document.forms[0].UserDefined;
+	ctr3=document.forms[0].Portend;
+		
+	var system = OScheck();
+	if(system.indexOf("Mac") >=0 ) {
+		document.formname.Portstart.size="9"
+		document.formname.Portend.size="9"
+	}
+	else {
+		document.formname.Portstart.size="7"
+		document.formname.Portend.size="7"
+	}
+
+	optionindex=document.forms[0].TYPE.selectedIndex;	
+	if(init==0) {
+	    document.formname.Portstart.value="";
+	    document.formname.Portend.value="";
+	   	//if((document.forms[0].Portstart.value==1)&&(document.forms[0].Portend.value==65535))	
+	   	//	  document.forms[0].allport.checked=true;
+	   
+	    if ((document.formname.Portstart.value==1)&&(document.formname.Portend.value==65535)) {	
+			document.forms[0].TYPE.selectedIndex=0;	
+	    }  
+/*pamela20060102
+	    if ((document.formname.F_StartIP1.value==0)&&(document.formname.F_StartIP2.value==0)&&(document.formname.F_StartIP3.value==0)&&(document.formname.F_StartIP4.value==0)
+		  &&(document.formname.F_EndIP1.value==255)&&(document.formname.F_EndIP2.value==255)&&(document.formname.F_EndIP3.value==255)&&(document.formname.F_EndIP4.value==255))	
+	   	{
+	   		document.formname.iptype[2].checked=true;
+	   		document.formname.F_StartIP1.value="";
+	   		document.formname.F_StartIP2.value="";
+	   		document.formname.F_StartIP3.value="";
+	   		document.formname.F_StartIP4.value="";
+	   		document.formname.F_EndIP1.value="";
+	   		document.formname.F_EndIP2.value="";
+	   		document.formname.F_EndIP3.value="";
+	   		document.formname.F_EndIP4.value="";
+	   		document.formname.F_PCIP1.value="";
+	   		document.formname.F_PCIP2.value="";
+	   		document.formname.F_PCIP3.value="";
+	   		document.formname.F_PCIP4.value="";
+	   	}
+	   	else if((document.formname.F_StartIP1.value==document.formname.F_EndIP1.value)&&(document.formname.F_StartIP2.value==document.formname.F_EndIP2.value)
+	          &&(document.formname.F_StartIP3.value==document.formname.F_EndIP3.value)&&(document.formname.F_StartIP4.value==document.formname.F_EndIP4.value))	
+	   	{
+		        if((document.formname.F_StartIP1.value==0)&&(document.formname.F_StartIP2.value==0)
+		          &&(document.formname.F_StartIP3.value==0)&&(document.formname.F_StartIP4.value==0))	
+		        {    
+		          	document.formname.iptype[2].checked=true; 
+		        }
+		        else {
+		          	document.formname.iptype[0].checked=true;
+		        }        
+	   		document.formname.F_EndIP1.value="";
+	   		document.formname.F_EndIP2.value="";
+	   		document.formname.F_EndIP3.value="";
+	   		document.formname.F_EndIP4.value="";
+	   		document.formname.F_StartIP1.value="";
+	   		document.formname.F_StartIP2.value="";
+	   		document.formname.F_StartIP3.value="";
+	   		document.formname.F_StartIP4.value=""; 
+		}
+		else
+		{
+			document.formname.iptype[1].checked=true;	
+			document.formname.F_PCIP1.value="";
+			document.formname.F_PCIP2.value="";
+			document.formname.F_PCIP3.value="";
+			document.formname.F_PCIP4.value="";	  	   
+		}
+*/
+		document.formname.iptype[2].checked=true;	
+	  	if(document.forms[0].Portstart.value==0)
+		{ // document.forms[0].TYPE.selectedIndex=8;
+			// document.forms[0].TYPE.options[optionindex].value="User Defined"
+			
+			document.forms[0].TYPE.options[optionindex].value="User Defined"
+			ctrl.value="";
+			ctr2.value="";
+			ctr3.value="";
+			ctrl.disabled=false;
+			ctr2.disabled=false;
+			ctr3.disabled=false;
+			document.forms[0].Protocol.disabled=false;
+			document.forms[0].Protocol.value="TCP";		  
+		}
+		if(document.forms[0].TYPE.options[optionindex].value!="User Defined")
+		{
+		  ctrl.disabled=true;
+		  ctr2.disabled=true;
+		  ctr3.disabled=true;
+		  document.forms[0].Protocol.disabled=true;
+		  
+		}
+		if(ctrl.value==5190)
+		{
+			if(document.forms[0].UserDefined.value!="AIM")
+			{
+				document.forms[0].TYPE.selectedIndex=12;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;
+			}
+		} 
+		else if(ctrl.value==47624)
+		{
+			if(document.forms[0].UserDefined.value!="Age-of-Empire")
+			{
+				document.forms[0].TYPE.selectedIndex=12;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;
+			}
+
+		}else if(ctrl.value==20){
+			if(document.forms[0].UserDefined.value!="FTP")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;
+			}
+		}
+		else if(ctrl.value==80){
+			if(document.forms[0].UserDefined.value!="HTTP")
+			{
+				document.forms[0].TYPE.selectedIndex=8;				
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;
+		  	}
+		}
+		else if(ctrl.value==23566){
+			if(document.forms[0].UserDefined.value!="ICUII")
+			{
+				document.forms[0].TYPE.selectedIndex=8;				
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;
+		  	}
+		}
+		else if(ctrl.value==6670){
+			if(document.forms[0].UserDefined.value!="IP_Phone")
+			{
+				document.forms[0].TYPE.selectedIndex=8;				
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;
+		  	}
+		}
+		else if(ctrl.value==1720){
+			if(document.forms[0].UserDefined.value!="NetMeeting")
+			{
+				document.forms[0].TYPE.selectedIndex=8;				
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;
+		  	}
+		}
+		else if(ctrl.value==119){
+			if(document.forms[0].UserDefined.value!="News")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;				
+		  	}
+		}
+/*		else if(ctrl.value==110)
+		{
+			if(document.forms[0].UserDefined.value!="POP3")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;				
+		  	}
+		}
+		else if(ctrl.value==25)
+		{
+			if(document.forms[0].UserDefined.value!="SMTP")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;				
+		  	}
+		}
+*/
+		else if(ctrl.value==1723){
+			if(document.forms[0].UserDefined.value!="PPTP")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;				
+		  	}
+		}
+		else if(ctrl.value==27960){
+			if(document.forms[0].UserDefined.value!="QuakeII/III")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;				
+		  	}
+		}
+		else if(ctrl.value==6970){
+			if(document.forms[0].UserDefined.value!="Real-Audio")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;				
+		  	}
+		}		
+		else if(ctrl.value==23){
+			if(document.forms[0].UserDefined.value!="Telnet")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;				
+		  	}
+		}
+/*		else if(ctrl.value==69){
+			if(document.forms[0].UserDefined.value!="TFTP")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=false;
+		  		ctr2.disabled=false;
+		  		ctr3.disabled=false;
+		  		document.forms[0].Protocol.disabled=false;				
+		  	}
+		}
+*/		else if((ctrl.value==1)&&(ctr3.value==65535))
+		{
+			if(document.forms[0].UserDefined.value!="All")
+			{
+				document.forms[0].TYPE.selectedIndex=8;
+				ctrl.disabled=true;
+		  		ctr2.disabled=true;
+		  		ctr3.disabled=true;
+		  		document.forms[0].Protocol.disabled=true;		
+		  	}
+		}
+	}	
+	if(init==1)
+	{
+		if(document.forms[0].TYPE.options[optionindex].value=="TFTP")
+		    document.forms[0].Protocol.selectedIndex=1;
+		else if(document.forms[0].TYPE.options[optionindex].value=="All")
+		    document.forms[0].Protocol.selectedIndex=2;
+		else
+		   document.forms[0].Protocol.selectedIndex=0;
+	
+		if(document.forms[0].TYPE.options[optionindex].value=="All"){		
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="1";
+			ctr2.value="All";
+			ctr3.value="65535";			
+			document.forms[0].Protocol.disabled=true;			
+		}
+		else if(document.forms[0].TYPE.options[optionindex].value=="AIM"){		
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="5190";
+			ctr2.value="AIM";
+			ctr3.value="5190";
+			document.forms[0].Protocol.disabled=true;			
+		}
+		else if(document.forms[0].TYPE.options[optionindex].value=="Age-of-Empire")
+		{
+		
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="47624";
+			ctr2.value="Age-of-Empire";
+			ctr3.value="47624";
+			document.forms[0].Protocol.disabled=true;
+			document.forms[0].Protocol.value="UDP";
+			
+		}	
+		else if(document.forms[0].TYPE.options[optionindex].value=="FTP")
+		{
+		
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="20";
+			ctr2.value="FTP";
+			ctr3.value="21";
+			document.forms[0].Protocol.disabled=true;
+			
+		}
+		else if(document.forms[0].TYPE.options[optionindex].value=="HTTP")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="80";
+			ctr2.value="HTTP";
+			ctr3.value="80";
+			document.forms[0].Protocol.disabled=true;
+		}
+		else if(document.forms[0].TYPE.options[optionindex].value=="ICUII")
+		{		
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="23566";
+			ctr2.value="ICUII";
+			ctr3.value="23566";
+			document.forms[0].Protocol.disabled=true;			
+		}
+		else if(document.forms[0].TYPE.options[optionindex].value=="IP_Phone")
+		{
+		
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="6670";
+			ctr2.value="IP_Phone";
+			ctr3.value="6670";
+			document.forms[0].Protocol.disabled=true;
+			
+		}			
+		else if(document.forms[0].TYPE.options[optionindex].value=="NetMeeting")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="1720";
+			ctr2.value="NetMeeting";
+			ctr3.value="1720";
+			document.forms[0].Protocol.disabled=true;
+		}
+		else if(document.forms[0].TYPE.options[optionindex].value=="News")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="119";
+			ctr2.value="News";
+			ctr3.value="119";
+			document.forms[0].Protocol.disabled=true;
+		}
+		else if(document.forms[0].TYPE.options[optionindex].value=="PPTP")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="1723";
+			ctr2.value="PPTP";
+			ctr3.value="1723";
+			document.forms[0].Protocol.disabled=true;
+			document.forms[0].Protocol.value="TCP/UDP";
+		}
+		else if(document.forms[0].TYPE.options[optionindex].value=="QuakeII/III")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="27960";
+			ctr2.value="QuakeII/III";
+			ctr3.value="27960";
+			document.forms[0].Protocol.disabled=true;
+			document.forms[0].Protocol.value="TCP/UDP";
+		}		
+		else if(document.forms[0].TYPE.options[optionindex].value=="Real-Audio")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="6970";
+			ctr2.value="Real-Audio";
+			ctr3.value="7170";
+			document.forms[0].Protocol.disabled=true;
+			document.forms[0].Protocol.value="TCP/UDP";
+		}
+/*		else if(document.forms[0].TYPE.options[optionindex].value=="SMTP")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="25";
+			ctr2.value="SMTP";
+			ctr3.value="25";
+			document.forms[0].Protocol.disabled=true;
+		}
+*/		else if(document.forms[0].TYPE.options[optionindex].value=="Telnet")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="23";
+			ctr2.value="Telnet";
+			ctr3.value="23";
+			document.forms[0].Protocol.disabled=true;
+		}
+/*		else if(document.forms[0].TYPE.options[optionindex].value=="TFTP")
+		{
+			ctrl.disabled=true;
+			ctr2.disabled=true;
+			ctr3.disabled=true;
+			ctrl.value="69";
+			ctr2.value="TFTP";
+			ctr3.value="69";
+			document.forms[0].Protocol.disabled=true;
+		}
+*/		else if(document.forms[0].TYPE.options[optionindex].value=="User Defined")
+		{
+			ctrl.disabled=false;
+			ctr2.disabled=false;
+			ctr3.disabled=false;
+			document.forms[0].Protocol.disabled=false;
+			document.forms[0].Protocol.value="TCP";
+			ctrl.value="";
+			ctr2.value="";
+			ctr3.value="";
+			//if (ctrl.value==21||80||144||110||25||23||69)
+		}
+	}
+
+        load4(document.formname.LANIPAddr,document.formname.F_PCIP1,document.formname.F_PCIP2,document.formname.F_PCIP3,document.formname.F_PCIP4);
+        document.formname.F_PCIP4.value="";
+        load4(document.formname.LANIPAddr,document.formname.F_StartIP1,document.formname.F_StartIP2,document.formname.F_StartIP3,document.formname.F_StartIP4);
+        document.formname.F_StartIP4.value="";
+        load4(document.formname.LANIPAddr,document.formname.F_EndIP1,document.formname.F_EndIP2,document.formname.F_EndIP3,document.formname.F_EndIP4);
+        document.formname.F_EndIP4.value="";
+}
+function allowallport(F)
+{
+	if (F.allport.checked)
+	{
+		F.Portstart.value=1;
+		F.Portend.value=65535;
+	}
+}	
+function filterIPtype(init)
+{
+	if (init==0)
+	{			
+		if(document.formname.iptype[0].checked==true)
+		{
+			document.formname.F_PCIP4.disabled=false;		
+			document.formname.F_PCIP4.value="";		
+			document.formname.F_StartIP4.value="";	
+			document.formname.F_StartIP4.disabled=true;
+			document.formname.F_EndIP4.value="";				
+			document.formname.F_EndIP4.disabled=true;
+		}
+	}
+	else if(init==1)
+	{
+		if(document.formname.iptype[1].checked==true)
+		{
+			document.formname.F_StartIP4.value="";	
+			document.formname.F_StartIP4.disabled=false;
+			document.formname.F_EndIP4.value="";				
+			document.formname.F_EndIP4.disabled=false;
+			document.formname.F_PCIP4.value="";	
+			document.formname.F_PCIP4.disabled=true;					
+		}
+	}
+	else if(init==2)
+	{
+		if(document.formname.iptype[2].checked==true)
+		{
+			document.formname.F_StartIP4.value="";	
+			document.formname.F_StartIP4.disabled=true;			
+			document.formname.F_EndIP4.value="";
+			document.formname.F_EndIP4.disabled=true;					
+			document.formname.F_PCIP4.value="";	
+			document.formname.F_PCIP4.disabled=true;	
+		}
+	}
+}
+function iplength(iplen)
+{
+	var returnip;
+	if(iplen.value.length==2)
+		returnip="0" + iplen.value.toString();
+	else if(iplen.value.length==1)
+		returnip="00" + iplen.value.toString();
+	else
+		returnip=iplen.value.toString();
+	return returnip;
+}
+
+function load3(Mydata,IPDATA,index)
+{  
+   var len;
+   var ad;
+   var temp;
+   var Myall;
+   Myall=Mydata.value; 
+   
+   //ip1
+   len=Myall.length;
+   temp=Myall.indexOf(".");
+   ad=Myall.substring(0,temp);
+   ad=ad+".";
+   
+   //ip2
+   Myall=Myall.substring(temp+1,len);
+   len=Myall.length;
+   temp=Myall.indexOf(".");
+   ad=ad+Myall.substring(0,temp);
+   ad=ad+".";
+   
+   //ip3
+   Myall=Myall.substring(temp+1,len);
+   len=Myall.length;
+   temp=Myall.indexOf(".");
+   ad=ad+Myall.substring(0,temp);
+   ad=ad+".";
+   
+   //ip4
+   if(index==0)
+     ad=ad+"0";
+   else
+     ad=ad+"255";  
+   IPDATA.value=ad;
+ } 
+ 
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="javascript:disableItem(0);">
+<FORM name="formname" action="/cgi-bin/apply.cgi" method=post>
+<input type="hidden" name="page" value="pack_frame.html">
+<input type=hidden name="action" value="Apply">
+		<input type="hidden" name="Load" value="I1">
+		<input type="hidden" name="filteripstart" value="0">
+		<input type="hidden" name="filteripend" value="0">
+		<input type="hidden" name="verify" value="0">
+		<input type="hidden" name="verend" value="0">
+		<center>
+			<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>服务限制设置</h1>
+			</td>
+		</tr>
+		
+		<!-- RULE -->
+<tr>
+	<td colspan="2">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0">&nbsp
+	</td>
+</tr>
+
+</table>
+				<table border ="0" cellpadding ="0" cellspacing ="0" width="100%">
+					<!--<tr>
+					<td colspan="2">-->
+						<input type="hidden" name="LANIPAddr" value="<% nvram_get("lan_ipaddr"); %>">
+               					
+					<!--</td>
+					</tr>-->
+					
+					<tr>
+						<td  width="50%">
+							服务类型
+						</td>
+						<td width="50%">
+							<select NAME="TYPE" class=ttext onChange="disableItem(1)" size="1">
+								<option <% client_selected_match("port", "0"); %> value="User Defined">
+									用户自定义
+								</option>
+								
+								<option <% client_selected_match("port", "5190"); %> value="AIM">
+									AIM
+								</option>
+								
+								<option <% client_selected_match("port", "47624"); %> value="Age-of-Empire">
+									Age-of-Empire
+								</option>
+								
+								<option <% client_selected_match("port", "20"); %> value="FTP">
+									FTP
+								</option>
+								
+								<option <% client_selected_match("port", "80"); %> value="HTTP">
+									HTTP
+								</option>
+								
+								<option <% client_selected_match("port", "23566"); %> value="ICUII">
+									ICUII
+								</option>
+								
+								<option <% client_selected_match("port", "6670"); %> value="IP_Phone">
+									IP_Phone
+								</option>
+								
+								<option <% client_selected_match("port", "1720"); %> value="NetMeeting">
+									NetMeeting
+								</option>
+								
+								<option <% client_selected_match("port", "119"); %> value="News">
+									News
+								</option>
+								
+								<option <% client_selected_match("port", "1723"); %> value="PPTP">
+									PPTP
+								</option>
+								
+								<option <% client_selected_match("port", "27960"); %> value="QuakeII/III">
+									QuakeII/III
+								</option>
+								
+								<option <% client_selected_match("port", "6970"); %> value="Real-Audio">
+									Real-Audio
+								</option>
+								
+								<option <% client_selected_match("port", "23"); %> value="Telnet">
+									Telnet
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td  width="50%">
+							协议
+						</td>
+						<td width="50%">
+							<select name="Protocol" class=ttext size="1">
+								<option <% client_selected_match("proto", "tcp"); %> value="TCP">
+									TCP
+								</option>
+								<option <% client_selected_match("proto", "udp"); %> value="UDP">
+									UDP
+								</option>
+								<option <% client_selected_match("proto", "both"); %> value="TCP/UDP">
+									TCP/UDP
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td  width="50%">
+						      起始端口
+						</td>
+						<td  width="50%">
+							<input type="text" name="Portstart" class="num" size="7" maxlength="5" value="<% client_info("startp"); %>" onFocus="if (document.forms[0].TYPE.options[document.forms[0].TYPE.selectedIndex].value!='User Defined') this.form.Button[0].focus();" onkeypress="chk_num(event)">
+							(1~65534)
+							
+							
+						</td>
+					</tr>
+					<tr>
+						<td  width="50%">
+							结束端口
+						</td>
+						<td  width="50%">
+							<input type="text" name="Portend" class="num" size="7" maxlength="5" value="<% client_info("endp"); %>" onFocus="if (document.forms[0].TYPE.options[document.forms[0].TYPE.selectedIndex].value!='User Defined') this.form.Button[0].focus();" onkeypress="chk_num(event)">
+							(1~65534)
+							<input type="hidden" name="portnum" value="">							
+						</td>
+					</tr>
+					<tr>
+						<td  width="50%">
+							服务类型/用户自定义
+						</td>
+						<td  width="50%">
+							<input type="text" name="UserDefined" class="ttext" size="20" maxlength="16" value="<% client_info("service"); %>" onFocus="if (document.forms[0].TYPE.options[document.forms[0].TYPE.selectedIndex].value!='User Defined') this.form.Button[0].focus();">
+						
+						</td>
+					</tr>
+					
+					
+				</table>
+				<table border ="0" cellpadding ="0" cellspacing ="0" width="100%">
+				<tr>
+	<td colspan="3">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	</td>
+</tr>
+<tr>
+		<td colspan="3">
+			<a href="javascript:loadhelp('_addservices','ip')"><b>对以下IP地址的服务进行过滤：</b></a>
+		</td>
+	</tr>
+</tr>
+</table>
+				<table border ="0" cellpadding ="0" cellspacing ="0" width="100%">
+					<tr>
+					<input type="hidden" name="filteriptype" value="">
+					<td width="25%" align="left" valign="top" nowrap>
+						<input type=radio name="iptype" value="" onclick="filterIPtype(0)">只有此IP地址：
+						
+					</td>
+					<td width="25%" align="right">&nbsp;</td>
+					<td width="50%" align="left" nowrap>				
+						<!--<img src="/img/spacer.gif" width="10" height="12" border="0">-->
+						<input type="text" name="F_PCIP1" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_ip", ".", "1"); %>"
+						onfocus="if (this.form.iptype[2].checked) this.form.iptype[0].focus();if (this.form.iptype[1].checked) this.form.iptype[1].focus();" onkeypress="chk_num(event)">
+						. 
+						<input type="text" name="F_PCIP2" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_ip", ".", "2"); %>"
+						onfocus="if (this.form.iptype[2].checked) this.form.iptype[0].focus();if (this.form.iptype[1].checked) this.form.iptype[1].focus();" onkeypress="chk_num(event)">
+						. 
+						<input type="text" name="F_PCIP3" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_ip", ".", "3"); %>"
+						onfocus="if (this.form.iptype[2].checked) this.form.iptype[0].focus();if (this.form.iptype[1].checked) this.form.iptype[1].focus();" onkeypress="chk_num(event)">
+						.
+						<input type="text" name="F_PCIP4" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_ip", ".", "4"); %>"
+						onfocus="if (this.form.iptype[2].checked) this.form.iptype[0].focus();if (this.form.iptype[1].checked) this.form.iptype[1].focus();" onkeypress="chk_num(event)">
+						<br><br>
+					</td>
+				</tr>		
+				<tr>
+					<td width="25%" align="left" nowrap><!--<img src="/img/spacer.gif" width="140" height="1" border=0>--><br>
+						 <input type="radio" name="iptype" value="" onclick="filterIPtype(1)">IP地址范围：
+					</td>
+					<td width="25%" align="right"><br>起始IP地址&nbsp;</td>
+					<td width="50%" align="left" nowrap>
+						<!--<img src="/img/spacer.gif" width="288" height="1" border=0 name="space">--><br><!--<img src="/img/spacer.gif" width="10" height="12" border="0">-->
+						<input type="text" name="F_StartIP1" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_s_ip", ".", "1"); %>"
+						onfocus="if (this.form.iptype[0].checked) this.form.iptype[0].focus();if (this.form.iptype[2].checked) this.form.iptype[2].focus();" onkeypress="chk_num(event)">
+						. 
+						<input type="text" name="F_StartIP2" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_s_ip", ".", "2"); %>"
+						onfocus="if (this.form.iptype[0].checked) this.form.iptype[0].focus();if (this.form.iptype[2].checked) this.form.iptype[2].focus();" onkeypress="chk_num(event)">
+						. 
+						<input type="text" name="F_StartIP3" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_s_ip", ".", "3"); %>"
+						onfocus="if (this.form.iptype[0].checked) this.form.iptype[0].focus();if (this.form.iptype[2].checked) this.form.iptype[2].focus();" onkeypress="chk_num(event)">
+						.
+						<input type="text" name="F_StartIP4" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_s_ip", ".", "4"); %>"
+						onfocus="if (this.form.iptype[0].checked) this.form.iptype[0].focus();if (this.form.iptype[2].checked) this.form.iptype[2].focus();" onkeypress="chk_num(event)">
+						
+					</td>
+				</tr>
+				<tr>
+					<td width="25%" align="left">&nbsp;</td>				
+					<td width="25%" align="right">结束IP地址&nbsp;</td>
+					<td width="50%" align="left" nowrap>						
+						<input type="text" name="F_EndIP1" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_e_ip", ".", "1"); %>"
+						onfocus="if (this.form.iptype[0].checked) this.form.iptype[0].focus();if (this.form.iptype[2].checked) this.form.iptype[2].focus();" onkeypress="chk_num(event)">
+						. 
+						<input type="text" name="F_EndIP2" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_e_ip", ".", "2"); %>"
+						onfocus="if (this.form.iptype[0].checked) this.form.iptype[0].focus();if (this.form.iptype[2].checked) this.form.iptype[2].focus();" onkeypress="chk_num(event)">
+						. 
+						<input type="text" name="F_EndIP3" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_e_ip", ".", "3"); %>"
+						onfocus="if (this.form.iptype[0].checked) this.form.iptype[0].focus();if (this.form.iptype[2].checked) this.form.iptype[2].focus();" onkeypress="chk_num(event)">
+						.
+						<input type="text" name="F_EndIP4" class="num" size="4" maxlength="3" value="<% field_nvram_get("client_filter_e_ip", ".", "4"); %>"
+						onfocus="if (this.form.iptype[0].checked) this.form.iptype[0].focus();if (this.form.iptype[2].checked) this.form.iptype[2].focus();" onkeypress="chk_num(event)">						
+					</td>
+				</tr>
+				
+		<tr>
+		<td colspan="3">			
+			<input type="radio" name="iptype" value=""  onclick="filterIPtype(2)">所有IP地址			
+		</td>		
+	        </tr>	
+		<tr>
+		<td colspan="3">
+			<img src="/img/liteblue.gif" width="100%" height="2" border="0">&nbsp; 
+		</td>
+		</tr>
+		</table>
+		 	<input type="hidden" name="FilterEnd">
+			<input type="hidden" name="Button" value="Apply">
+			<input type="Button" class="ttext" value=" 添加 " onClick="return finishcheck(formname)">
+			<input type="Button" class="ttext" value="取消" name="Button" onClick="location.href='/pack_frame.html'">
+			</center>
+	</form>
+</body>
+</html>

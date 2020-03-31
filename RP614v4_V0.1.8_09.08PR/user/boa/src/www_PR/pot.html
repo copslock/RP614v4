@@ -1,0 +1,97 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv="Pragma" CONTENT="no-cache">
+		<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<link rel="stylesheet" href="/form.css" type="text/css">
+<title>
+	POT
+</title>
+<script language="javascript"src="/utility.js"></script>
+<script language="javascript" src="/browser.js"></script>
+<script language="javascript">
+<!--
+   
+function init()
+{
+   document.formname.POT_counter.disabled = true;  	
+}  
+
+function cancel()
+{   
+   location="/pot.html"   
+}
+/*
+function reRestore()
+{
+   document.formname.Resolution.value = "1";
+   document.formname.Threshold.value = "30";
+   document.formname.submit();
+   location="/pot.html"
+
+}*/
+	//-->
+	
+</script>
+</head>
+<body  bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="init()">
+	<form name="formname" method="POST" action="/cgi-bin/apply.cgi">
+	<input type="hidden" name="page" value="pot.html">
+	<input type=hidden name="action" value="Apply">	
+	<!--<input type=hidden name="action" value="Reset to default">-->
+	<input type="hidden" name="Load" value="POT">
+
+		
+			<center>
+    			<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>POT</h1>
+			</td>
+		</tr>
+		
+<tr>
+	<td colspan="2">
+		<img src="/img/liteblue.gif" width="100%" height="2" border="0">
+	</td>
+</tr>
+</table>
+				<table border="0" width="100%">
+					<tr>
+						<td nowrap width="37%">
+							<B>POT counter</B>
+						<td nowrap width="63%">
+						<input type="text" name="POT_counter" size="15" maxlength="20" value="<% POT_get("wan_POT_counter"); %>" onFocus="this.select();">
+						</td>
+					</tr>
+					<tr>
+						<td nowrap width="37%">
+							<B>Resolution</B>
+						</td>
+						<td nowrap width="63%">
+						<input type="text" name="Resolution" size="15" maxlength="20" value="<% POT_get("wan_POT_Resolution"); %>" onFocus="this.select();">
+						</td>
+					</tr>
+					<tr>
+						<td nowrap width="37%">
+							<B>Repack Threshold</B>
+						</td>
+						<td nowrap width="63%">
+							<input type="text" name="Threshold" size="15" maxlength="20" value="<% POT_get("wan_POT_Threshold"); %>" onFocus="this.select();">
+						</td>
+					</tr>
+				</table>
+				<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+				<table border="0" width="100%">
+					<tr><td colspan="2" align='center'>
+				         <!--<input type="submit" value="Apply" name="Button">-->
+				         <input type="button" value="ReFresh" onClick="cancel();">
+					 <!--<input type="submit" value="Reset_POT" name="Button" onClick="reRestore();">-->
+				</td></tr>
+				</table>
+			</center>
+		
+	</form>
+</body>
+</html>

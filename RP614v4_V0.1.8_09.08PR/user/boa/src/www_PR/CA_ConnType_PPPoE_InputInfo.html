@@ -1,0 +1,134 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>安装助手&mdash;&mdash;中文</title>
+<script language="JavaScript" src="/showBanner.js"></script>
+<script language="Javascript" src="/string.js"></script>
+<script>AssignVariable();</script>
+<link rel="stylesheet" href="/style.css" type="text/css">
+<script language="javascript" type="text/javascript">
+<!-- 
+function DOSubmit() {
+	var the=document.forms;
+	if(the.PoeUserName.value == "") {
+		alert("登录用户名为空！");
+		return false;
+	}
+	if(the.PoePasswd.value == "") {
+		alert("登录密码为空！");
+		return false;
+	}
+	if(the.PoeFixedIPAssign[1].checked == true) {
+		if( (the.PoeFixedIP_1.value == "") ||
+		    (the.PoeFixedIP_2.value == "") ||
+		    (the.PoeFixedIP_3.value == "") ||
+		    (the.PoeFixedIP_4.value == "") ) { 
+		    alert("静态IP地址为空！");
+		    return false;
+		}
+	}
+	the.PoeFixedIP.value = the.PoeFixedIP_1.value+'.'+the.PoeFixedIP_2.value+'.'+the.PoeFixedIP_3.value+'.'+the.PoeFixedIP_4.value;
+	
+	the.submit();
+	return true;
+}
+function OnClickFixedIPAssign(DisableEdit) {
+	var the=document.forms;
+	the.PoeFixedIP_1.disabled =DisableEdit;
+	the.PoeFixedIP_2.disabled =DisableEdit;
+	the.PoeFixedIP_3.disabled =DisableEdit;
+	the.PoeFixedIP_4.disabled =DisableEdit;
+	
+}
+// -->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form name="forms" action="/cgi-bin/CA.cgi" method="post">
+<input type="hidden" name="page" value="CA_ConnType_PPPoE_InputInfo.html">
+<input type="hidden" name="Load" value="W">
+<input type="hidden" name="Encap" value="1">
+<input type="hidden" name="PoeFixedIP" value="0.0.0.0">
+<input type="hidden" name="CA_Step" value="20">
+
+<table border="0" cellspacing="0" cellpadding="0" align="left" width="100%" height="100%">
+<script language="JavaScript">
+var menuItem	="3";
+PresentHead();
+PresentMenu(menuItem);
+</script>
+<td valign="top" width="80%" height="100%">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<td valign="top" width="2%" height="100%"></td>
+		<td valign="top" width="90%" height="100%">
+		<h1>请输入PPPoE连接的详细信息 </h1>
+			<table width="70%" border="0">
+			   <td colspan="3"><p><strong>PPPoE的详细登录信息 </strong></p></td>			  
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>登录用户名</td>
+		         <td><input name="PoeUserName" type="text" size="15" maxlength="64" value="<% nvram_get("wan_pppoe_username"); %>"/></td>
+		       </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>密码</td>
+		         <td><input name="PoePasswd" type="password" size="15" maxlength="64" value="<% nvram_get("wan_pppoe_passwd"); %>" /></td>
+		       </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>服务名称（如果需要）</td>
+		         <td><input name="PoeServName" type="text" size="15" maxlength="15" value="<% nvram_get("wan_pppoe_service"); %>"/></td>
+		       </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td>闲置超时（分钟）</td>
+		         <td>
+		           <div align="left">
+		             <input name="PoeIdleTime" type="text" size="3" maxlength="3" value="<% nvram_get("wan_pppoe_idletime"); %>"/>
+		            </div></td>
+		       </tr>
+		       <tr>
+		         <td colspan="3">&nbsp;</td>
+		       </tr>
+		       <tr>
+		         <td colspan="3"><strong>因特网IP地址</strong></td>
+		        </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td colspan="2"><input name="PoeFixedIPAssign" type="radio" value="0" onClick="OnClickFixedIPAssign(true)" checked />
+		          使用ISP提供的动态地址</td>
+		        </tr>
+		       <tr>
+		         <td>&nbsp;</td>
+		         <td><input name="PoeFixedIPAssign" type="radio" value="1" onClick="OnClickFixedIPAssign(false)" /> 
+		           使用静态IP地址</td>
+		         <td><input name="PoeFixedIP_1" type="text" class="num" size="3" maxlength="3" disabled value="<% field_nvram_get("wan_pppoe_fixedipAddr", ".", "1"); %>" />.
+		         <input name="PoeFixedIP_2" type="text" class="num" size="3" maxlength="3" disabled value="<% field_nvram_get("wan_pppoe_fixedipAddr", ".", "2"); %>" />.
+		         <input name="PoeFixedIP_3" type="text" class="num" size="3" maxlength="3" disabled value="<% field_nvram_get("wan_pppoe_fixedipAddr", ".", "3"); %>" />.
+		         <input name="PoeFixedIP_4" type="text" class="num" size="3" maxlength="3" disabled value="<% field_nvram_get("wan_pppoe_fixedipAddr", ".", "4"); %>" /></td>
+		       </tr>
+		       <td>
+			     <p>&nbsp;</p>
+			     <p>&nbsp;</p>
+			     <p>&nbsp;</p>
+			   </td>
+			</table>
+		</td>
+	</table>
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<td valign="top" width="5%" height="100%"></td>
+		<td valign="top" width="15%" height="100%"></td>
+		<td valign="top" width="15%" height="100%"></td>
+		<td valign="top" width="15%" height="100%">
+   			<input type=button value="下一步&gt;" onClick="DOSubmit();">
+   		</td>
+		<td valign="top" width="50%" height="100%"></td>
+	</table>
+	
+</table>
+</td>
+<input type="hidden" name="PoeDemand" value="0">
+</table>
+</form>
+</body>
+</html>

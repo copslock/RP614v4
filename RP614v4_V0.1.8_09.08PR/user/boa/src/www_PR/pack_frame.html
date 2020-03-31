@@ -1,0 +1,243 @@
+<html>
+
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=GB2312">
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+	<title>接入点配置</title> 
+	<link rel="stylesheet" href="/form.css" type="text/css">
+	<script language="javascript" src="/browser.js"></script>
+	<script language="javascript" type="text/javascript">
+<!--
+var acepage;
+
+function checkr1(X)
+{
+	document.formname.R1.value=X;
+}
+
+function loadhelp(fname,anchname) 
+{
+	if(document.formname.countp.value!=0)
+		document.formname.R1.value=document.formname.countp.value-1;
+	var i=document.formname.Packet.value;
+ 	document.formname.skeyword[i].checked=true; 
+	if (anchname!=' ')
+		top.helpframe.location.href="help/help"+fname+".html#"+anchname
+	else
+		top.helpframe.location.href="help/help"+fname+".html"
+
+	top.helpframe.document.location.href="help/help"+fname+".html#"+anchname;
+	if(anchname!=' ') {
+    	parent.helpframe.location.href="/help/help_packfilter.html#"+anchname;
+	}
+	else {
+ 	   	parent.helpframe.location.href="/help/help_packfilter.html";
+	}   
+}
+
+/*
+function loadhelp(fname,anchname) {
+	if (anchname!=' ')
+		top.helpframe.location.href="help/help"+fname+".html#"+anchname
+	else
+		top.helpframe.location.href="help/help"+fname+".html"
+}
+*/
+
+function changetype()
+{
+    document.formname.Button.value="Apply"; 
+    document.formname.page.value=1;
+   	document.formname.submit();
+}	
+ 
+function check(x)
+{
+	document.formname.Packet.value=x; 
+	//changetype();
+}	
+ 
+function checknum()
+{
+ 	if(document.formname.countp.value!=0) {  
+	  	for(var i=0;i<(document.formname.countp.value-1);i++) {
+		     	if(document.formname.X1[i].checked) {
+		         	document.formname.R1.value=document.formname.X1[i].value;    
+		        }
+	   	}
+	}
+	document.formname.Button.value="Delete"; 
+  	if(document.formname.countp.value==0) {
+	    	alert("没有待删除的条目");
+	    	return false;
+	}
+  	else if(document.formname.countp.value>20) {
+		alert("超出范围");
+		return false;
+	}
+	else
+		return true;  
+}
+
+function addnum()
+{
+	document.formname.Button.value="Add"; 
+ 	if(document.formname.countp.value>=20) {
+   		alert("超出范围");
+    	return false;
+  	}
+  	else
+  		return true;  
+}
+
+function setBtnName(F,index)
+{
+	if(F.countp.value!=0) {  
+	   	for(var i=0;i<(F.countp.value-1);i++) {
+	     	if(F.X1[i].checked) {
+	         	F.R1.value=F.X1[i].value;    
+	        }
+	    }
+	}
+	if(index == 1) {
+	    document.formname.page.value="";	
+		F.Button.value="Apply";
+	}	
+	else if(index == 2) {
+		F.Button.value="Modify";
+		if(document.formname.countp.value==0) {
+	   	 	alert("没有待编辑的条目");
+	    	return false;
+	   }
+   	}
+    	
+    return true;
+}
+
+function lastpage()
+{
+	document.formname.allwrite2.value="1";
+ 	document.formname.page.value="";
+	document.formname.Button.value="Apply"; 
+	document.formname.submit();
+}
+	
+//-->
+</SCRIPT>
+</HEAD>
+<BODY bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="loadhelp('_packfilter',' ')" >
+<FORM action="/cgi-bin/apply.cgi" method="post" name="formname">
+<input type="hidden" name="page" value="pack_frame.html">
+<input type=hidden name="action" value="Apply">
+<INPUT name=Load type=hidden value=I> 
+<input type=hidden name=R1 value="">
+<input type=hidden name=page value="">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+  	<TR>
+    	<TD colspan="2" align="left"><h1>服务限制</h1></TD>
+  	</TR>
+  	<tr>
+  		<td colspan="2" align="left">
+  			<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+  		</td>
+  	</tr>
+  	<TR>
+		<TD  align="left" colspan="2">
+			<a href="javascript:loadhelp('_packfilter','block')"><b>服务限制</b></a><br>
+                 <input type=radio value="0" name="skeyword" onClick="check(this.value)">从不<br> 
+                 <input type=radio value="1" name="skeyword" onClick="check(this.value)">按时间安排<br>
+                 <input type=radio value="2" name="skeyword" onClick="check(this.value)">始终
+                 <input type=hidden value=<% nvram_get("fw_packenable"); %> name=Packet>
+    	</TD>
+  	</TR>
+    <TR>
+    	<TD  align="left" colspan="2">
+		 	<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+         	<INPUT name=WritePage type=hidden value=""> 
+		</td>
+	</TR>
+</table>
+              
+<!--        body         -->
+<tr>
+	<td colspan="2" align="left"><a href="javascript:loadhelp('_packfilter','table')"><b>服务表格</b></a><br></TD>
+</tr>
+
+<center>
+<table border="1"  cellpadding ="0" cellspacing ="0" width="100%">
+	<tr>
+		<td nowrap width="7%" align="center">
+			&nbsp
+		</td>
+		<td width=7% align="center">
+			<span class="thead">#</span>
+		</td>
+	<!--	<td width=7% align="center">
+			<span class="thead">Enable</span>
+		</td>
+	-->
+		<td nowrap width="35%" align="center">
+			<span class="thead">服务类型</span>
+		</td>
+		<td nowrap width="22%" align="center">
+			<span class="thead">端口</span>
+		</td>
+		<td nowrap width="22%" align="center">
+			<span class="thead">IP</span>
+		</td>
+	</tr>
+	<% filter_client_list("filter_client0"); %>
+	<% filter_client_list("filter_client1"); %>	
+	<% filter_client_list("filter_client2"); %>	
+	<% filter_client_list("filter_client3"); %>	
+	<% filter_client_list("filter_client4"); %>	
+	<% filter_client_list("filter_client5"); %>
+	<% filter_client_list("filter_client6"); %>	
+	<% filter_client_list("filter_client7"); %>	
+	<% filter_client_list("filter_client8"); %>	
+	<% filter_client_list("filter_client9"); %>	
+	<% filter_client_list("filter_client10"); %>	
+	<% filter_client_list("filter_client11"); %>	
+	<% filter_client_list("filter_client12"); %>	
+	<% filter_client_list("filter_client13"); %>	
+	<% filter_client_list("filter_client14"); %>	
+	<% filter_client_list("filter_client15"); %>
+	<% filter_client_list("filter_client16"); %>	
+	<% filter_client_list("filter_client17"); %>	
+	<% filter_client_list("filter_client18"); %>	
+	<% filter_client_list("filter_client19"); %>	
+	
+</table>
+    	<TR>
+    	<TD  align="left" colspan="2">
+		 	<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+         	<INPUT name=WritePage type=hidden value=""> 
+		</td>
+	</TR>
+	<input type=hidden name=countp value=<% nvram_get("fw_packrulenumber"); %>>
+	<br>
+	<input type="hidden" name="read2"  value=0> 
+	<input type="hidden" name="allwrite2"  value=""> 
+	<input type="hidden" value="0" name="Button">
+	<input type="Button" value="添加"  onclick="if (addnum()) document.formname.submit()">
+	<input type="Button" value="编辑"  OnClick="if (setBtnName(this.form,2)) document.formname.submit()">
+	<input type="Button" value="删除"  onclick="if (checknum()) document.formname.submit()">
+    <br>
+    <table border ="0" cellpadding ="0" cellspacing ="0" width="100%">
+		<tr>
+			<td colspan="2">
+            	<img src="/img/liteblue.gif" width="100%" height="2" border="0"> 
+            </td>
+        </tr>
+    </table>                    
+	<input type="Button" value="应用" onclick="if (setBtnName(this.form,1)) document.formname.submit()">
+	<input type="Button" name="Cancel" value="取消" onclick="window.location.href='/pack_frame.html'">
+                     </p>
+</center>
+<br>
+   <!--        body end     -->           
+</form>
+</BODY>
+</HTML>

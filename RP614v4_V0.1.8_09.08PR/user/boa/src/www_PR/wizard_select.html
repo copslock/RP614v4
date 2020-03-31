@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=GB2312">
+<meta name="generator" content="Adobe GoLive 5">
+<META http-equiv='Pragma' CONTENT='no-cache'>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<link rel="stylesheet" href="form1.css" type="text/css">
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function loadhelp(fname) 
+{
+	if(top.helpframe != null) {
+		top.helpframe.location.href="help/help"+fname+".html"
+	}
+}
+
+function checkSel()
+{
+    if (document.formname.WANDetc[0].checked == true)
+        window.location="DetectWan.html";
+    else
+        window.location="Basicform.html";
+}
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff"  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="loadhelp('_wiz_query')">
+	<form name="formname" action="cgi-bin/TraceWanDet.cgi" method="POST" > 
+	<input type="hidden" name="page" value="wizard_select.html">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">	
+				<H1>设置向导</H1>
+			</td>
+		</tr>
+			
+		<!-- RULE //-->
+<tr>
+	<td colspan="2">
+		<img src="img/liteblue_1.gif" width="100%" height="12" border="0"> 
+	</td>
+</tr>
+<!-- END RULE //-->
+<tr>
+	<td colspan="2">
+		<b>智能设置向导可检测到你所拥有的因特网连接类型。</b>
+	</td>
+</tr>
+			<tr></tr>
+			<tr>
+				<td colspan="2"><b>现在是否需要智能设置向导来尝试检测您的连接类型？ </b></td>
+			</tr>
+			<tr></tr>
+			<tr>
+				<td colspan="2"><input type="radio" value="AutoDetc" name="WANDetc" tabindex="1" checked>是。</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="radio" value="MyDetc" name="WANDetc" tabindex="2" >否，我想自己配置路由器。</td>
+			</tr>
+			
+		<!-- RULE //-->
+<tr>
+	<td colspan="2">
+		<img src="img/liteblue_1.gif" width="100%" height="12" border="0"> 
+	</td>
+</tr>
+<!-- END RULE //-->
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+		    	<input type=hidden name="Button" value='Apply'>
+				<input type="Submit"  value="下一步">
+			</td>
+		</tr>
+	</table>
+</form>
+		<p>&nbsp;</p>
+	</body>
+
+</html>

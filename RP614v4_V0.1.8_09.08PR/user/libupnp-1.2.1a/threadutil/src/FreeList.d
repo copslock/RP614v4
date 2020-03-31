@@ -1,0 +1,27 @@
+FreeList.o: FreeList.c ../inc/FreeList.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/malloc.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/features.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/sys/cdefs.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/uClibc_config.h \
+  ../inc/ithread.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/pthread.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/sched.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/types.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/kernel_types.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/pthreadtypes.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/sched.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/time.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/time.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/uClibc_clk_tck.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/signal.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/sigset.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/initspin.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/sigthread.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/unistd.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/posix_opt.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/confname.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/getopt.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/errno.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/errno.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/bits/errno_values.h \
+  /home/tysu/DNI/uClinux-dist/lib/uClibc/include/assert.h

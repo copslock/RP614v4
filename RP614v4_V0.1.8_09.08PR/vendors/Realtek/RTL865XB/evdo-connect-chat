@@ -1,0 +1,34 @@
+# Boilerplate
+#
+	ECHO		ON
+	ABORT		'BUSY'
+	ABORT		'NO ANSWER'
+	ABORT		'NO CARRIER'
+	ABORT		'NO DIALTONE'
+	ABORT		'\nRINGING\r\n\r\nRINGING\r'
+	SAY		"GPRS modem init: press <crtl>-C to disconnect"
+
+# Wake up the modem
+#
+	TIMEOUT		30
+	''		'AT'
+
+# Reset to the factory defaults
+	SAY		"\n + Reseting Modem"
+	OK		'AT&FZ'
+	OK		'AT'
+	ABORT		'ERROR'
+
+	SAY		"\n + Initialing Modem"
+	OK		'ATE0V1&F&D2&C1&C2S0=0'
+	OK		'ATE0V1'
+	OK		'ATS7=60'
+
+	SAY		"\n + To check signal of Modem"
+	OK		'AT+CSQ'
+	SAY		"\n + Dialing up EVDO now"
+	OK		'ATD#777'
+	
+	SAY		"\n + requesting data connection"
+	CONNECT		''
+	SAY		"\n + Connected"

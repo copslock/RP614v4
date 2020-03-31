@@ -1,0 +1,290 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=gb2312">
+	<meta name="generator" content="Adobe GoLive 5">
+	<META http-equiv='Pragma' CONTENT='no-cache'>
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+	<title>路由器表格</title> 
+	<link rel="stylesheet" href="/form1.css" type="text/css">
+	<script language="javascript" src="/browser.js"></script>
+	<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function loadcheck(){
+	if(!IsRemote(document.formname)) {
+		if(isIE()){
+			document.formname.file.size="40"
+		}
+		else{
+			document.formname.file.size="24"
+		}
+	}
+	loadhelp('_Upgrade');
+}
+
+var showit = (document.layers) ? "show" : "visible";
+var hideit = (document.layers) ? "hide" : "hidden";
+//var hideit = (document.all) ?  "hidden":"hide";
+var NS4 = (document.layers);
+var animationTimer = null;
+var pgbarTimer = null;
+
+function setVisible(divID, setto)
+{
+	if (NS4)
+		document.layers[divID].visibility = setto;
+	else if (document.all)
+		document.all(divID).style.visibility = setto;
+	else if (document.getElementById)
+		document.getElementById(divID).style.visibility = setto;
+}
+
+function stopAnimation()
+{
+	if(animationTimer != null)
+		clearTimeout(animationTimer);
+	setVisible('animation', hideit);
+	
+	if(pgbarTimer != null)
+		clearTimeout(pgbarTimer);
+	setVisible('pgbar', hideit);
+}
+
+function loadhelp(fname,anchname) {
+	if (anchname!=' ')
+		top.helpframe.location.href="help/help"+fname+".html#"+anchname
+	else
+		top.helpframe.location.href="help/help"+fname+".html"
+}
+
+function cancel()
+{
+	location="/upgrade.html"
+}	
+
+function goupgrade()
+{
+	var up_msg = "是否继续？\n当前所有因特网连接均会被断开。";
+	var a;
+	var t_str = document.formname.file.value;
+	if(t_str.split) 
+		a = t_str.split(".");
+	else
+		a = cdisplit(t_str,".");
+	if(t_str.length == 0)
+	{
+		alert("没有提供文件名。 请选择正确的文件。\n");
+		return false;
+	}
+	if((a.length<2)||(a[0]=="")||(a[a.length-1].toLowerCase()!="bix"))
+	{
+		alert("提供的文件名无效，请重新输入：（*.bix）\n");
+		return false;
+	}
+	if (!confirm(up_msg))
+		return false;
+	
+	pgbarTimer = setTimeout("setVisible('pgbar', showit)",2000);
+	animationTimer = setTimeout("setVisible('animation', showit)",2000);
+	updateProgress();
+	document.formname.submit();
+}
+
+var pchar = "||"; // progress char
+var maxchars = 150;
+var delay_time = 415; //747; //1447; // msecs
+var charcount = 0;
+
+function makeStr(strSize, fillChar)
+{
+	var temp = "";
+	for (i=0; i < strSize ; i ++)
+		temp = temp + fillChar;
+	return temp;
+}
+
+function updateProgress()
+{
+	if (charcount < maxchars)
+	{
+		charcount ++;
+		if(isIE()){
+			if (document.layers){
+				//Netscape 4.x use layer
+				//document.layers["progress"].value = makeStr(charcount,pchar);  
+			}
+			else if (document.all){		
+				document.all("progress").value = makeStr(charcount,pchar);
+			}
+			else if (document.getElementByName){
+				document.getElementByName("progress").value = makeStr(charcount,pchar);
+			}
+		}
+		setTimeout("updateProgress()",delay_time);
+	}
+}
+function Hex(val) {
+	var h = (val-0).toString(16);
+	if(h.length==1) h='0'+h;
+	return h.toUpperCase();
+}
+
+function IsRemote(F) {
+	var vLANip = F.LANip.value;
+	var vLANmask = F.LANmask.value;
+	var vLoginIP = F.LoginIP.value;
+	var i1, i2, i3, lip, lmask, liip;
+
+	i1=vLANip.indexOf('.');
+	i2=vLANip.indexOf('.',(i1+1));
+	i3=vLANip.indexOf('.',(i2+1));
+	lip = Hex(vLANip.substring(0,i1)) + Hex(vLANip.substring((i1+1),i2)) + Hex(vLANip.substring((i2+1),i3))+Hex(vLANip.substring((i3+1),vLANip.length));
+	lip = '0x' + lip;
+
+	i1=vLANmask.indexOf('.');
+	i2=vLANmask.indexOf('.',(i1+1));
+	i3=vLANmask.indexOf('.',(i2+1));
+	lmask = Hex(vLANmask.substring(0,i1)) + Hex(vLANmask.substring((i1+1),i2)) +Hex(vLANmask.substring((i2+1),i3))+Hex(vLANmask.substring((i3+1),vLANmask.length));
+	lmask = '0x' + lmask;
+
+	i1=vLoginIP.indexOf('.');
+	i2=vLoginIP.indexOf('.',(i1+1));
+	i3=vLoginIP.indexOf('.',(i2+1));
+	liip = Hex(vLoginIP.substring(0,i1)) + Hex(vLoginIP.substring((i1+1),i2)) +Hex(vLoginIP.substring((i2+1),i3))+Hex(vLoginIP.substring((i3+1),vLoginIP.length));
+	liip = '0x' + liip;
+
+	if((lip & lmask) != (liip & lmask)){ 
+		return true;
+	} else {
+		return false;
+	}
+}
+
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="stopAnimation(); loadcheck();">
+<form name="formname" method="post" action="/cgi-bin/upgrade.cgi" enctype="multipart/form-data">  
+<input type=hidden name="action" value="Upgrade">
+<input type=hidden name="LANip" value="<% nvram_get("lan_ipaddr"); %>">
+<input type=hidden name="LANmask" value="<% nvram_get("lan_netmask"); %>">
+<!-- <input type=hidden name="LoginIP" value="<% login_ipaddr(); %>"> -->
+<input type=hidden name="LoginIP" value="<% sock_local_ipaddr(); %>">
+	<table border="0" cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+			<td colspan="2">
+				<h1>路由器升级</h1>
+			</td>
+		</tr>
+<!-- RULE //-->
+    	<tr>
+    		<td colspan="2">
+    			<img src="img/liteblue.gif" width="100%" height="2" border="0">
+    		</td>
+    	</tr>
+    	
+    	<!--       <tr>
+			<td width="70%" align="left">
+			   <b>Check for New Version from the Internet<b>
+			</td>
+			<td width="30%" align="right">
+			   <input type="SUBMIT" value="Check" OnClick="">
+			</td>
+			
+	       </tr>
+	       <tr>
+	                <td colspan="2" align="left">
+			   <input type="checkbox" name="NewFirm" <% checked_match("newfirm", "1"); %>><b>Check for New Version Upon Log-in<b>
+			</td>
+	       </tr>
+			
+    	
+    	
+    	<tr>
+    		<td colspan="2">
+    			<img src="img/liteblue.gif" width="100%" height="2" border="0">
+    		</td>
+    	</tr>-->
+<!-- END RULE //-->
+
+		<tr>
+		    <script language="javascript" type="text/javascript">
+			if(IsRemote(document.formname)) {
+				document.write('<tr><td><font color=#0099cc face=\'Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif\' >');
+				document.write('<b>Warning</b></font></td></tr>');
+				document.write('<tr><td><font color=#ff0000> DO NOT SUPPORT FIRMWARE UPGRADE BY REMOTE ACCESS!!</font></td></tr>');
+			} else {
+				document.write('<td colspan="2" align="left">');
+				document.write('<a href="javascript:loadhelp\(\'_Upgrade\',\'locate\'\)">');
+				document.write('	<b>请从您的硬盘上找到并选中升级文件：</b>');
+				document.write('</a></td>');
+				document.write('</tr>');
+				document.write('<tr>');
+				document.write('<td colspan="2" align="left">');
+				document.write('	<INPUT TYPE="FILE" NAME="file" SIZE="40" MAXLENGTH="128"> ');
+				document.write('</td>');
+			}
+		    </script>
+		</tr>
+			
+		
+	
+	
+			
+			<!-- RULE //-->
+		<tr>
+			<td colspan="2">
+				<img src="img/liteblue.gif" width="100%" height="2" border="0"> 
+			</td>
+		</tr>
+<!-- END RULE //-->
+		<script language="javascript" type="text/javascript">
+			if(!IsRemote(document.formname)) {
+				document.write('<tr>');
+				document.write('	<td colspan="2" align="center">');
+				document.write('	<input type=hidden value="Apply">');
+				document.write('	<input type="Button" name="Button" VALUE=" 升级 " onclick="goupgrade();">');
+				document.write('	<input type="Button" name="Cancel" value="取消" onclick="stopAnimation(); cancel();"> ');
+				document.write('	</td>');
+				document.write('</tr>');
+			}
+		</script>
+
+	</table>
+</form>
+
+<div align="left" ID="pgbar" style="position:relative;top:0;left:0;visibility:hide;visibility:hidden;">
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+ <td nowrap><B><BIG>注意：固件升级约需1.5分钟。 
+ <br>请勿关闭电源或按下复位按钮。
+ </BIG></B></td>
+</tr>
+<tr>
+ <td nowrap align="center">
+ <script language="javascript">
+ <!--
+ 	if(isIE())
+ 		document.write('<input type="text" name="progress" class="prgbar" value="" style="color: blue" size="42">');
+ -->
+ </script>
+ </td>
+</tr>
+</table>
+</div>
+<script language="javascript">
+<!--
+	var NS4 = (document.layers);
+	if(NS4){
+		document.write("<LAYER ID='animation' VISIBILITY='hide'>");
+		document.write("<br><img src='img/upload.gif' width='290' height='82' alt='' border='0'></LAYER>");
+	}
+	else{
+		document.write("<div align='center' ID='animation' style='position:relative;top:0;left:0;visibility:hide;visibility:hidden;'>");
+		document.write("<br><img src='img/upload.gif' width='290' height='82' alt='' border='0'></div>");
+	}
+//-->
+</script>
+
+</body>
+
+</html>
